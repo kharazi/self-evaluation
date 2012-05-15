@@ -2,3 +2,4 @@
 \*.psd
 \#*#
 \*.pyc
+\*.pro.user
