@@ -1,5 +1,9 @@
+*.o
+*~
 \*~
-\*.psd
 \#*#
-\*.pyc
 \*.pro.user
+\*.o
+Makefile
+self-evaluation
+\moc_*
