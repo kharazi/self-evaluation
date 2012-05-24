@@ -28,10 +28,12 @@ MainWidget::MainWidget()
     menu->setCurrentRow(0);
 
     QHBoxLayout *horizontalLayout = new QHBoxLayout;
+    horizontalLayout->setDirection(QBoxLayout::RightToLeft);
     horizontalLayout->addWidget(menu);
     horizontalLayout->addWidget(pagesWidget, 1);
 
     QHBoxLayout *buttonsLayout = new QHBoxLayout;
+    buttonsLayout->setDirection(QBoxLayout::RightToLeft);
     buttonsLayout->addStretch(1);
     buttonsLayout->addWidget(closeButton);
 
