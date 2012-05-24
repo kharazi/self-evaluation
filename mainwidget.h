@@ -82,6 +82,12 @@ private:
     void createActions();
     void createTrayIcon();
 
+    //for pages:
+    void createIcons();
+    //
+
+
+    //for system tray
     QGroupBox *iconGroupBox;
     QComboBox *iconComboBox;
 
@@ -92,17 +98,17 @@ private:
 
     QSystemTrayIcon *trayIcon;
     QMenu *trayIconMenu;
+    //for system tray
 
-
+    //for pages:
+    QListWidget *contentsWidget;
+    QStackedWidget *pagesWidget;
+    //
 
 public slots:
     void changePage(QListWidgetItem *current, QListWidgetItem *previous);
 
-private:
-    void createIcons();
 
-    QListWidget *contentsWidget;
-    QStackedWidget *pagesWidget;
 
 
 
