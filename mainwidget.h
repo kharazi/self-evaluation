@@ -1,10 +1,10 @@
 #ifndef MAINWIDGET_H
 #define MAINWIDGET_H
 
+#include "auth.h"
 #include <QSystemTrayIcon>
 #include <QWidget>
 #include <QGridLayout>
-
 #include <QDebug>
 #include <QComboBox>
 #include <QGroupBox>
@@ -23,6 +23,7 @@ class MainWidget : public QWidget
 
 public:
     MainWidget();
+    void authenticate();
 
 protected:
     void closeEvent(QCloseEvent *event);
@@ -43,9 +44,14 @@ private:
     QListWidget *menu;
     QStackedWidget *pagesWidget;
 
+    Auth *authentication;
+    bool authSuccess;
+
 
 public slots:
     void changePage(QListWidgetItem *current, QListWidgetItem *previous);
+    void authSuccessful();
+    void authClosed();
 
 private slots:
     void showMessage(QString title,QString planetext,int time);

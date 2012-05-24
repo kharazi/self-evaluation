@@ -2,10 +2,12 @@
 
 MainWidget::MainWidget()
 {
-    createTrayIcon();
-    connect(trayIcon, SIGNAL(messageClicked()), this, SLOT(messageClicked()));
-    trayIcon->show();
-
+    authSuccess = false;
+    authenticate();
+  // createTrayIcon();
+  // connect(trayIcon, SIGNAL(messageClicked()), this, SLOT(messageClicked()));
+  // trayIcon->show();
+    
     menu = new QListWidget;
     menu->setViewMode(QListView::IconMode);
     menu->setIconSize(QSize(96, 84));
@@ -48,6 +50,32 @@ MainWidget::MainWidget()
 }
 
 
+void MainWidget::authenticate()
+{
+  authentication = new Auth;
+  authentication->show();
+  connect(authentication, SIGNAL(authSuccessful()), this, SLOT(authSuccessful()));
+  connect(authentication, SIGNAL(authClosed()), this, SLOT(authClosed()));
+}
+
+
+void MainWidget::authSuccessful()
+{
+  createTrayIcon();
+  connect(trayIcon, SIGNAL(messageClicked()), this, SLOT(messageClicked()));
+  trayIcon->show();
+  authSuccess = true;
+  authentication->close();
+  show();
+}
+
+
+void MainWidget::authClosed()
+{
+  if (!authSuccess){ trayIcon = NULL; close(); }
+}
+
+
 void MainWidget::createMenuIcons()
 {
     //this function for adding icon to pages
@@ -87,7 +115,8 @@ void MainWidget::changePage(QListWidgetItem *current, QListWidgetItem *previous)
 
 void MainWidget::closeEvent(QCloseEvent *event)
 {
-    if (trayIcon->isVisible()) {
+    if (!trayIcon) qApp->quit();
+    else if (trayIcon->isVisible()) {
         hide();
         event->ignore();
     }

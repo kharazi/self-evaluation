@@ -10,6 +10,6 @@ int main(int argc, char *argv[])
   QApplication::setQuitOnLastWindowClosed(false);
 
   MainWidget window;
-  window.show();
+  //window.show();
   return app.exec();
 }

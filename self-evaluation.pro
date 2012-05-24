@@ -11,9 +11,11 @@ TEMPLATE = app
 
 
 SOURCES += main.cpp\
-        mainwidget.cpp
+        mainwidget.cpp\
+        auth.cpp
 
-HEADERS  += mainwidget.h
+HEADERS  += mainwidget.h\
+         auth.h
 
 RESOURCES += \
     files.qrc
