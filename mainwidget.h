@@ -48,7 +48,6 @@ public slots:
     void changePage(QListWidgetItem *current, QListWidgetItem *previous);
 
 private slots:
-    //    void iconActivated(QSystemTrayIcon::ActivationReason reason);
     void showMessage(QString title,QString planetext,int time);
     void messageClicked();
 
