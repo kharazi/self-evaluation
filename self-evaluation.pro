@@ -11,9 +11,11 @@ TEMPLATE = app
 
 
 SOURCES += main.cpp\
-        mainwidget.cpp
+        mainwidget.cpp \
+    recording.cpp
 
-HEADERS  += mainwidget.h
+HEADERS  += mainwidget.h \
+    recording.h
 
 RESOURCES += \
     files.qrc

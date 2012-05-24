@@ -15,7 +15,7 @@
 #include <QMessageBox>
 #include <QCloseEvent>
 #include <QApplication>
-
+#include "recording.h"
 class MainWidget : public QWidget
 {
     Q_OBJECT

@@ -17,7 +17,7 @@ MainWidget::MainWidget()
     //
     //for adding page:
     //
-//    pagesWidget->addWidget(new ConfigurationPage);
+    pagesWidget->addWidget(new Recording);
 //    pagesWidget->addWidget(new UpdatePage);
 //    pagesWidget->addWidget(new QueryPage);
 
@@ -62,7 +62,7 @@ void MainWidget::createMenuIcons()
     //this function for adding icon to pages
     QListWidgetItem *configButton = new QListWidgetItem(menu);
     configButton->setIcon(QIcon(":/images/config.png"));
-    configButton->setText(QString::fromUtf8("خرید"));
+    configButton->setText(QString::fromUtf8("ثبت"));
     configButton->setTextAlignment(Qt::AlignHCenter);
     configButton->setFlags(Qt::ItemIsSelectable | Qt::ItemIsEnabled);
 
