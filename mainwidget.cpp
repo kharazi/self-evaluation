@@ -1,69 +1,18 @@
-/****************************************************************************
-**
-** Copyright (C) 2011 Nokia Corporation and/or its subsidiary(-ies).
-** All rights reserved.
-** Contact: Nokia Corporation (qt-info@nokia.com)
-**
-** This file is part of the examples of the Qt Toolkit.
-**
-** $QT_BEGIN_LICENSE:BSD$
-** You may use this file under the terms of the BSD license as follows:
-**
-** "Redistribution and use in source and binary forms, with or without
-** modification, are permitted provided that the following conditions are
-** met:
-**   * Redistributions of source code must retain the above copyright
-**     notice, this list of conditions and the following disclaimer.
-**   * Redistributions in binary form must reproduce the above copyright
-**     notice, this list of conditions and the following disclaimer in
-**     the documentation and/or other materials provided with the
-**     distribution.
-**   * Neither the name of Nokia Corporation and its Subsidiary(-ies) nor
-**     the names of its contributors may be used to endorse or promote
-**     products derived from this software without specific prior written
-**     permission.
-**
-** THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
-** "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
-** LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR
-** A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT
-** OWNER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL,
-** SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT
-** LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE,
-** DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY
-** THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
-** (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
-** OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE."
-** $QT_END_LICENSE$
-**
-****************************************************************************/
-
-#include <QtGui>
-
 #include "mainwidget.h"
 
 MainWidget::MainWidget()
 {
-    createIconGroupBox();
-    createActions();
     createTrayIcon();
-
-    connect(iconComboBox, SIGNAL(currentIndexChanged(int)),
-            this, SLOT(setIcon(int)));
     connect(trayIcon, SIGNAL(messageClicked()), this, SLOT(messageClicked()));
-    connect(trayIcon, SIGNAL(activated(QSystemTrayIcon::ActivationReason)),
-            this, SLOT(iconActivated(QSystemTrayIcon::ActivationReason)));
-
-    iconComboBox->setCurrentIndex(1);
     trayIcon->show();
 
-    contentsWidget = new QListWidget;
-    contentsWidget->setViewMode(QListView::IconMode);
-    contentsWidget->setIconSize(QSize(96, 84));
-    contentsWidget->setMovement(QListView::Static);
-    contentsWidget->setMinimumHeight(400);
-    contentsWidget->setMaximumWidth(128);
-    contentsWidget->setSpacing(10);
+    menu = new QListWidget;
+    menu->setViewMode(QListView::IconMode);
+    menu->setIconSize(QSize(96, 84));
+    menu->setMovement(QListView::Static);
+    menu->setMinimumHeight(400);
+    menu->setMaximumWidth(128);
+    menu->setSpacing(10);
     pagesWidget = new QStackedWidget;
     //
     //for adding page:
@@ -73,17 +22,18 @@ MainWidget::MainWidget()
 //    pagesWidget->addWidget(new QueryPage);
 
     QPushButton *closeButton = new QPushButton(QString::fromUtf8("بستن"));
-
-    createIcons();
-    contentsWidget->setCurrentRow(0);
-
     connect(closeButton, SIGNAL(clicked()), this, SLOT(close()));
 
+    createMenuIcons();
+    menu->setCurrentRow(0);
+
     QHBoxLayout *horizontalLayout = new QHBoxLayout;
-    horizontalLayout->addWidget(contentsWidget);
+    horizontalLayout->setDirection(QBoxLayout::RightToLeft);
+    horizontalLayout->addWidget(menu);
     horizontalLayout->addWidget(pagesWidget, 1);
 
     QHBoxLayout *buttonsLayout = new QHBoxLayout;
+    buttonsLayout->setDirection(QBoxLayout::RightToLeft);
     buttonsLayout->addStretch(1);
     buttonsLayout->addWidget(closeButton);
 
@@ -98,45 +48,40 @@ MainWidget::MainWidget()
 }
 
 
-void MainWidget::createIcons()
+void MainWidget::createMenuIcons()
 {
     //this function for adding icon to pages
-    QListWidgetItem *configButton = new QListWidgetItem(contentsWidget);
+    QListWidgetItem *configButton = new QListWidgetItem(menu);
     configButton->setIcon(QIcon(":/images/config.png"));
     configButton->setText(QString::fromUtf8("خرید"));
     configButton->setTextAlignment(Qt::AlignHCenter);
     configButton->setFlags(Qt::ItemIsSelectable | Qt::ItemIsEnabled);
 
-    QListWidgetItem *updateButton = new QListWidgetItem(contentsWidget);
+    QListWidgetItem *updateButton = new QListWidgetItem(menu);
     updateButton->setIcon(QIcon(":/images/update.png"));
     updateButton->setText(QString::fromUtf8("فروش"));
     updateButton->setTextAlignment(Qt::AlignHCenter);
     updateButton->setFlags(Qt::ItemIsSelectable | Qt::ItemIsEnabled);
 
-    QListWidgetItem *queryButton = new QListWidgetItem(contentsWidget);
+    QListWidgetItem *queryButton = new QListWidgetItem(menu);
     queryButton->setIcon(QIcon(":/images/query.png"));
     queryButton->setText(QString::fromUtf8("‍‍‍‍‍پشتیبانی"));
     queryButton->setTextAlignment(Qt::AlignHCenter);
     queryButton->setFlags(Qt::ItemIsSelectable | Qt::ItemIsEnabled);
 
 
-    connect(contentsWidget,
+    connect(menu,
             SIGNAL(currentItemChanged(QListWidgetItem*,QListWidgetItem*)),
             this, SLOT(changePage(QListWidgetItem*,QListWidgetItem*)));
 }
+
 
 void MainWidget::changePage(QListWidgetItem *current, QListWidgetItem *previous)
 {
     if (!current)
         current = previous;
 
-    pagesWidget->setCurrentIndex(contentsWidget->row(current));
-}
-
-
-void MainWidget::setVisible(bool visible)
-{
-    QWidget::setVisible(visible);
+    pagesWidget->setCurrentIndex(menu->row(current));
 }
 
 
@@ -145,34 +90,6 @@ void MainWidget::closeEvent(QCloseEvent *event)
     if (trayIcon->isVisible()) {
         hide();
         event->ignore();
-    }
-}
-
-
-
-void MainWidget::setIcon(int index)
-{
-//seting system tray Icon
-    QIcon icon= QIcon(":/images/bad.svg");//inja icon o vared konim
-    trayIcon->setIcon(icon);
-
-}
-
-
-
-
-void MainWidget::iconActivated(QSystemTrayIcon::ActivationReason reason)
-{
-    switch (reason) {
-    case QSystemTrayIcon::Trigger:
-        qDebug()<<"QSystemTrayIcon::Trigger";
-
-        break;
-    case QSystemTrayIcon::MiddleClick:
-        showMessage("click","middleclick",15);
-        break;
-    default:
-        ;
     }
 }
 
@@ -196,21 +113,9 @@ void MainWidget::messageClicked()
 }
 
 
-void MainWidget::createIconGroupBox()
-{
-    iconGroupBox = new QGroupBox(tr("Tray Icon"));
-    iconComboBox = new QComboBox;
-    iconComboBox->addItem(QIcon(":/images/bad.svg"), tr("bad"));
-}
-
-
-
-
-
-void MainWidget::createActions()
+void MainWidget::createTrayIcon()
 {
     //system tray menu action
-    //....w QAction(tr("Mi&nimize"), this)....     you can using from &
     minimizeAction = new QAction(tr("Mi&nimize"), this);
     connect(minimizeAction, SIGNAL(triggered()), this, SLOT(hide()));
 
@@ -222,11 +127,7 @@ void MainWidget::createActions()
 
     quitAction = new QAction(QString::fromUtf8("خروج"), this);
     connect(quitAction, SIGNAL(triggered()), qApp, SLOT(quit()));
-}
 
-
-void MainWidget::createTrayIcon()
-{
     //system tray menu
     trayIconMenu = new QMenu(this);
     trayIconMenu->addAction(minimizeAction);
@@ -237,4 +138,8 @@ void MainWidget::createTrayIcon()
 
     trayIcon = new QSystemTrayIcon(this);
     trayIcon->setContextMenu(trayIconMenu);
+
+    //setting system tray Icon
+    QIcon icon= QIcon(":/images/bad.svg");
+    trayIcon->setIcon(icon);
 }
