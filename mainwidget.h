@@ -47,18 +47,14 @@ private:
     QListWidget *menu;
     QStackedWidget *pagesWidget;
 
-    //    Auth *authentication;
-    //    bool authSuccess;
-
 
 public slots:
     void changePage(QListWidgetItem *current, QListWidgetItem *previous);
-    //    void authSuccessful();
-    //    void authClosed();
 
 private slots:
     void showMessage(QString title,QString planetext,int time);
     void messageClicked();
+
 
 };
 

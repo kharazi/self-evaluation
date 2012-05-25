@@ -9,15 +9,24 @@ QT       += sql
 TARGET = self-evaluation
 TEMPLATE = app
 
-
 SOURCES += main.cpp\
-        mainwidget.cpp\
-        auth.cpp\
-        base.cpp
+    mainwidget.cpp \
+    dashboard.cpp \
+    dailyrecord.cpp \
+    about.cpp \
+    options.cpp \
+    status.cpp \
+    auth.cpp \
+    base.cpp
 
-HEADERS  += mainwidget.h\
-         auth.h\
-         base.h
+HEADERS  += mainwidget.h \
+    dashboard.h \
+    dailyrecord.h \
+    about.h \
+    options.h \
+    status.h \
+    auth.h \
+    base.h
 
 RESOURCES += \
     files.qrc
