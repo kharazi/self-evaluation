@@ -6,5 +6,10 @@
         <file>images/bad.svg</file>
         <file>images/heart.svg</file>
         <file>images/trash.svg</file>
+        <file>images/back.jpg</file>
+        <file>images/backg.jpg</file>
+        <file>images/hizom.png</file>
+        <file>images/key.png</file>
+        <file>images/key-32.png</file>
     </qresource>
 </RCC>

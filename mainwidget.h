@@ -4,7 +4,6 @@
 #include <QSystemTrayIcon>
 #include <QWidget>
 #include <QGridLayout>
-
 #include <QDebug>
 #include <QComboBox>
 #include <QGroupBox>
@@ -16,7 +15,7 @@
 #include <QMessageBox>
 #include <QCloseEvent>
 #include <QApplication>
-
+#include "recording.h"
 class MainWidget : public QWidget
 {
     Q_OBJECT
@@ -29,6 +28,7 @@ protected:
 
 private:
     void createTrayIcon();
+
 
     QAction *minimizeAction;
     QAction *maximizeAction;
@@ -47,9 +47,11 @@ private:
 public slots:
     void changePage(QListWidgetItem *current, QListWidgetItem *previous);
 
+
 private slots:
     void showMessage(QString title,QString planetext,int time);
     void messageClicked();
+
 
 };
 

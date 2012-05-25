@@ -1,5 +1,5 @@
 #include "mainwidget.h"
-
+#include "dashboard.h"
 MainWidget::MainWidget()
 {
     createTrayIcon();
@@ -17,7 +17,7 @@ MainWidget::MainWidget()
     //
     //for adding page:
     //
-//    pagesWidget->addWidget(new ConfigurationPage);
+    pagesWidget->addWidget(new Dashboard);
 //    pagesWidget->addWidget(new UpdatePage);
 //    pagesWidget->addWidget(new QueryPage);
 
@@ -43,8 +43,17 @@ MainWidget::MainWidget()
     mainLayout->addSpacing(12);
     mainLayout->addLayout(buttonsLayout);
     setLayout(mainLayout);
+
+    //intori ghashang mishe aya?
     this->resize(600,400);
-    setWindowTitle(QString::fromUtf8("adel jon"));
+    this->setWindowOpacity(0.97);
+    setWindowTitle(QString::fromUtf8("سامانه خود سنجی"));
+    QPalette palette;
+    palette.setBrush(this->backgroundRole(), QBrush(QImage(":/images/backg.jpg")));
+    this->setPalette(palette);
+
+
+
 }
 
 
@@ -53,7 +62,7 @@ void MainWidget::createMenuIcons()
     //this function for adding icon to pages
     QListWidgetItem *configButton = new QListWidgetItem(menu);
     configButton->setIcon(QIcon(":/images/config.png"));
-    configButton->setText(QString::fromUtf8("خرید"));
+    configButton->setText(QString::fromUtf8("داشبورد"));
     configButton->setTextAlignment(Qt::AlignHCenter);
     configButton->setFlags(Qt::ItemIsSelectable | Qt::ItemIsEnabled);
 
@@ -116,10 +125,10 @@ void MainWidget::messageClicked()
 void MainWidget::createTrayIcon()
 {
     //system tray menu action
-    minimizeAction = new QAction(tr("Mi&nimize"), this);
+    minimizeAction = new QAction(QString::fromUtf8("کمینه"), this);
     connect(minimizeAction, SIGNAL(triggered()), this, SLOT(hide()));
 
-    maximizeAction = new QAction(tr("Ma&ximize"), this);
+    maximizeAction = new QAction(QString::fromUtf8("تمام صفحه"), this);
     connect(maximizeAction, SIGNAL(triggered()), this, SLOT(showMaximized()));
 
     restoreAction = new QAction(QString::fromUtf8("نمایش برنامه"), this);
@@ -142,4 +151,7 @@ void MainWidget::createTrayIcon()
     //setting system tray Icon
     QIcon icon= QIcon(":/images/bad.svg");
     trayIcon->setIcon(icon);
+    //setting windows Icon
+    this->setWindowIcon(icon);
+
 }

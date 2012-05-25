@@ -11,9 +11,19 @@ TEMPLATE = app
 
 
 SOURCES += main.cpp\
-        mainwidget.cpp
+        mainwidget.cpp \
+    dashboard.cpp \
+    dailyrecord.cpp \
+    about.cpp \
+    options.cpp \
+    status.cpp
 
-HEADERS  += mainwidget.h
+HEADERS  += mainwidget.h \
+    dashboard.h \
+    dailyrecord.h \
+    about.h \
+    options.h \
+    status.h
 
 RESOURCES += \
     files.qrc
