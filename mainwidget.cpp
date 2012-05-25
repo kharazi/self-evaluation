@@ -1,12 +1,11 @@
 #include "mainwidget.h"
 
-MainWidget::MainWidget()
+MainWidget::MainWidget(QSqlDatabase d)
 {
-    authSuccess = false;
-    authenticate();
-  // createTrayIcon();
-  // connect(trayIcon, SIGNAL(messageClicked()), this, SLOT(messageClicked()));
-  // trayIcon->show();
+    db = d;
+    createTrayIcon();
+    connect(trayIcon, SIGNAL(messageClicked()), this, SLOT(messageClicked()));
+    trayIcon->show();
     
     menu = new QListWidget;
     menu->setViewMode(QListView::IconMode);
@@ -50,30 +49,30 @@ MainWidget::MainWidget()
 }
 
 
-void MainWidget::authenticate()
-{
-  authentication = new Auth;
-  authentication->show();
-  connect(authentication, SIGNAL(authSuccessful()), this, SLOT(authSuccessful()));
-  connect(authentication, SIGNAL(authClosed()), this, SLOT(authClosed()));
-}
+// void MainWidget::authenticate()
+// {
+//   authentication = new Auth;
+//   authentication->show();
+//   connect(authentication, SIGNAL(authSuccessful()), this, SLOT(authSuccessful()));
+//   connect(authentication, SIGNAL(authClosed()), this, SLOT(authClosed()));
+// }
 
 
-void MainWidget::authSuccessful()
-{
-  createTrayIcon();
-  connect(trayIcon, SIGNAL(messageClicked()), this, SLOT(messageClicked()));
-  trayIcon->show();
-  authSuccess = true;
-  authentication->close();
-  show();
-}
+// void MainWidget::authSuccessful()
+// {
+//   createTrayIcon();
+//   connect(trayIcon, SIGNAL(messageClicked()), this, SLOT(messageClicked()));
+//   trayIcon->show();
+//   authSuccess = true;
+//   authentication->close();
+//   show();
+// }
 
 
-void MainWidget::authClosed()
-{
-  if (!authSuccess){ trayIcon = NULL; close(); }
-}
+// void MainWidget::authClosed()
+// {
+//   if (!authSuccess){ trayIcon = NULL; close(); }
+// }
 
 
 void MainWidget::createMenuIcons()

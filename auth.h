@@ -1,6 +1,8 @@
 #ifndef AUTH_H
 #define AUTH_H
 
+#include <QtSql>
+#include <QDialog>
 #include <QGridLayout>
 #include <QHBoxLayout>
 #include <QStackedWidget>
@@ -8,6 +10,8 @@
 #include <QLabel>
 #include <QLineEdit>
 #include <QCloseEvent>
+#include <QMessageBox>
+#include <QApplication>
 #include <QDebug>
 
 class Auth : public QWidget
@@ -16,11 +20,15 @@ class Auth : public QWidget
 
 public:
   Auth();
+  Auth(QSqlDatabase d);
+  //  ~Auth();
 
 private:
   void createDefaultWidget();
   void createSignUpWidget();
-  void closeEvent(QCloseEvent* event);
+  //  void closeEvent(QCloseEvent* event);
+
+  QSqlDatabase db;
 
   QStackedWidget *stackedWidget;
   QBoxLayout *mainLayout;
@@ -28,12 +36,12 @@ private:
   QWidget *signUpWidget;
   QLineEdit *user;
   QLineEdit *pass;
-  QLineEdit *email;
 public slots:
   void checkAuth();
   void changePage();
   void submit();
   void clearForm();
+  void openMain();
 signals:
   void authSuccessful();
   void authClosed();

@@ -2,7 +2,7 @@
 *~
 \*~
 \#*#
-\*.pro.user
+self-evaluation.pro.user
 \*.o
 Makefile
 self-evaluation

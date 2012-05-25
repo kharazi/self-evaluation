@@ -2,15 +2,45 @@
 
 Auth::Auth()
 {
-  mainLayout = new QHBoxLayout;
-  stackedWidget = new QStackedWidget;
+  setAttribute(Qt::WA_DeleteOnClose);
+   mainLayout = new QHBoxLayout;
+   stackedWidget = new QStackedWidget;
 
-  createDefaultWidget();
-  stackedWidget->addWidget(defaultWidget);
-  mainLayout->addWidget(stackedWidget);
-  setLayout(mainLayout);
-  resize(350, 200);
+   createDefaultWidget();
+   stackedWidget->addWidget(defaultWidget);
+   mainLayout->addWidget(stackedWidget);
+   setLayout(mainLayout);
+   resize(350, 200);
 }
+
+
+Auth::Auth(QSqlDatabase d)
+{
+   mainLayout = new QHBoxLayout;
+   stackedWidget = new QStackedWidget;
+
+   createDefaultWidget();
+   stackedWidget->addWidget(defaultWidget);
+   mainLayout->addWidget(stackedWidget);
+   setLayout(mainLayout);
+   resize(350, 200);
+   db = d;
+}
+
+// Auth::~Auth()
+// {
+//   db.close();
+//   QSqlDatabase::removeDatabase("defaultConnection");
+//   qDebug() << "really?";
+//   delete window;
+//   delete user;
+//   delete pass;
+//   delete defaultWidget;
+//   // delete signUpWidget;
+//   delete mainLayout;
+//   delete stackedWidget;
+
+// }
 
 
 void Auth::createDefaultWidget()
@@ -28,9 +58,11 @@ If this is the first time you're using this software you have to sign up.");
   
   user = new QLineEdit;
   pass = new QLineEdit;
+  pass->setEchoMode(QLineEdit::Password);
 
   QPushButton *signInButton = new QPushButton("Sign In");
   QPushButton *signUpButton = new QPushButton("Sign Up");
+  signInButton->setDefault(true);
   connect(signInButton, SIGNAL(clicked()), this, SLOT(checkAuth()));
   connect(signUpButton, SIGNAL(clicked()), this, SLOT(changePage()));
   
@@ -44,6 +76,9 @@ If this is the first time you're using this software you have to sign up.");
   layout->addWidget(signUpButton, 2, 3);
 
   defaultWidget->setLayout(layout);
+  
+  // if authentication yields success a signal is emitted.
+  connect(this, SIGNAL(authSuccessful()), this, SLOT(openMain()));
 }
 
 
@@ -55,9 +90,6 @@ void Auth::createSignUpWidget()
 
   QLabel *userLabel = new QLabel(" :Username");
   QLabel *passLabel = new QLabel(" :Password");
-  QLabel *emailLabel = new QLabel(" :Email");
-
-  email = new QLineEdit;
 
   QPushButton *backButton = new QPushButton("Back");
   QPushButton *submitButton = new QPushButton("Submit");
@@ -72,8 +104,6 @@ void Auth::createSignUpWidget()
   layout->addWidget(user, 0, 1);
   layout->addWidget(passLabel, 1, 0);
   layout->addWidget(pass, 1, 1);
-  layout->addWidget(emailLabel, 2, 0);
-  layout->addWidget(email, 2, 1);
   layout->addWidget(submitButton, 4, 1);
   layout->addWidget(clearButton, 4, 2);
 
@@ -81,32 +111,88 @@ void Auth::createSignUpWidget()
 }
 
 
-void Auth::closeEvent(QCloseEvent* event)
-{
-  emit authClosed();
-  event->accept();
-}
+// void Auth::closeEvent(QCloseEvent* event)
+// {
+//   //  emit authClosed();
+//   event->accept();
+// }
 
 
 void Auth::checkAuth()
 {
-  emit authSuccessful();
+  QSqlQuery query;
+  query.prepare("SELECT password FROM users WHERE username=?");
+  query.addBindValue(user->text());
+  bool res = query.exec();
+  if (!res)
+    qDebug() << query.lastError();
+  else {
+    query.next();
+    if (pass->text() == query.value(0))
+      emit authSuccessful();
+    else {
+      QMessageBox *error = new QMessageBox;
+      error->setText("Login unsuccessful, please try again!");
+      error->setIcon(QMessageBox::Warning);
+      error->setWindowTitle("Error");
+      error->exec();
+    }
+  }
 }
 
 
 void Auth::changePage()
 {
   if (stackedWidget->count()==1){ createSignUpWidget(); stackedWidget->addWidget(signUpWidget); }
-  stackedWidget->currentIndex()==0 ? stackedWidget->setCurrentIndex(1) : stackedWidget->setCurrentIndex(0);
+  if (stackedWidget->currentIndex()==0) {
+    stackedWidget->setCurrentIndex(1);
+    
+  }
+  else {
+    stackedWidget->setCurrentIndex(0);
+  }
   stackedWidget->currentWidget()->update();
 }
 
 
 void Auth::submit()
 {
+  QSqlQuery query;
+  query.prepare("INSERT INTO users (username, password) "
+		     "VALUES (?, ?)");
+  query.addBindValue(user->text());
+  query.addBindValue(pass->text());
+  bool res = query.exec();
+
+  if (!res) {
+    qDebug() << query.lastError();
+    QMessageBox *error = new QMessageBox;
+    error->setText("User could not be created. We're sorry for this inconvinience");
+    error->setIcon(QMessageBox::Warning);
+    error->exec();
+  }
+  else emit authSuccessful();
 }
 
 
 void Auth::clearForm()
 {
+  user->clear();
+  pass->clear();
+}
+
+
+void Auth::openMain()
+{
+  //  window = new MainWidget;
+  //  window->show();
+  //  this->~Auth();
+  //  close();
+  //  delete user;
+  //  delete pass;
+  //  delete defaultWidget;
+  // delete signUpWidget;
+  // delete mainLayout;
+  // delete stackedWidget;
+  
 }

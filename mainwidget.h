@@ -1,7 +1,7 @@
 #ifndef MAINWIDGET_H
 #define MAINWIDGET_H
 
-#include "auth.h"
+#include <QSqlDatabase>
 #include <QSystemTrayIcon>
 #include <QWidget>
 #include <QGridLayout>
@@ -22,14 +22,17 @@ class MainWidget : public QWidget
     Q_OBJECT
 
 public:
-    MainWidget();
-    void authenticate();
+  //    MainWidget();
+    MainWidget(QSqlDatabase d);
+    //  void authenticate();
 
 protected:
     void closeEvent(QCloseEvent *event);
 
 private:
     void createTrayIcon();
+
+    QSqlDatabase db;
 
     QAction *minimizeAction;
     QAction *maximizeAction;
@@ -44,14 +47,14 @@ private:
     QListWidget *menu;
     QStackedWidget *pagesWidget;
 
-    Auth *authentication;
-    bool authSuccess;
+    //    Auth *authentication;
+    //    bool authSuccess;
 
 
 public slots:
     void changePage(QListWidgetItem *current, QListWidgetItem *previous);
-    void authSuccessful();
-    void authClosed();
+    //    void authSuccessful();
+    //    void authClosed();
 
 private slots:
     void showMessage(QString title,QString planetext,int time);

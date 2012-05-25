@@ -1,5 +1,5 @@
 #include <QApplication>
-#include "mainwidget.h"
+#include "base.h"
 
 int main(int argc, char *argv[])
 {
@@ -9,7 +9,6 @@ int main(int argc, char *argv[])
 
   QApplication::setQuitOnLastWindowClosed(false);
 
-  MainWidget window;
-  //window.show();
+  Base base;
   return app.exec();
 }
