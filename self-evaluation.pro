@@ -12,10 +12,18 @@ TEMPLATE = app
 
 SOURCES += main.cpp\
         mainwidget.cpp \
-    recording.cpp
+    dashboard.cpp \
+    dailyrecord.cpp \
+    about.cpp \
+    options.cpp \
+    status.cpp
 
 HEADERS  += mainwidget.h \
-    recording.h
+    dashboard.h \
+    dailyrecord.h \
+    about.h \
+    options.h \
+    status.h
 
 RESOURCES += \
     files.qrc
