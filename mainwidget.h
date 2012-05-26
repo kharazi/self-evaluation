@@ -25,8 +25,9 @@ class MainWidget : public QWidget
 public:
   //    MainWidget();
     MainWidget(QSqlDatabase d);
-    //  void authenticate();
-
+    QString* getUser();
+    void setUser(QString u);
+    
 protected:
     void closeEvent(QCloseEvent *event);
 
@@ -34,6 +35,7 @@ private:
     void createTrayIcon();
 
     QSqlDatabase db;
+    QString *user;
 
     QAction *minimizeAction;
     QAction *maximizeAction;

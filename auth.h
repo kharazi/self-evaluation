@@ -1,7 +1,9 @@
 #ifndef AUTH_H
 #define AUTH_H
 
-#include <QtSql>
+#include <QSqlDatabase>
+#include <QSqlQuery>
+#include <QSqlError>
 #include <QDialog>
 #include <QGridLayout>
 #include <QHBoxLayout>
@@ -14,7 +16,7 @@
 #include <QApplication>
 #include <QDebug>
 
-class Auth : public QWidget
+class Auth : public QDialog
 {
   Q_OBJECT
 
@@ -41,9 +43,8 @@ public slots:
   void changePage();
   void submit();
   void clearForm();
-  void openMain();
 signals:
-  void authSuccessful();
+  void authSuccessful(QString user);
   void authClosed();
 };
 

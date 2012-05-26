@@ -20,7 +20,7 @@ private:
   MainWidget *mainwidget;
   QSqlDatabase db;
 public slots:
-  void authSuccessful();
+  void authSuccessful(QString user);
 
 };
 

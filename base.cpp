@@ -2,6 +2,7 @@
 
 Base::Base()
 {
+  mainwidget = NULL;
   db = QSqlDatabase::addDatabase("QSQLITE");
   db.setDatabaseName("selfeval.db");
   bool ok = db.open();
@@ -22,13 +23,16 @@ Base::Base()
 
   auth = new Auth(db);
   auth->show();
-  connect(auth, SIGNAL(authSuccessful()), this, SLOT(authSuccessful()));
+  connect(auth, SIGNAL(authSuccessful(QString)), this, SLOT(authSuccessful(QString)));
 }
 
 
 Base::~Base()
 {
-
+  db.close();
+  QSqlDatabase::removeDatabase("defaultConnection");
+  delete auth;
+  delete mainwidget;
 }
 
 
@@ -38,9 +42,11 @@ QSqlDatabase Base::getDb()
 }
 
 
-void Base::authSuccessful()
+void Base::authSuccessful(QString user)
 {
   auth->close();
+  QApplication::setQuitOnLastWindowClosed(false);
   mainwidget = new MainWidget(db);
+  mainwidget->setUser(user);
   mainwidget->show();
 }
