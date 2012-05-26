@@ -77,8 +77,6 @@ If this is the first time you're using this software you have to sign up.");
 
   defaultWidget->setLayout(layout);
   
-  // if authentication yields success a signal is emitted.
-  connect(this, SIGNAL(authSuccessful()), this, SLOT(openMain()));
 }
 
 
@@ -98,8 +96,6 @@ void Auth::createSignUpWidget()
   connect(submitButton, SIGNAL(clicked()), this, SLOT(submit()));
   connect(clearButton, SIGNAL(clicked()), this, SLOT(clearForm()));
 
-  //  layout->addWidget(backButton, 0, 2);
-  //  layout->setSpacing(10);
   layout->addWidget(userLabel, 0, 0);
   layout->addWidget(user, 0, 1);
   layout->addWidget(passLabel, 1, 0);
@@ -129,7 +125,7 @@ void Auth::checkAuth()
   else {
     query.next();
     if (pass->text() == query.value(0))
-      emit authSuccessful();
+      emit authSuccessful(user->text());
     else {
       QMessageBox *error = new QMessageBox;
       error->setText("Login unsuccessful, please try again!");
@@ -171,7 +167,7 @@ void Auth::submit()
     error->setIcon(QMessageBox::Warning);
     error->exec();
   }
-  else emit authSuccessful();
+  else emit authSuccessful(user->text());
 }
 
 
@@ -179,20 +175,4 @@ void Auth::clearForm()
 {
   user->clear();
   pass->clear();
-}
-
-
-void Auth::openMain()
-{
-  //  window = new MainWidget;
-  //  window->show();
-  //  this->~Auth();
-  //  close();
-  //  delete user;
-  //  delete pass;
-  //  delete defaultWidget;
-  // delete signUpWidget;
-  // delete mainLayout;
-  // delete stackedWidget;
-  
 }

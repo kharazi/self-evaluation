@@ -1,6 +1,7 @@
 #ifndef MAINWIDGET_H
 #define MAINWIDGET_H
 
+#include "dashboard.h"
 #include <QSqlDatabase>
 #include <QSystemTrayIcon>
 #include <QWidget>
@@ -24,8 +25,9 @@ class MainWidget : public QWidget
 public:
   //    MainWidget();
     MainWidget(QSqlDatabase d);
-    //  void authenticate();
-
+    QString* getUser();
+    void setUser(QString u);
+    
 protected:
     void closeEvent(QCloseEvent *event);
 
@@ -33,6 +35,7 @@ private:
     void createTrayIcon();
 
     QSqlDatabase db;
+    QString *user;
 
     QAction *minimizeAction;
     QAction *maximizeAction;
