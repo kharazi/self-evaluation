@@ -1,7 +1,7 @@
 #ifndef MAINWIDGET_H
 #define MAINWIDGET_H
 
-#include "dashboard.h"
+//#include "dashboard.h"
 #include <QSqlDatabase>
 #include <QSystemTrayIcon>
 #include <QWidget>

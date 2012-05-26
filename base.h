@@ -19,6 +19,8 @@ private:
   Auth *auth;
   MainWidget *mainwidget;
   QSqlDatabase db;
+  void fillTable(QSqlDatabase);
+
 public slots:
   void authSuccessful(QString user);
 

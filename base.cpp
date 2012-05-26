@@ -1,8 +1,10 @@
 #include "base.h"
 
+
+
 Base::Base()
 {
-  mainwidget = NULL;
+  mainwidget =NULL;
   db = QSqlDatabase::addDatabase("QSQLITE");
   db.setDatabaseName("selfeval.db");
   bool ok = db.open();
@@ -18,8 +20,20 @@ Base::Base()
 
   QSqlQuery query;
   query.exec("CREATE TABLE users "
-  	     "(username VARCHAR(30) NOT NULL, password VARCHAR(20) NOT NULL, "
-  	     "PRIMARY KEY (username) )");
+             "(username VARCHAR(30) NOT NULL, password VARCHAR(20) NOT NULL, "
+             "PRIMARY KEY (username) )");
+  //esm table????
+  query.exec("CREATE TABLE sidtype"
+             "(sidId INT NOT NULL, sidTitle TEXT)");
+
+  fillTable(getDb());
+
+  QSqlQuery q("SELECT * FROM sidtype");
+  while (q.next()) {
+      QString person = q.value(0).toString();
+      qDebug()<<person;
+  }
+
 
   auth = new Auth(db);
   auth->show();
@@ -49,4 +63,17 @@ void Base::authSuccessful(QString user)
   mainwidget = new MainWidget(db);
   mainwidget->setUser(user);
   mainwidget->show();
+}
+
+void Base::fillTable(QSqlDatabase db){
+//this function for test
+    QSqlQuery query;
+    for (int i=0;i<10;i++){
+        query.prepare("INSERT INTO sidtype (sidID,sidTitle) VALUES(?,?) ");
+        query.addBindValue(i);
+        query.addBindValue(QString::fromUtf8("sid ")+QString::number(i) );
+
+        query.exec();
+    }
+
 }
