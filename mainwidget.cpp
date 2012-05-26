@@ -1,5 +1,5 @@
 #include "mainwidget.h"
-
+#include "dashboard.h"
 MainWidget::MainWidget(QSqlDatabase d)
 {
     db = d;
@@ -18,7 +18,7 @@ MainWidget::MainWidget(QSqlDatabase d)
     //
     //for adding page:
     //
-//    pagesWidget->addWidget(new Dashboard);
+    pagesWidget->addWidget(new Dashboard);
 //    pagesWidget->addWidget(new UpdatePage);
 //    pagesWidget->addWidget(new QueryPage);
 

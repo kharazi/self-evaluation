@@ -3,7 +3,6 @@
 
 #include "mainwidget.h"
 #include "auth.h"
-
 #include <QSqlDatabase>
 #include <QObject>
 
@@ -15,11 +14,15 @@ public:
   Base();
   ~Base();
   QSqlDatabase getDb();
+
+
+  static QSqlDatabase getdatabase();
 private:
   Auth *auth;
   MainWidget *mainwidget;
-  QSqlDatabase db;
   void fillTable(QSqlDatabase);
+  QSqlDatabase db;
+
 
 public slots:
   void authSuccessful(QString user);

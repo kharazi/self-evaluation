@@ -18,6 +18,8 @@ Base::Base()
     error->exec();
   }
 
+
+
   QSqlQuery query;
   query.exec("CREATE TABLE users "
              "(username VARCHAR(30) NOT NULL, password VARCHAR(20) NOT NULL, "
@@ -49,7 +51,6 @@ Base::~Base()
   delete mainwidget;
 }
 
-
 QSqlDatabase Base::getDb()
 {
   return db;
@@ -67,8 +68,9 @@ void Base::authSuccessful(QString user)
 
 void Base::fillTable(QSqlDatabase db){
 //this function for test
+    //and to set defualt sid in start
     QSqlQuery query;
-    for (int i=0;i<10;i++){
+    for (int i=20;i<40;i++){
         query.prepare("INSERT INTO sidtype (sidID,sidTitle) VALUES(?,?) ");
         query.addBindValue(i);
         query.addBindValue(QString::fromUtf8("sid ")+QString::number(i) );
@@ -76,4 +78,10 @@ void Base::fillTable(QSqlDatabase db){
         query.exec();
     }
 
+}
+QSqlDatabase Base::getdatabase(){
+    QSqlDatabase database;
+    database = QSqlDatabase::addDatabase("QSQLITE");
+    database.setDatabaseName("selfeval.db");
+    return database;
 }
