@@ -5,7 +5,6 @@ Dashboard::Dashboard(QWidget *parent) :
 {
 
         mainlayout= new QGridLayout;
-        recordlayout=new QGridLayout;
         this->setLayout(mainlayout);
 
         record= new QPushButton(QString::fromUtf8("record"));
