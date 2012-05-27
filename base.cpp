@@ -28,6 +28,10 @@ Base::Base()
   query.exec("CREATE TABLE sidtype"
              "(sidId INT NOT NULL, sidTitle TEXT)");
 
+//  query.exec("CREATE TABLE actions "
+//             "")
+
+
   fillTable(getDb());
 
   QSqlQuery q("SELECT * FROM sidtype");

@@ -17,7 +17,8 @@ SOURCES += main.cpp\
     options.cpp \
     status.cpp \
     auth.cpp \
-    base.cpp
+    base.cpp \
+    record.cpp
 
 HEADERS  += mainwidget.h \
     dashboard.h \
@@ -26,7 +27,8 @@ HEADERS  += mainwidget.h \
     options.h \
     status.h \
     auth.h \
-    base.h
+    base.h \
+    record.h
 
 RESOURCES += \
     files.qrc

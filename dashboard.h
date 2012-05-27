@@ -7,21 +7,22 @@
 #include <QSqlDatabase>
 #include <QSqlQuery>
 #include <QGridLayout>
-#include "base.h"
+#include "record.h"
+
 class Dashboard : public QWidget
 {
     Q_OBJECT
 public:
     explicit Dashboard(QWidget *parent = 0);
-    QPushButton * record;
-    QComboBox * sidtype;
+
     QGridLayout * mainlayout;
-    QGridLayout * recordlayout;
+    record *re;
+
 
 signals:
 
 public slots:
-    void record_button_clicked();
+
 };
 
 #endif // DASHBOARD_H
