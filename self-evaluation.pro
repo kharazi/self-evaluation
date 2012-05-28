@@ -18,7 +18,10 @@ SOURCES += main.cpp\
     status.cpp \
     auth.cpp \
     base.cpp \
-    record.cpp
+    record.cpp \
+    abouttab.cpp \
+    aboutselfevaluationtab.cpp \
+    helptab.cpp
 
 HEADERS  += mainwidget.h \
     dashboard.h \
@@ -28,7 +31,10 @@ HEADERS  += mainwidget.h \
     status.h \
     auth.h \
     base.h \
-    record.h
+    record.h \
+    abouttab.h \
+    aboutselfevaluationtab.h \
+    helptab.h
 
 RESOURCES += \
     files.qrc

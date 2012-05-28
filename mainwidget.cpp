@@ -1,5 +1,11 @@
 #include "mainwidget.h"
+
 #include "dashboard.h"
+#include "about.h"
+#include "status.h"
+#include "options.h"
+#include "dailyrecord.h"
+
 MainWidget::MainWidget()
 {
 //    db = database;
@@ -8,56 +14,40 @@ MainWidget::MainWidget()
     connect(trayIcon, SIGNAL(messageClicked()), this, SLOT(messageClicked()));
     trayIcon->show();
     
-    menu = new QListWidget;
-    menu->setViewMode(QListView::IconMode);
-    menu->setIconSize(QSize(96, 84));
-    menu->setMovement(QListView::Static);
-    menu->setMinimumHeight(400);
-    menu->setMaximumWidth(128);
-    menu->setSpacing(10);
-    pagesWidget = new QStackedWidget;
-    //
-    //for adding page:
-    //
-    pagesWidget->addWidget(new Dashboard);
-//    pagesWidget->addWidget(new UpdatePage);
-//    pagesWidget->addWidget(new QueryPage);
-
-    QPushButton *closeButton = new QPushButton(QString::fromUtf8("بستن"));
-    connect(closeButton, SIGNAL(clicked()), this, SLOT(close()));
+    CreateMainWidget();
+    addPages();
 
     createMenuIcons();
-    menu->setCurrentRow(0);
 
-    QHBoxLayout *horizontalLayout = new QHBoxLayout;
+    horizontalLayout = new QHBoxLayout;
     horizontalLayout->setDirection(QBoxLayout::RightToLeft);
     horizontalLayout->addWidget(menu);
     horizontalLayout->addWidget(pagesWidget, 1);
 
-    QHBoxLayout *buttonsLayout = new QHBoxLayout;
+    buttonsLayout = new QHBoxLayout;
     buttonsLayout->setDirection(QBoxLayout::RightToLeft);
     buttonsLayout->addStretch(1);
-    buttonsLayout->addWidget(closeButton);
 
-    QVBoxLayout *mainLayout = new QVBoxLayout;
+    mainLayout = new QVBoxLayout;
     mainLayout->addLayout(horizontalLayout);
     mainLayout->addStretch(1);
     mainLayout->addSpacing(12);
     mainLayout->addLayout(buttonsLayout);
     setLayout(mainLayout);
 
-    //intori ghashang mishe aya?
-    this->resize(600,400);
-    this->setWindowOpacity(0.97);
-    setWindowTitle(QString::fromUtf8("سامانه خود سنجی"));
-    QPalette palette;
-    palette.setBrush(this->backgroundRole(), QBrush(QImage(":/images/backg.jpg")));
-    this->setPalette(palette);
-
-
-
 }
 
+void MainWidget::addPages(){
+    //for adding page:
+
+    pagesWidget = new QStackedWidget;
+    pagesWidget->addWidget(new Dashboard);
+    pagesWidget->addWidget(new Status);
+    pagesWidget->addWidget(new DailyRecord);
+    pagesWidget->addWidget(new Options);
+    pagesWidget->addWidget(new About);
+
+}
 
 void MainWidget::createMenuIcons()
 {
@@ -68,24 +58,63 @@ void MainWidget::createMenuIcons()
     configButton->setTextAlignment(Qt::AlignHCenter);
     configButton->setFlags(Qt::ItemIsSelectable | Qt::ItemIsEnabled);
 
-    QListWidgetItem *updateButton = new QListWidgetItem(menu);
-    updateButton->setIcon(QIcon(":/images/update.png"));
-    updateButton->setText(QString::fromUtf8("فروش"));
-    updateButton->setTextAlignment(Qt::AlignHCenter);
-    updateButton->setFlags(Qt::ItemIsSelectable | Qt::ItemIsEnabled);
+    QListWidgetItem *statusButton = new QListWidgetItem(menu);
+    statusButton->setIcon(QIcon(":/images/update.png"));
+    statusButton->setText(QString::fromUtf8("استاتوس"));
+    statusButton->setTextAlignment(Qt::AlignHCenter);
+    statusButton->setFlags(Qt::ItemIsSelectable | Qt::ItemIsEnabled);
 
-    QListWidgetItem *queryButton = new QListWidgetItem(menu);
-    queryButton->setIcon(QIcon(":/images/query.png"));
-    queryButton->setText(QString::fromUtf8("‍‍‍‍‍پشتیبانی"));
-    queryButton->setTextAlignment(Qt::AlignHCenter);
-    queryButton->setFlags(Qt::ItemIsSelectable | Qt::ItemIsEnabled);
+    QListWidgetItem *dailyRecordButton = new QListWidgetItem(menu);
+    dailyRecordButton->setIcon(QIcon(":/images/update.png"));
+    dailyRecordButton->setText(QString::fromUtf8("ثبت روزانه"));
+    dailyRecordButton->setTextAlignment(Qt::AlignHCenter);
+    dailyRecordButton->setFlags(Qt::ItemIsSelectable | Qt::ItemIsEnabled);
 
+    QListWidgetItem *optionButton = new QListWidgetItem(menu);
+    optionButton->setIcon(QIcon(":/images/query.png"));
+    optionButton->setText(QString::fromUtf8("‍‍‍‍‍تنظیمات"));
+    optionButton->setTextAlignment(Qt::AlignHCenter);
+    optionButton->setFlags(Qt::ItemIsSelectable | Qt::ItemIsEnabled);
+
+
+    QListWidgetItem *aboutButton = new QListWidgetItem(menu);
+    aboutButton->setIcon(QIcon(":/images/update.png"));
+    aboutButton->setText(QString::fromUtf8("درباره"));
+    aboutButton->setTextAlignment(Qt::AlignHCenter);
+    aboutButton->setFlags(Qt::ItemIsSelectable | Qt::ItemIsEnabled);
 
     connect(menu,
             SIGNAL(currentItemChanged(QListWidgetItem*,QListWidgetItem*)),
             this, SLOT(changePage(QListWidgetItem*,QListWidgetItem*)));
+
 }
 
+void MainWidget::CreateMainWidget(){
+    menu = new QListWidget;
+    menu->setViewMode(QListView::IconMode);
+    menu->setIconSize(QSize(75, 60));
+    menu->setMovement(QListView::Static);
+    menu->setMinimumHeight(500);
+    menu->setMaximumWidth(100);
+    menu->setMinimumWidth(100);
+    menu->setSpacing(13);
+    menu->setCurrentRow(0);
+
+
+
+
+    //    QPushButton *closeButton = new QPushButton(QString::fromUtf8("بستن"));
+    //    connect(closeButton, SIGNAL(clicked()), this, SLOT(close()));
+
+    this->resize(800,400);
+    this->setWindowOpacity(0.97);
+    setWindowTitle(QString::fromUtf8("سامانه خود سنجی"));
+    QPalette palette;
+    palette.setBrush(this->backgroundRole(), QBrush(QImage(":/images/backg.jpg")));
+    this->setPalette(palette);
+
+
+}
 
 void MainWidget::setUser(QString u)
 {
