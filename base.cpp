@@ -23,27 +23,25 @@ Base::Base()
              "(username VARCHAR(30) NOT NULL UNIQUE, password VARCHAR(20) NOT NULL, "
              "PRIMARY KEY (username) )");
 
-  query.exec("CREATE TABLE action_types"
-             "(action_id INT NOT NULL ,title VARCHAR(60))");
+  query.exec("CREATE TABLE action_types "
+             "(action_id INTEGER PRIMARY KEY, title VARCHAR(60))");
 
-  qDebug()<<query.lastError();
   query.exec("CREATE TABLE actions "
-             "(id INT NOT NULL,action_id INT NOT NULL,username VARCHAR(30) NOT NULL, date DATETIME , rate INT)");
+             "(id INTEGER PRIMARY KEY, action_id INTEGER NOT NULL, username VARCHAR(30) NOT NULL, date DATETIME , rate INT)");
 
 
   fillTable();
 
-  QSqlQuery q("SELECT * FROM sidtype");
+  QSqlQuery q("SELECT * FROM action_types");
   while (q.next()) {
       QString person = q.value(0).toString();
       qDebug()<<person;
   }
 
-
-  auth = new Auth();
+  auth = new Auth;
   auth->show();
   connect(auth, SIGNAL(authSuccessful(QString)), this, SLOT(authSuccessful(QString)));
-//  QSqlDatabase::removeDatabase("defaultConnection");
+
 }
 
 
@@ -63,19 +61,12 @@ void Base::authSuccessful(QString user)
 }
 
 void Base::fillTable(){
-//this function for test
-    //and to set defualt sid in start
+  //this function for test
+  //and to set defualt sid in start
     QSqlQuery query;
-    for (int i=20;i<40;i++){
-        query.prepare("INSERT INTO action_types (title) VALUES(?) ");
-        query.addBindValue(QString::fromUtf8("hah ")+QString::number(i) );
-        query.exec();
-    }
-}
-
-QSqlDatabase Base::getdatabase(){
-    QSqlDatabase database;
-    database = QSqlDatabase::addDatabase("QSQLITE");
-    database.setDatabaseName("selfeval.db");
-    return database;
+    query.prepare("INSERT INTO action_types (action_id, title) VALUES(?, ?) ");
+    query.addBindValue(QVariant(QVariant::Int));
+    query.addBindValue(QString::fromUtf8("hah ")+QString::number(1) );
+    query.exec();
+    qDebug() << query.lastError();
 }

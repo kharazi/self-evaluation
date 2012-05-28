@@ -15,7 +15,7 @@ public:
   QSqlDatabase database;
 
 
-  static QSqlDatabase getdatabase();
+  //  static QSqlDatabase getdatabase();
 private:
   Auth *auth;
   MainWidget *mainwidget;
