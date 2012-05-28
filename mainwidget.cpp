@@ -1,8 +1,9 @@
 #include "mainwidget.h"
 #include "dashboard.h"
-MainWidget::MainWidget(QSqlDatabase d)
+MainWidget::MainWidget()
 {
-    db = d;
+//    db = database;
+//    db.open();
     createTrayIcon();
     connect(trayIcon, SIGNAL(messageClicked()), this, SLOT(messageClicked()));
     trayIcon->show();

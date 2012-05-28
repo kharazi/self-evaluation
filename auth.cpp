@@ -1,8 +1,19 @@
 #include "auth.h"
-
+#include <QDebug>
 Auth::Auth()
 {
-  setAttribute(Qt::WA_DeleteOnClose);
+//    db=database;
+//    bool b=db.open();
+//    if (!b){
+//        qDebug()<<"dsfdsf";
+
+//    }else{
+
+
+
+//    }
+
+    setAttribute(Qt::WA_DeleteOnClose);
    mainLayout = new QHBoxLayout;
    stackedWidget = new QStackedWidget;
 
@@ -14,18 +25,7 @@ Auth::Auth()
 }
 
 
-Auth::Auth(QSqlDatabase d)
-{
-   mainLayout = new QHBoxLayout;
-   stackedWidget = new QStackedWidget;
 
-   createDefaultWidget();
-   stackedWidget->addWidget(defaultWidget);
-   mainLayout->addWidget(stackedWidget);
-   setLayout(mainLayout);
-   resize(350, 200);
-   db = d;
-}
 
 // Auth::~Auth()
 // {

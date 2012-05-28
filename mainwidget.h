@@ -18,13 +18,15 @@
 #include <QCloseEvent>
 #include <QApplication>
 
+
+
 class MainWidget : public QWidget
 {
     Q_OBJECT
 
 public:
   //    MainWidget();
-    MainWidget(QSqlDatabase d);
+    MainWidget();
     QString* getUser();
     void setUser(QString u);
     

@@ -2,10 +2,9 @@
 #define BASE_H
 
 #include "mainwidget.h"
-#include "auth.h"
 #include <QSqlDatabase>
 #include <QObject>
-
+#include "auth.h"
 class Base : public QObject
 {
   Q_OBJECT
@@ -13,15 +12,14 @@ class Base : public QObject
 public:
   Base();
   ~Base();
-  QSqlDatabase getDb();
+  QSqlDatabase database;
 
 
   static QSqlDatabase getdatabase();
 private:
   Auth *auth;
   MainWidget *mainwidget;
-  void fillTable(QSqlDatabase);
-  QSqlDatabase db;
+  void fillTable();
 
 
 public slots:

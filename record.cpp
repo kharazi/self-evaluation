@@ -19,10 +19,12 @@ void record::createRecordWidget(){
     sidtype =new QComboBox;
     sidtype->addItem("other");
 //    sidtype->setMaximumWidth(150);
-    Base::getdatabase().open();
-    QSqlQuery q("SELECT sidTitle FROM sidtype");
+
+    QSqlQuery q("SELECT title FROM action_types");
+    qDebug()<<q.lastError().text();
     if (q.lastError().type()==0){
         while (q.next()) {
+            qDebug()<<q.value(0).toString();
             sidtype->addItem(q.value(0).toString());
         }
     }
@@ -34,6 +36,7 @@ void record::createRecordWidget(){
         error->setWindowTitle("Error");
         error->exec();
     }
+
 
     date=new QDateEdit;
 

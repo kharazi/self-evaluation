@@ -22,7 +22,6 @@ class Auth : public QDialog
 
 public:
   Auth();
-  Auth(QSqlDatabase d);
   //  ~Auth();
 
 private:

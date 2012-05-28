@@ -1,11 +1,9 @@
 #include "base.h"
 
-
-
 Base::Base()
 {
   mainwidget =NULL;
-  db = QSqlDatabase::addDatabase("QSQLITE");
+  QSqlDatabase db = QSqlDatabase::addDatabase("QSQLITE");
   db.setDatabaseName("selfeval.db");
   bool ok = db.open();
   if (!ok){
@@ -22,17 +20,18 @@ Base::Base()
 
   QSqlQuery query;
   query.exec("CREATE TABLE users "
-             "(username VARCHAR(30) NOT NULL, password VARCHAR(20) NOT NULL, "
+             "(username VARCHAR(30) NOT NULL UNIQUE, password VARCHAR(20) NOT NULL, "
              "PRIMARY KEY (username) )");
-  //esm table????
-  query.exec("CREATE TABLE sidtype"
-             "(sidId INT NOT NULL, sidTitle TEXT)");
 
-//  query.exec("CREATE TABLE actions "
-//             "")
+  query.exec("CREATE TABLE action_types"
+             "(action_id INT NOT NULL ,title VARCHAR(60))");
+
+  qDebug()<<query.lastError();
+  query.exec("CREATE TABLE actions "
+             "(id INT NOT NULL,action_id INT NOT NULL,username VARCHAR(30) NOT NULL, date DATETIME , rate INT)");
 
 
-  fillTable(getDb());
+  fillTable();
 
   QSqlQuery q("SELECT * FROM sidtype");
   while (q.next()) {
@@ -41,48 +40,39 @@ Base::Base()
   }
 
 
-  auth = new Auth(db);
+  auth = new Auth();
   auth->show();
   connect(auth, SIGNAL(authSuccessful(QString)), this, SLOT(authSuccessful(QString)));
+//  QSqlDatabase::removeDatabase("defaultConnection");
 }
 
 
 Base::~Base()
 {
-  db.close();
-  QSqlDatabase::removeDatabase("defaultConnection");
   delete auth;
   delete mainwidget;
 }
-
-QSqlDatabase Base::getDb()
-{
-  return db;
-}
-
 
 void Base::authSuccessful(QString user)
 {
   auth->close();
   QApplication::setQuitOnLastWindowClosed(false);
-  mainwidget = new MainWidget(db);
+  mainwidget = new MainWidget();
   mainwidget->setUser(user);
   mainwidget->show();
 }
 
-void Base::fillTable(QSqlDatabase db){
+void Base::fillTable(){
 //this function for test
     //and to set defualt sid in start
     QSqlQuery query;
     for (int i=20;i<40;i++){
-        query.prepare("INSERT INTO sidtype (sidID,sidTitle) VALUES(?,?) ");
-        query.addBindValue(i);
-        query.addBindValue(QString::fromUtf8("sid ")+QString::number(i) );
-
+        query.prepare("INSERT INTO action_types (title) VALUES(?) ");
+        query.addBindValue(QString::fromUtf8("hah ")+QString::number(i) );
         query.exec();
     }
-
 }
+
 QSqlDatabase Base::getdatabase(){
     QSqlDatabase database;
     database = QSqlDatabase::addDatabase("QSQLITE");
