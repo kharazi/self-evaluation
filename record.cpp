@@ -71,7 +71,6 @@ void record::createRecordWidget(){
 void record::record_button_clicked(){
 
 
-    qDebug();
     QSqlQuery query;
     query.prepare("INSERT INTO actions (id,action_id,username, date, rate) VALUES(?,?,?,?,?) ");
     query.addBindValue(QVariant(QVariant::Int));
