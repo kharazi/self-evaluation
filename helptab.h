@@ -2,12 +2,18 @@
 #define HELPTAB_H
 
 #include <QWidget>
+#include <QGridLayout>
+#include <QLabel>
+#include <QScrollArea>
 
 class Helptab : public QWidget
 {
     Q_OBJECT
 public:
     explicit Helptab(QWidget *parent = 0);
+    QGridLayout *mainlayout;
+    QLabel * about;
+    QScrollArea* scroll;
 
 signals:
 

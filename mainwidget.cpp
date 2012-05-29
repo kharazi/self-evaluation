@@ -8,8 +8,7 @@
 
 MainWidget::MainWidget()
 {
-//    db = database;
-//    db.open();
+
     createTrayIcon();
     connect(trayIcon, SIGNAL(messageClicked()), this, SLOT(messageClicked()));
     trayIcon->show();
@@ -35,6 +34,7 @@ MainWidget::MainWidget()
     mainLayout->addLayout(buttonsLayout);
     setLayout(mainLayout);
 
+    qDebug()<<"user"<<getUser();
 }
 
 void MainWidget::addPages(){
@@ -124,8 +124,11 @@ void MainWidget::setUser(QString u)
 
 QString* MainWidget::getUser()
 {
+
   return user;
 }
+
+
 
 
 void MainWidget::changePage(QListWidgetItem *current, QListWidgetItem *previous)

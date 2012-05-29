@@ -27,6 +27,8 @@ public:
   //    MainWidget();
     MainWidget();
     QString* getUser();
+
+
     void setUser(QString u);
     
 protected:
@@ -37,6 +39,8 @@ private:
 
     QSqlDatabase db;
     QString *user;
+
+    QString myuser;
 
     QAction *minimizeAction;
     QAction *maximizeAction;

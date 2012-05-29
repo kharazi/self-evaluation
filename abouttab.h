@@ -3,6 +3,8 @@
 
 #include <QWidget>
 #include <QGridLayout>
+#include <QLabel>
+#include <QScrollArea>
 
 
 class aboutTab : public QWidget
@@ -10,6 +12,9 @@ class aboutTab : public QWidget
     Q_OBJECT
 public:
     explicit aboutTab(QWidget *parent = 0);
+    QGridLayout *mainlayout;
+    QLabel * about;
+    QScrollArea* scroll;
 
 signals:
 

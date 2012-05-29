@@ -17,7 +17,6 @@ Base::Base()
   }
 
 
-
   QSqlQuery query;
   query.exec("CREATE TABLE users "
              "(username VARCHAR(30) NOT NULL UNIQUE, password VARCHAR(20) NOT NULL, "
