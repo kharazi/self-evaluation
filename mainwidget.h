@@ -1,7 +1,6 @@
 #ifndef MAINWIDGET_H
 #define MAINWIDGET_H
 
-//#include "dashboard.h"
 #include <QSqlDatabase>
 #include <QSystemTrayIcon>
 #include <QWidget>
@@ -48,9 +47,15 @@ private:
     QMenu *trayIconMenu;
 
     void createMenuIcons();
+    void addPages();
+    void CreateMainWidget();
 
     QListWidget *menu;
     QStackedWidget *pagesWidget;
+
+    QHBoxLayout *horizontalLayout;
+    QHBoxLayout *buttonsLayout;
+    QVBoxLayout *mainLayout;
 
 
 public slots:
