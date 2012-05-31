@@ -24,12 +24,10 @@ class MainWidget : public QWidget
     Q_OBJECT
 
 public:
-  //    MainWidget();
     MainWidget(QString);
     QString getUser();
 
     QString user;
-    //    void setUser(QString u);
     
 protected:
     void closeEvent(QCloseEvent *event);
@@ -39,9 +37,6 @@ private:
 
     QSqlDatabase db;
     
-
-    QString myuser;
-
     QAction *minimizeAction;
     QAction *maximizeAction;
     QAction *restoreAction;

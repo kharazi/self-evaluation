@@ -5,4 +5,4 @@
 // the error when connection failed.
 // if you agree-> set static the Base::getdatabase()
 // check all Exception when get query from database and close where open 
-// 
+// auth error at close (WA::DeleteOnClose flag)

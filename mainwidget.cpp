@@ -115,11 +115,6 @@ void MainWidget::CreateMainWidget(){
 
 }
 
-// void MainWidget::setUser(QString u)
-// {
-//   user = u;
-// }
-
 
 QString MainWidget::getUser()
 {
