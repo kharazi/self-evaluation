@@ -1,6 +1,6 @@
 #include "dailyrecord.h"
 
-DailyRecord::DailyRecord(QWidget *parent) :
+DailyRecord::DailyRecord(QString u, QWidget *parent) :
     QWidget(parent)
 {
 }

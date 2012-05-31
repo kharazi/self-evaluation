@@ -8,7 +8,7 @@ class Options : public QWidget
 {
     Q_OBJECT
 public:
-    explicit Options(QWidget *parent = 0);
+    explicit Options(QString u, QWidget *parent = 0);
     QGridLayout *layout;
     QTabWidget* tab;
 

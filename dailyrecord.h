@@ -7,7 +7,7 @@ class DailyRecord : public QWidget
 {
     Q_OBJECT
 public:
-    explicit DailyRecord(QWidget *parent = 0);
+    explicit DailyRecord(QString u, QWidget *parent = 0);
 
 signals:
 

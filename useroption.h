@@ -9,6 +9,8 @@
 #include <QMessageBox>
 #include <QSqlQuery>
 #include <QSqlError>
+#include <QVariant>
+
 class UserOption : public QWidget
 {
     Q_OBJECT

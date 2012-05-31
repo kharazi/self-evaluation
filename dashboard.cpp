@@ -1,6 +1,6 @@
 #include "dashboard.h"
 #include <QDebug>
-Dashboard::Dashboard(QWidget *parent) :
+Dashboard::Dashboard(QString u, QWidget *parent) :
     QWidget(parent)
 {
     mainlayout= new QGridLayout;

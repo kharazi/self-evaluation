@@ -25,11 +25,11 @@ class MainWidget : public QWidget
 
 public:
   //    MainWidget();
-    MainWidget();
-    QString* getUser();
+    MainWidget(QString);
+    QString getUser();
 
-
-    void setUser(QString u);
+    QString user;
+    //    void setUser(QString u);
     
 protected:
     void closeEvent(QCloseEvent *event);
@@ -38,7 +38,7 @@ private:
     void createTrayIcon();
 
     QSqlDatabase db;
-    QString *user;
+    
 
     QString myuser;
 

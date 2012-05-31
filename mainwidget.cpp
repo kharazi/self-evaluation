@@ -6,9 +6,9 @@
 #include "options.h"
 #include "dailyrecord.h"
 
-MainWidget::MainWidget()
+MainWidget::MainWidget(QString u)
 {
-
+    user = u;
     createTrayIcon();
     connect(trayIcon, SIGNAL(messageClicked()), this, SLOT(messageClicked()));
     trayIcon->show();
@@ -34,18 +34,17 @@ MainWidget::MainWidget()
     mainLayout->addLayout(buttonsLayout);
     setLayout(mainLayout);
 
-    qDebug()<<"user"<<getUser();
 }
 
 void MainWidget::addPages(){
     //for adding page:
 
     pagesWidget = new QStackedWidget;
-    pagesWidget->addWidget(new Dashboard);
-    pagesWidget->addWidget(new Status);
-    pagesWidget->addWidget(new DailyRecord);
-    pagesWidget->addWidget(new Options);
-    pagesWidget->addWidget(new About);
+    pagesWidget->addWidget(new Dashboard(getUser()));
+    pagesWidget->addWidget(new Status(getUser()));
+    pagesWidget->addWidget(new DailyRecord(getUser()));
+    pagesWidget->addWidget(new Options(getUser()));
+    pagesWidget->addWidget(new About(getUser()));
 
 }
 
@@ -116,13 +115,13 @@ void MainWidget::CreateMainWidget(){
 
 }
 
-void MainWidget::setUser(QString u)
-{
-  user = &u;
-}
+// void MainWidget::setUser(QString u)
+// {
+//   user = u;
+// }
 
 
-QString* MainWidget::getUser()
+QString MainWidget::getUser()
 {
 
   return user;

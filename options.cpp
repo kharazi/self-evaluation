@@ -1,6 +1,6 @@
 #include "options.h"
 #include "useroption.h"
-Options::Options(QWidget *parent) :
+Options::Options(QString u, QWidget *parent) :
     QWidget(parent)
 {
     layout=new QGridLayout;

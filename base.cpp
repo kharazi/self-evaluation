@@ -50,12 +50,13 @@ Base::~Base()
   delete mainwidget;
 }
 
-void Base::authSuccessful(QString user)
+void Base::authSuccessful(QString u)
 {
   auth->close();
   QApplication::setQuitOnLastWindowClosed(false);
-  mainwidget = new MainWidget();
-  mainwidget->setUser(user);
+  qDebug() << u;
+  mainwidget = new MainWidget(u);
+  //  mainwidget->setUser(user);
   mainwidget->show();
 }
 

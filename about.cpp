@@ -1,6 +1,6 @@
 #include "about.h"
 
-About::About(QWidget *parent) :
+About::About(QString u, QWidget *parent) :
     QWidget(parent)
 {
 

@@ -8,7 +8,7 @@ class Status : public QWidget
 {
     Q_OBJECT
 public:
-    explicit Status(QWidget *parent = 0);
+    explicit Status(QString u, QWidget *parent = 0);
     QGridLayout * layout;
 
 signals:

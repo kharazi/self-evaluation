@@ -1,6 +1,6 @@
 #include "status.h"
 
-Status::Status(QWidget *parent) :
+Status::Status(QString u, QWidget *parent) :
     QWidget(parent)
 {
     layout=new QGridLayout;

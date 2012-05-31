@@ -5,6 +5,8 @@
 #include <QSqlDatabase>
 #include <QObject>
 #include "auth.h"
+#include <QDebug>
+
 class Base : public QObject
 {
   Q_OBJECT
@@ -12,18 +14,14 @@ class Base : public QObject
 public:
   Base();
   ~Base();
-  QSqlDatabase database;
 
-
-  //  static QSqlDatabase getdatabase();
 private:
   Auth *auth;
   MainWidget *mainwidget;
   void fillTable();
 
-
 public slots:
-  void authSuccessful(QString user);
+  void authSuccessful(QString u);
 
 };
 

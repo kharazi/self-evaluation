@@ -13,7 +13,7 @@ class Dashboard : public QWidget
 {
     Q_OBJECT
 public:
-    explicit Dashboard(QWidget *parent = 0);
+    explicit Dashboard(QString u, QWidget *parent = 0);
 
     QGridLayout * mainlayout;
     record *re;
