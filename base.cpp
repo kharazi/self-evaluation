@@ -26,15 +26,15 @@ Base::Base()
              "(action_id INTEGER PRIMARY KEY, title VARCHAR(60))");
 
   query.exec("CREATE TABLE actions "
-             "(id INTEGER PRIMARY KEY, action_id INTEGER NOT NULL, username VARCHAR(30) NOT NULL, date DATETIME , rate INT)");
+             "(id INTEGER PRIMARY KEY, action_id INTEGER NOT NULL, username VARCHAR(30) NOT NULL, description TEXT, date INTEGER NOT NULL , rate INTEGER)");
 
 
   fillTable();
 
-  QSqlQuery q("SELECT * FROM action_types");
+  QSqlQuery q("SELECT * FROM actions");
   while (q.next()) {
       QString person = q.value(0).toString();
-      qDebug()<<person;
+      qDebug()<<person << q.value(1).toString() << q.value(2).toString() << q.value(3).toString();
   }
 
   auth = new Auth;

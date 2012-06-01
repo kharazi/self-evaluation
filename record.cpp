@@ -1,10 +1,10 @@
 #include "record.h"
 #include "mainwidget.h"
 #include <QDebug>
-record::record(QWidget *parent) :
+record::record(QString u, QWidget *parent) :
     QWidget(parent)
 {
-
+    user = u;
     createRecordWidget();
 
 }
@@ -17,16 +17,16 @@ void record::createRecordWidget(){
     connect(record_button,SIGNAL(clicked()),this,SLOT(record_button_clicked()));
 
     //set combo box value
-    sidtype =new QComboBox;
-    sidtype->addItem("other");
-//    sidtype->setMaximumWidth(150);
+    action_type =new QComboBox;
+    action_type->addItem("other");
+//    action_type->setMaximumWidth(150);
 
     QSqlQuery q("SELECT title FROM action_types");
     qDebug()<<q.lastError().text();
     if (q.lastError().type()==0){
         while (q.next()) {
             qDebug()<<q.value(0).toString();
-            sidtype->addItem(q.value(0).toString());
+            action_type->addItem(q.value(0).toString());
         }
     }
     else{
@@ -47,18 +47,18 @@ void record::createRecordWidget(){
 //    date->show();
 
     rate = new QSlider(Qt::Horizontal);
-    comment=new QTextEdit(QString::fromUtf8("توضیحات"));
-    comment->setMaximumHeight(100);
+    description=new QTextEdit(QString::fromUtf8("توضیحات"));
+    description->setMaximumHeight(100);
 
     rateLabel = new QLabel("rate");
-    commentLabel = new QLabel("comment");
-    commentLabel->setBuddy(comment);
+    descriptionLabel = new QLabel("description");
+    descriptionLabel->setBuddy(description);
 
     typeLabel = new QLabel("type");
 
-    mainlayout->addWidget(comment, 0, 0,1,1);
-    mainlayout->addWidget(commentLabel, 0, 1,1,1);
-    mainlayout->addWidget(sidtype, 1, 0,1,1);
+    mainlayout->addWidget(description, 0, 0,1,1);
+    mainlayout->addWidget(descriptionLabel, 0, 1,1,1);
+    mainlayout->addWidget(action_type, 1, 0,1,1);
     mainlayout->addWidget(typeLabel, 1, 1,1,1);
     mainlayout->addWidget(rate,2,0,1,1);
     mainlayout->addWidget(date,3,0,1,1);
@@ -70,12 +70,17 @@ void record::createRecordWidget(){
 }
 void record::record_button_clicked(){
 
-
+    int action_id;
     QSqlQuery query;
-    query.prepare("INSERT INTO actions (id,action_id,username, date, rate) VALUES(?,?,?,?,?) ");
+    query.exec(QString("SELECT action_id FROM action_types WHERE title = '%1' ").arg(action_type->currentText()));
+    while (query.next()){
+      action_id = query.value(0).toInt();
+    }
+    query.prepare("INSERT INTO actions (id,action_id, description, username, date, rate) VALUES(?,?,?,?,?,?) ");
     query.addBindValue(QVariant(QVariant::Int));
-    query.addBindValue(1);
-    query.addBindValue("user1");
+    query.addBindValue(action_id);
+    query.addBindValue(user);
+    query.addBindValue(description->toPlainText());
     query.addBindValue("2010-01-20");
     query.addBindValue(rate->value());
     query.exec();

@@ -19,21 +19,22 @@ class record : public QWidget
 {
     Q_OBJECT
 public:
-    explicit record(QWidget *parent = 0);
+    explicit record(QString u, QWidget *parent = 0);
 
 private:
+    QString user;
     void createRecordWidget();
     QPushButton * record_button;
-    QComboBox * sidtype;
+    QComboBox * action_type;
     QGridLayout * mainlayout;
     QGridLayout * ratelayout;
     QFormLayout * formlayout;
     QSlider * rate;
     QDateEdit * date;
     QTimeEdit * time;
-    QTextEdit * comment;
+    QTextEdit * description;
 
-    QLabel *commentLabel;
+    QLabel *descriptionLabel;
     QLabel *typeLabel;
     QLabel * rateLabel;
 

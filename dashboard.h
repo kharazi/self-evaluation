@@ -2,11 +2,7 @@
 #define DASHBOARD_H
 
 #include <QWidget>
-#include <QPushButton>
-#include <QComboBox>
-#include <QSqlDatabase>
-#include <QSqlQuery>
-#include <QGridLayout>
+#include <QHBoxLayout>
 #include "record.h"
 
 class Dashboard : public QWidget
@@ -15,7 +11,7 @@ class Dashboard : public QWidget
 public:
     explicit Dashboard(QString u, QWidget *parent = 0);
 
-    QGridLayout * mainlayout;
+    QHBoxLayout * mainlayout;
     record *re;
 
 

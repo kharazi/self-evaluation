@@ -1,12 +1,11 @@
 #include "dashboard.h"
-#include <QDebug>
+
 Dashboard::Dashboard(QString u, QWidget *parent) :
     QWidget(parent)
 {
-    mainlayout= new QGridLayout;
-    re =new record();
+    mainlayout= new QHBoxLayout;
+    re =new record(u);
     mainlayout->addWidget(re);
     this->setLayout(mainlayout);
 
 }
-
