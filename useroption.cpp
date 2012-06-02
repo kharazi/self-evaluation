@@ -1,7 +1,6 @@
 #include "useroption.h"
-
-
 #include <QDebug>
+
 UserOption::UserOption(QWidget *parent) :
     QWidget(parent)
 {
@@ -57,7 +56,7 @@ void UserOption::change_button_clicked(){
 
     }else{
 
-        //badan age tonestim user namo begirim bezarim ja ali
+        //badan age tonestim user namo begirim bezarim ja vahid
        QSqlQuery query;
        query.exec(QString("SELECT password FROM users WHERE username= '%1' ").arg("vahid"));
        while (query.next()) {

@@ -3,6 +3,8 @@
 
 #include <QWidget>
 #include <QGridLayout>
+#include <QSqlQuery>
+
 
 class Status : public QWidget
 {

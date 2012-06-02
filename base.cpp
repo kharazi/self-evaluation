@@ -26,7 +26,7 @@ Base::Base()
              "(action_id INTEGER PRIMARY KEY, title VARCHAR(60))");
 
   query.exec("CREATE TABLE actions "
-             "(id INTEGER PRIMARY KEY, action_id INTEGER NOT NULL, username VARCHAR(30) NOT NULL, description TEXT, date INTEGER NOT NULL , rate INTEGER)");
+             "(id INTEGER PRIMARY KEY, action_id INTEGER NOT NULL, username VARCHAR(30) NOT NULL, description TEXT, date DATE NOT NULL ,time TIME NOT NULL, rate INTEGER)");
 
 
   fillTable();

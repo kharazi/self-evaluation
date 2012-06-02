@@ -76,14 +76,19 @@ void record::record_button_clicked(){
     while (query.next()){
       action_id = query.value(0).toInt();
     }
-    query.prepare("INSERT INTO actions (id,action_id, description, username, date, rate) VALUES(?,?,?,?,?,?) ");
+    query.prepare("INSERT INTO actions (id,action_id, description, username, date,time, rate) VALUES(?,?,?,?,?,?,?) ");
     query.addBindValue(QVariant(QVariant::Int));
     query.addBindValue(action_id);
     query.addBindValue(user);
     query.addBindValue(description->toPlainText());
     query.addBindValue("2010-01-20");
+    query.addBindValue('10:20');
     query.addBindValue(rate->value());
     query.exec();
+
+
+//    for test
+
     if (query.lastError().type()!=0){
 
         QMessageBox *error = new QMessageBox;
