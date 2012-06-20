@@ -3,63 +3,63 @@
 QDateConvertor::QDateConvertor()
 {
     today =QDateTime::currentDateTime();
-
 }
-
-
 
 int QDateConvertor::div(int a,int b)
 {
     return  (a / b);
 }
-
-QString QDateConvertor::DayName(QString MiladiDayName){
-
-    if (MiladiDayName=="Saturday"){
-        QString dayname = QString::fromUtf8("شنبه");
-        return dayname;
-
-    }
-    if (MiladiDayName=="Sunday"){
-        QString dayname = QString::fromUtf8("یکشنبه");
-        return dayname;
-
-    }
-    if (MiladiDayName=="Monday"){
-        QString dayname = QString::fromUtf8("دوشنبه");
-        return dayname;
-
-    }
-    if (MiladiDayName=="Tuesday"){
-        QString dayname = QString::fromUtf8("سه شنبه");
-        return dayname;
-
-    }
-    if (MiladiDayName=="Wednesday"){
-        QString dayname = QString::fromUtf8("چهار شنبه");
-        return dayname;
-
-    }
-    if (MiladiDayName=="Thursday"){
-        QString dayname = QString::fromUtf8("پنجشنبه");
-        return dayname;
-
-    }
-    if (MiladiDayName=="Friday"){
-        QString dayname = QString::fromUtf8("آدینه");
-        return dayname;
-
-    }
-
+void QDateConvertor::set_months(){
+    Month[1]=QString::fromUtf8("فروردین");
+    Month[2]=QString::fromUtf8("اردیبهشت");
+    Month[3]=QString::fromUtf8("خرداد");
+    Month[4]=QString::fromUtf8("تیر");
+    Month[5]=QString::fromUtf8("مرداد");
+    Month[6]=QString::fromUtf8("شهریور");
+    Month[7]=QString::fromUtf8("مهر");
+    Month[8]=QString::fromUtf8("آبان");
+    Month[9]=QString::fromUtf8("آذر");
+    Month[10]=QString::fromUtf8("دی");
+    Month[11]=QString::fromUtf8("بهمن");
+    Month[12]=QString::fromUtf8("اسفند");
+}
+void QDateConvertor::set_days(){
+    Day["Saturday"]=QString::fromUtf8("شنبه");
+    Day["Sunday"]=QString::fromUtf8("یکشنبه");
+    Day["Monday"]=QString::fromUtf8("دوشنبه");
+    Day["Tuesday"]=QString::fromUtf8("سه شنبه");
+    Day["Wednesday"]=QString::fromUtf8("چهارشنبه");
+    Day["Thursday"]=QString::fromUtf8("پنجشنبه");
+    Day["Friday"]=QString::fromUtf8("آدینه");
 }
 
 bool QDateConvertor::is_leap(int year){
+    int mod;
+    mod=year%33;
+    if (year<=1472 && year >=1343){
+        if (mod == 1 || mod == 5 || mod ==9 || mod == 13 || mod == 17||mod==22||mod==26||mod==23)
+        {
+           return true;
+        }
+        else{
+            return false;
+        }
 
+    }
+    if (year<=1342 && year>=1244 ){
+        if (mod == 1 || mod == 5 || mod ==9 || mod == 13 || mod == 17||mod==22||mod==26||mod==23)
+        {
+           return true;
+        }
+        else{
+            return false;
+        }
+
+    }
 
 }
 
-
-QStringList QDateConvertor::ToJalali(QString year, QString month,QString day ){
+QStringList QDateConvertor::ToJalali(QString year, QString month,QString day){
    int g_y = year.toInt();
    int g_m = month.toInt();
    int g_d = day.toInt();
@@ -75,13 +75,13 @@ QStringList QDateConvertor::ToJalali(QString year, QString month,QString day ){
    }
 
    if (gm>1 && ((gy%4==0 && gy%100!=0) || (gy%400==0)))
-          /* leap and after Feb */
+          //leap and after Feb
           g_day_no++;
           g_day_no += gd;
     int j_day_no = g_day_no-79;
-    int  j_np = div(j_day_no, 12053); /* 12053 = 365*33 + 32/4 */
+    int  j_np = div(j_day_no, 12053); // 12053 = 365*33 + 32/4
     j_day_no = j_day_no % 12053;
-    int jy = 979+33*j_np+4*div(j_day_no,1461); /* 1461 = 365*4 + 4/4 */
+    int jy = 979+33*j_np+4*div(j_day_no,1461);// 1461 = 365*4 + 4/4
     j_day_no %= 1461;
 
      if (j_day_no >= 366) {
@@ -96,11 +96,10 @@ QStringList QDateConvertor::ToJalali(QString year, QString month,QString day ){
      int  jm = ii+2;
      int  jd = j_day_no+1;
      QStringList jalali;
-     jalali << QString::number(jy) << QString::number(jm)<< QString::number(jd) ;
+     set_months();
+     jalali << QString::number(jy) << QString::number(jm)<< QString::number(jd)<< Month[jm] ;
      return jalali;
     }
-
-
 
 QStringList QDateConvertor::ToMiladi(QString year, QString month,QString day ){
     //set Date
@@ -191,13 +190,11 @@ QStringList QDateConvertor::ToMiladi(QString year, QString month,QString day ){
     QStringList mymiladiDate;
     mymiladiDate <<QString::number(miladiDate[0])<<QString::number(miladiDate[1])<<QString::number(miladiDate[2]);
     return mymiladiDate;
-
-
 }
 
-
 QStringList QDateConvertor::Today(){
+   set_days();
    QStringList Date=  this->ToJalali( today.toString("yyyy"), today.toString("MM"),today.toString("dd"));
-   Date<<this->DayName(today.toString("dddd"));
+   Date<<Day[today.toString("dddd")];
    return Date;
 }
