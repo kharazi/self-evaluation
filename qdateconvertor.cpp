@@ -3,6 +3,16 @@
 QDateConvertor::QDateConvertor()
 {
     today =QDateTime::currentDateTime();
+            DayNumber["Saturday"]=1;
+            DayNumber["Sunday"]=2;
+            DayNumber["Monday"]=3;
+            DayNumber["Tuesday"]=4;
+            DayNumber["Wednesday"]=5;
+            DayNumber["Thursday"]=6;
+            DayNumber["Friday"]=7;
+
+
+
 }
 
 int QDateConvertor::div(int a,int b)
@@ -197,4 +207,13 @@ QStringList QDateConvertor::Today(){
    QStringList Date=  this->ToJalali( today.toString("yyyy"), today.toString("MM"),today.toString("dd"));
    Date<<Day[today.toString("dddd")];
    return Date;
+}
+
+
+QStringList QDateConvertor::get_week(QString year, QString month,QString day){
+
+
+
+    QStringList list;
+    return list;
 }

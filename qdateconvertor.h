@@ -81,6 +81,7 @@ private:
     void set_months();
     void set_days();
     QMap<int,QString> Month;
+    QMap<QString,int> DayNumber;
     QMap<QString,QString> Day;
 public:
     QDateConvertor();
@@ -88,6 +89,7 @@ public:
     QStringList ToJalali(QString year, QString month,QString day);//year,month and day in Miladi system
     QStringList ToMiladi(QString year, QString month,QString day);//year,month and day in Jalali system
     QStringList Today();//return Jalali currentDateTime
+    QStringList get_week(QString year, QString month,QString day);
     QDateTime today;//today =QDateTime::currentDateTime();// Miladi
 };
 #endif // QDATECONVERTOR_H
