@@ -3,6 +3,7 @@
 QDateConvertor::QDateConvertor()
 {
     today =QDateTime::currentDateTime();
+    emroz=QDate::currentDate();
             DayNumber["Saturday"]=1;
             DayNumber["Sunday"]=2;
             DayNumber["Monday"]=3;
@@ -10,8 +11,17 @@ QDateConvertor::QDateConvertor()
             DayNumber["Wednesday"]=5;
             DayNumber["Thursday"]=6;
             DayNumber["Friday"]=7;
+    int emrozJd=emroz.toJulianDay();
+    int diff=(7-DayNumber[emroz.toString("dddd")])+emrozJd;
+    QDate LastDayOfWeekDate=QDate::fromJulianDay(diff);
+    LastDayOfWeek=ToJalali(LastDayOfWeekDate.toString("yyyy"),LastDayOfWeekDate.toString("MM"),LastDayOfWeekDate.toString("dd"));
+    qDebug()<<LastDayOfWeek;
 
+    QDate FirstDayOfWeekDate=QDate::fromJulianDay(emrozJd-DayNumber[emroz.toString("dddd")]+1);
 
+    FirstDayOfWeek=ToJalali(FirstDayOfWeekDate.toString("yyyy"),FirstDayOfWeekDate.toString("MM"),FirstDayOfWeekDate.toString("dd"));
+
+    qDebug()<<FirstDayOfWeek;
 
 }
 

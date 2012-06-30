@@ -28,6 +28,8 @@ Base::Base()
   query.exec("CREATE TABLE actions "
              "(id INTEGER PRIMARY KEY, action_id INTEGER NOT NULL, username VARCHAR(30) NOT NULL, description TEXT, date DATE NOT NULL ,time TIME NOT NULL, rate INTEGER)");
 
+  query.exec("CREATE TABLE hadith "
+             "(hadith_id INTEGER PRIMARY KEY,action_id INTEGER NOT NULL,narrator TEXT,hadith_text TEXT)");
 
   fillTable();
 
@@ -69,4 +71,12 @@ void Base::fillTable(){
     query.addBindValue(QString::fromUtf8("hah ")+QString::number(1) );
     query.exec();
     qDebug() << query.lastError();
+
+
+    query.prepare("INSERT INTO hadith (hadith_id,action_id,narrator, hadith_text) VALUES(?,?, ?, ?) ");
+    query.addBindValue(QVariant(QVariant::Int));
+    query.addBindValue(QString::fromUtf8("hah ")+QString::number(1) );
+    query.addBindValue(QString::fromUtf8("من گفتم"));
+    query.addBindValue(QString::fromUtf8("کار بد نکن پسر بابا"));
+    query.exec();
 }

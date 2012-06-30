@@ -65,7 +65,7 @@ Status::Status(QString u, QWidget *parent) :
     ////////////////////////////////////////////////////////////////////////////////
 
 //////////////////////////////////////////////////////////////////////////////////koli
-    query.exec("SELECT action_id,COUNT(id) FROM actions GROUP BY action_id");
+    query.exec("SELECT action_id,COUNT(id) FROM actions WHERE actions.username='vahid' GROUP BY action_id");
     QHash<int,int> Statistics;
     while (query.next()) {
         Statistics[ query.value(0).toInt()]= query.value(1).toInt();
@@ -116,7 +116,7 @@ Status::Status(QString u, QWidget *parent) :
     qDebug()<<"darsade action 13(emsal):"<<thisYearStatisticsPercent[13];
 
 /////////////////////////////////////////////////////////////////in mah
-    query.exec(QString("SELECT action_id,COUNT(id) FROM actions WHERE actions.date LIKE'%1-%2-%' GROUP BY action_id ").arg(today.at(0)).arg(today.at(1)));
+    query.exec(QString("SELECT action_id,COUNT(id) FROM actions WHERE actions.date LIKE'%1-%2-%' AND actions.username='vahid' GROUP BY action_id ").arg(today.at(0)).arg(today.at(1)));
     QHash<int,int> thisMounthStatistics;
     while (query.next()) {
         thisMounthStatistics[ query.value(0).toInt()]= query.value(1).toInt();
@@ -146,9 +146,30 @@ Status::Status(QString u, QWidget *parent) :
 
 
 
+//////////////////////////////////////////////////////////////////
+    for (int i=0;i<24;i++){
+        query.exec(QString("SELECT COUNT(id) FROM actions WHERE actions.time LIKE '%1%' AND actions.username='vahid'").arg(i));
 
+        while (query.next()) {
+            qDebug()<<"tedad gonah dar saat "<<i<<"="<<query.value(0).toInt();
+        }
+    }
 
+    for (int i=0;i<24;i++){
+        query.exec(QString("SELECT COUNT(id) FROM actions WHERE actions.time LIKE '%1%' AND actions.date LIKE'%2%' AND actions.username='vahid'").arg(i).arg(today.at(0)));
 
+        while (query.next()) {
+            qDebug()<<"tedad gonah dar saat(emsal) "<<i<<"="<<query.value(0).toInt();
+        }
+    }
+
+    for (int i=0;i<24;i++){
+        query.exec(QString("SELECT COUNT(id) FROM actions WHERE actions.time LIKE '%1%' AND actions.date LIKE'%2-%3-%' AND actions.username='vahid'").arg(i).arg(today.at(0)).arg(today.at(1)));
+
+        while (query.next()) {
+            qDebug()<<"tedad gonah dar saat(inmah) "<<i<<"="<<query.value(0).toInt();
+        }
+    }
 
 
 }
