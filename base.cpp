@@ -28,15 +28,16 @@ Base::Base()
   query.exec("CREATE TABLE actions "
              "(id INTEGER PRIMARY KEY, action_id INTEGER NOT NULL, username VARCHAR(30) NOT NULL, description TEXT, date DATE NOT NULL ,time TIME NOT NULL, rate INTEGER)");
 
-
+  
   fillTable();
 
   QSqlQuery q("SELECT * FROM actions");
+  qDebug() << "********";
   while (q.next()) {
       QString person = q.value(0).toString();
-      qDebug()<<person << q.value(1).toString() << q.value(2).toString() << q.value(3).toString();
+      qDebug()<<person << q.value(1).toString() << q.value(2).toString() << q.value(3).toString() << q.value(4).toString() << q.value(5).toString() << q.value(6).toString() << endl;
   }
-
+  qDebug() << "********";
   auth = new Auth;
   auth->show();
   connect(auth, SIGNAL(authSuccessful(QString)), this, SLOT(authSuccessful(QString)));
@@ -69,4 +70,15 @@ void Base::fillTable(){
     query.addBindValue(QString::fromUtf8("hah ")+QString::number(1) );
     query.exec();
     qDebug() << query.lastError();
+    
+    query.prepare("INSERT INTO actions (id, action_id, username, description, date, time, rate) VALUES(?, ?, ?, ?, ?, ?, ?) ");
+    query.addBindValue(QVariant(QVariant::Int));
+    query.addBindValue(1);
+    query.addBindValue("sina");
+    query.addBindValue("something");
+    query.addBindValue("2000-11-14");
+    query.addBindValue("12:34");
+    query.addBindValue(3);
+    query.exec();
+    qDebug() << query.lastError().text();
 }

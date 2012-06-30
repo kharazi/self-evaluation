@@ -11,5 +11,7 @@
         <file>images/hizom.png</file>
         <file>images/key.png</file>
         <file>images/key-32.png</file>
+	<file>images/add.png</file>
+	<file>images/remove.png</file>
     </qresource>
 </RCC>
