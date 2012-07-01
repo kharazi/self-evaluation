@@ -22,7 +22,17 @@ QDateConvertor::QDateConvertor()
     FirstDayOfWeek=ToJalali(FirstDayOfWeekDate.toString("yyyy"),FirstDayOfWeekDate.toString("MM"),FirstDayOfWeekDate.toString("dd"));
 
     qDebug()<<FirstDayOfWeek;
+    firstdayofweek=FirstDayOfWeek.at(0)+"-"+FirstDayOfWeek.at(1)+"-"+FirstDayOfWeek.at(2);
+    lastdayofweek=LastDayOfWeek.at(0)+"-"+LastDayOfWeek.at(1)+"-"+LastDayOfWeek.at(2);
 
+}
+QString QDateConvertor::nRoz(int n){
+    QDate date;
+    int emrozJd=emroz.toJulianDay();
+    date=QDate::fromJulianDay(emrozJd+n);
+    QStringList NROZ=ToJalali(date.toString("yyyy"),date.toString("MM"),date.toString("dd"));
+    QString returnString=NROZ.at(0)+"-"+NROZ.at(1)+"-"+NROZ.at(2);
+    return returnString;
 }
 
 int QDateConvertor::div(int a,int b)

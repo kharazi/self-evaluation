@@ -14,6 +14,7 @@
 #include <QDate>
 #include <QGroupBox>
 #include "base.h"
+#include "qdateconvertor.h"
 
 class record : public QWidget
 {

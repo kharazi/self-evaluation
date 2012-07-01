@@ -14,14 +14,16 @@ private:
     void get_data();
     void get_hadith();
     void get_date();
+    void CreateDashboardWidget();
 public:
     explicit Dashboard(QString u, QWidget *parent = 0);
-
+    QString user;
     QVBoxLayout * mainlayout;
     record *re;
     QLabel * DateLable;
     QLabel* HadithLable;
     QLabel * statusLable;
+    QLabel * mostLabel;
 
     QDateConvertor date;
     QStringList today;

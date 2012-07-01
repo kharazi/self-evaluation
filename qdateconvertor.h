@@ -86,8 +86,11 @@ private:
     QMap<QString,QString> Day;
 
 public:
+
     QStringList FirstDayOfWeek;//in Jalali system
     QStringList LastDayOfWeek;//Jalali
+    QString firstdayofweek;
+    QString lastdayofweek;
     QDateConvertor();
     bool is_leap(int year);//year is in Jalali system in range:[1244,1472]
     QStringList ToJalali(QString year, QString month,QString day);//year,month and day in Miladi system
@@ -96,6 +99,7 @@ public:
     QStringList get_week(QString year, QString month,QString day);
     QDateTime today;//today =QDateTime::currentDateTime();// Miladi
     QDate emroz;
+    QString nRoz(int n);
 
 
 };

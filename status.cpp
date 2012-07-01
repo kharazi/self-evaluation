@@ -28,12 +28,18 @@ Status::Status(QString u, QWidget *parent) :
 //              ////////////////////////////////////////////////////////
 
 
+   query.exec(QString("SELECT COUNT(actions.id) FROM actions WHERE actions.username='vahid'AND actions.date LIKE'%1-%2-%3'").arg(today.at(0)).arg(today.at(1)).arg(today.at(2)));
+          while (query.next()) {
+              qDebug()<<"tedade emroz:"<< query.value(0).toString();
+          }
 
 
     query.exec(QString("SELECT COUNT(actions.id) FROM actions WHERE actions.username='vahid'AND actions.date LIKE'%1-%2-%'").arg(today.at(0)).arg(today.at(1)));
     while (query.next()) {
         qDebug()<<"tedade in mah:"<< query.value(0).toString();
     }
+
+
 
 
     query.exec(QString("SELECT SUM(actions.rate) FROM actions WHERE actions.username='vahid'AND actions.date LIKE'%1-%2-%'").arg(today.at(0)).arg(today.at(1)));
@@ -124,7 +130,7 @@ Status::Status(QString u, QWidget *parent) :
     QList<int>Mounth;
     l=thisMounthStatistics.values();
     qSort(Mounth.begin(),Mounth.end());
-    qDebug()<<"bishtarin:"<<thisMounthStatistics.key(l.last());
+    qDebug()<<"bishtarin in mahhhhh:"<<thisMounthStatistics.key(l.last());
 
 
     //darsad giri sayer
