@@ -69,11 +69,11 @@ void Base::fillTable(){
   //this function for test
   //and to set defualt sid in start
     QSqlQuery query;
-    query.prepare("INSERT INTO action_types (action_id, title) VALUES(?, ?) ");
-    query.addBindValue(QVariant(QVariant::Int));
-    query.addBindValue(QString::fromUtf8("hah ")+QString::number(1) );
-    query.exec();
-    qDebug() << query.lastError();
+//    query.prepare("INSERT INTO action_types (action_id, title) VALUES(?, ?) ");
+//    query.addBindValue(QVariant(QVariant::Int));
+//    query.addBindValue(QString::fromUtf8("hah ")+QString::number(1) );
+//    query.exec();
+//    qDebug() << query.lastError();
 
 
     query.prepare("INSERT INTO hadith (hadith_id,action_id,narrator, hadith_text) VALUES(?,?, ?, ?) ");

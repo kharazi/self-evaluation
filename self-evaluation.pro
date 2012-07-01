@@ -23,7 +23,8 @@ SOURCES += main.cpp\
     aboutselfevaluationtab.cpp \
     helptab.cpp \
     useroption.cpp \
-    qdateconvertor.cpp
+    qdateconvertor.cpp \
+    hadithoption.cpp
 
 HEADERS  += mainwidget.h \
     dashboard.h \
@@ -38,7 +39,8 @@ HEADERS  += mainwidget.h \
     aboutselfevaluationtab.h \
     helptab.h \
     useroption.h \
-    qdateconvertor.h
+    qdateconvertor.h \
+    hadithoption.h
 
 RESOURCES += \
     files.qrc

@@ -6,7 +6,6 @@ record::record(QString u, QWidget *parent) :
 {
     user = u;
     createRecordWidget();
-
 }
 
 void record::createRecordWidget(){
@@ -69,7 +68,7 @@ void record::createRecordWidget(){
 
 }
 void record::record_button_clicked(){
-
+    //when record button clicked -> Dashboard::getdata()
     int action_id;
     QSqlQuery query;
     query.exec(QString("SELECT action_id FROM action_types WHERE title = '%1' ").arg(action_type->currentText()));

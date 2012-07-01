@@ -7,7 +7,6 @@ Dashboard::Dashboard(QString u, QWidget *parent) :
     CreateDashboardWidget();
 
     today= date.Today();
-
     get_date();
     get_hadith();
     get_data();
