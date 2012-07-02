@@ -121,14 +121,7 @@ void record::createRecordWidget(){
         error->setWindowTitle("Error");
         error->exec();
     }
-
-
-
 //    date->show();
-
-
-
-
 }
 void record::record_button_clicked(){
     //when record button clicked -> Dashboard::getdata()
@@ -172,6 +165,6 @@ void record::record_button_clicked(){
         error->exec();
     }else{
         description->setText(QString::fromUtf8("توضیحات:"));
-        rate->value(5);
+        rate->setValue(5);
     }
 }

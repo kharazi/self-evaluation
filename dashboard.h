@@ -6,6 +6,8 @@
 #include <QLabel>
 #include "record.h"
 #include "qdateconvertor.h"
+#include "nightcharts.h"
+
 
 class Dashboard : public QWidget
 {
@@ -28,6 +30,9 @@ public:
     QDateConvertor date;
     QStringList today;
     QSqlQuery query;
+
+    void paintEvent(QPaintEvent *);
+
 
 
 signals:

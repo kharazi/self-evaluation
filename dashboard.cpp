@@ -1,5 +1,4 @@
 #include "dashboard.h"
-
 Dashboard::Dashboard(QString u, QWidget *parent) :
     QWidget(parent)
 {
@@ -11,6 +10,27 @@ Dashboard::Dashboard(QString u, QWidget *parent) :
     get_data();
 
 }
+
+void Dashboard::paintEvent(QPaintEvent *e)
+{
+    QWidget::paintEvent(e);
+    QPainter painter;
+    QFont font;
+    painter.begin(this);
+    Nightcharts PieChart;
+    PieChart.setType(Nightcharts::Histogramm);//{Histogramm,Pie,DPie};
+    PieChart.setLegendType(Nightcharts::Vertical);//{Round,Vertical}
+    PieChart.setCords(5,80,270,170);
+    PieChart.addPiece("Item1",QColor(200,10,50),20);
+    PieChart.addPiece(QString::fromUtf8("سلام"),Qt::green,10);
+    PieChart.addPiece("Item3",Qt::cyan,10);
+    PieChart.addPiece("Item4",Qt::yellow,10);
+    PieChart.addPiece("Item5",Qt::blue,10);
+    PieChart.addPiece("Item6",Qt::black,10);
+    PieChart.addPiece("Item7",Qt::white,10);
+    PieChart.draw(&painter);
+    PieChart.drawLegend(&painter);
+    }
 void Dashboard::CreateDashboardWidget(){
 
     mainlayout= new QVBoxLayout;
