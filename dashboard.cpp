@@ -5,13 +5,10 @@ Dashboard::Dashboard(QString u, QWidget *parent) :
 {
     user=u;
     CreateDashboardWidget();
-
     today= date.Today();
     get_date();
     get_hadith();
     get_data();
-
-
 
 }
 void Dashboard::CreateDashboardWidget(){

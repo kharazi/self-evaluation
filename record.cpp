@@ -161,7 +161,6 @@ void record::record_button_clicked(){
     qDebug()<<"day is:"<<day->value();
     qDebug()<<"action id is:"<<action_id;
     qDebug()<<description->toPlainText();
-
 //    for test
     if (query.lastError().type()!=0){
 
@@ -171,7 +170,8 @@ void record::record_button_clicked(){
         error->setIcon(QMessageBox::Warning);
         error->setWindowTitle("Error");
         error->exec();
+    }else{
+        description->setText(QString::fromUtf8("توضیحات:"));
+        rate->value(5);
     }
-
-
 }
