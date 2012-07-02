@@ -309,7 +309,7 @@ int Nightcharts::draw(QPainter *painter)
             pen.setColor(pieces[i].rgbColor);
             painter->setPen(pen);
             painter->drawRect(cX+pDist+i*(pW + pDist),cY+cH,pW,-cH/100*pieces[i].pPerc-5);
-            QString label = QString::number(pieces[i].pPerc)+"%";
+            QString label = QString::number(pieces[i].pPerc)/*+"%"*/;//ino man comment kardam
             painter->setPen(Qt::SolidLine);
             painter->drawText(cX+pDist+i*(pW + pDist)+pW/2-painter->fontMetrics().width(label)/2,cY+cH-cH/100*pieces[i].pPerc-painter->fontMetrics().height()/2,label);
         }
@@ -370,7 +370,7 @@ int Nightcharts::drawLegend(QPainter *painter)
             float x = lX+dist;
             float y = lY+dist+i*(painter->fontMetrics().height()+2*dist);
             painter->drawRect(x,y,painter->fontMetrics().height(),painter->fontMetrics().height());
-            painter->drawText(x+painter->fontMetrics().height()+dist,y+painter->fontMetrics().height()/2+dist,pieces[i].pname + " - " + QString::number(pieces[i].pPerc));
+            painter->drawText(x+painter->fontMetrics().height()+dist,y+painter->fontMetrics().height()/2+dist,pieces[i].pname /*+ " - " + QString::number(pieces[i].pPerc)*/);//ino man comment kaardam
         }
         break;
     }
@@ -389,7 +389,7 @@ int Nightcharts::drawLegend(QPainter *painter)
                 p_.setY(p_.y()+pW/2);
             }
             painter->drawLine(p.x(),p.y(),p_.x(),p_.y());
-            QString label = pieces[i].pname + " - " + QString::number(pieces[i].pPerc)+"%";
+            QString label = pieces[i].pname + " - " + QString::number(pieces[i].pPerc)/*+"%"*/;//ino man comment kardam
             float recW = painter->fontMetrics().width(label)+10;
             float recH = painter->fontMetrics().height()+10;
             p_.setX(p_.x()-recW/2 + recW/2*cos(angle*M_PI/180));

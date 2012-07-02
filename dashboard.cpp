@@ -3,6 +3,7 @@ Dashboard::Dashboard(QString u, QWidget *parent) :
     QWidget(parent)
 {
     user=u;
+    get_chart_data();
     CreateDashboardWidget();
     today= date.Today();
     get_date();
@@ -10,9 +11,33 @@ Dashboard::Dashboard(QString u, QWidget *parent) :
     get_data();
 
 }
+void Dashboard::get_chart_data(){
+    for (int i=0;i>-7;i--){
+        query.exec(QString("SELECT COUNT(actions.id) FROM actions WHERE actions.date LIKE'%1' AND actions.username='%2'").arg(date.nRoz(i)).arg(user));
+        while (query.next()) {
+            chart_data[7+i]=query.value(0).toInt();
+            qDebug()<<query.value(0).toString();
+        }
+
+//        qDebug()<<date.nRoz(i);
+    }
+    for (int i=1;i<8;i++){
+        qDebug()<<chart_data[i];
+    }
+
+
+
+
+
+
+
+
+
+}
 
 void Dashboard::paintEvent(QPaintEvent *e)
 {
+    qDebug()<<"salam";
     QWidget::paintEvent(e);
     QPainter painter;
     QFont font;
@@ -20,14 +45,14 @@ void Dashboard::paintEvent(QPaintEvent *e)
     Nightcharts PieChart;
     PieChart.setType(Nightcharts::Histogramm);//{Histogramm,Pie,DPie};
     PieChart.setLegendType(Nightcharts::Vertical);//{Round,Vertical}
-    PieChart.setCords(5,80,270,170);
-    PieChart.addPiece("Item1",QColor(200,10,50),20);
-    PieChart.addPiece(QString::fromUtf8("سلام"),Qt::green,10);
-    PieChart.addPiece("Item3",Qt::cyan,10);
-    PieChart.addPiece("Item4",Qt::yellow,10);
-    PieChart.addPiece("Item5",Qt::blue,10);
-    PieChart.addPiece("Item6",Qt::black,10);
-    PieChart.addPiece("Item7",Qt::white,10);
+    PieChart.setCords(5,80,270,180);
+    PieChart.addPiece(date.nRoz(6),QColor(200,10,50),chart_data[1]);
+    PieChart.addPiece(date.nRoz(5),Qt::green,chart_data[2]);
+    PieChart.addPiece(date.nRoz(4),Qt::cyan,chart_data[3]);
+    PieChart.addPiece(date.nRoz(3),Qt::yellow,chart_data[4]);
+    PieChart.addPiece(date.nRoz(2),Qt::blue,chart_data[5]);
+    PieChart.addPiece(date.nRoz(1),Qt::black,chart_data[6]);
+    PieChart.addPiece(date.nRoz(0),Qt::white,chart_data[7]);
     PieChart.draw(&painter);
     PieChart.drawLegend(&painter);
     }

@@ -16,6 +16,7 @@ private:
     void get_data();
     void get_hadith();
     void get_date();
+    void get_chart_data();
     void CreateDashboardWidget();
 public:
     explicit Dashboard(QString u, QWidget *parent = 0);
@@ -26,6 +27,8 @@ public:
     QLabel* HadithLable;
     QLabel * statusLable;
     QLabel * mostLabel;
+
+    QMap<int,int> chart_data;
 
     QDateConvertor date;
     QStringList today;
