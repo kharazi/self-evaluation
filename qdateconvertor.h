@@ -81,12 +81,11 @@ private:
     int div(int,int);
     void set_months();
     void set_days();
-    QMap<int,QString> Month;
     QMap<QString,int> DayNumber;
     QMap<QString,QString> Day;
 
 public:
-
+    QMap<int,QString> Month;
     QStringList FirstDayOfWeek;//in Jalali system
     QStringList LastDayOfWeek;//Jalali
     QString firstdayofweek;

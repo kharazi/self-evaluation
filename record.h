@@ -7,11 +7,12 @@
 #include <QComboBox>
 #include <QFormLayout>
 #include <QSlider>
+#include <QSpinBox>
 #include <QLabel>
-#include <QDateEdit>
 #include <QTimeEdit>
 #include <QTextEdit>
 #include <QDate>
+#include <QTime>
 #include <QGroupBox>
 #include "base.h"
 #include "qdateconvertor.h"
@@ -21,6 +22,8 @@ class record : public QWidget
     Q_OBJECT
 public:
     explicit record(QString u, QWidget *parent = 0);
+    QStringList today;
+    QDateConvertor date;
 
 private:
     QString user;
@@ -28,12 +31,17 @@ private:
     QPushButton * record_button;
     QComboBox * action_type;
     QGridLayout * mainlayout;
-    QGridLayout * ratelayout;
-    QFormLayout * formlayout;
     QSlider * rate;
-    QDateEdit * date;
     QTimeEdit * time;
     QTextEdit * description;
+
+    QTime  currenttime;
+    QSpinBox *year;
+    QComboBox *month;
+    QSpinBox * day;
+
+    QSpinBox *hour;
+    QSpinBox *min;
 
     QLabel *descriptionLabel;
     QLabel *typeLabel;

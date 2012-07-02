@@ -51,7 +51,7 @@ void HadithOption::record_button_clicked(){
         QMessageBox *error = new QMessageBox;
         error->setText(QString::fromUtf8("حدیث شما با موفقیت ذخیره شد."));
         error->setIcon(QMessageBox::Warning);
-        error->setWindowTitle("ذخیره");
+        error->setWindowTitle(QString::fromUtf8("ذخیره"));
         error->exec();
         narrator->setText(QString::fromUtf8("گوینده"));
         hadith->setText(QString::fromUtf8("متن حدیث"));
