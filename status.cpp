@@ -4,8 +4,9 @@
 Status::Status(QString u, QWidget *parent) :
     QWidget(parent)
 {
-    layout=new QGridLayout;
-    this->setLayout(layout);
+    user =u;
+
+    CreateStatusWidget();
 
     qDebug()<<rand()%10;
 //    for (int i=0;i<500;i++){
@@ -188,3 +189,27 @@ int Status::get_count_of_action(int action)
     }
 }
 
+
+
+void Status::CreateStatusWidget(){
+    tab =new QTabWidget;
+    tab->addTab(new HistogrammChart_Month_t_Total(user),QString::fromUtf8("درباره"));
+
+    layout = new QGridLayout;
+    layout->addWidget(tab);
+
+    this->setLayout(layout);
+
+
+
+
+
+
+}
+
+void Status::draw_chart_button_clicked(){
+
+
+
+
+}

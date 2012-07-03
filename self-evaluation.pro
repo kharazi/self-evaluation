@@ -25,7 +25,8 @@ SOURCES += main.cpp\
     useroption.cpp \
     qdateconvertor.cpp \
     hadithoption.cpp \
-    nightcharts.cpp
+    nightcharts.cpp \
+    histogrammchart_month_t_total.cpp
 
 HEADERS  += mainwidget.h \
     dashboard.h \
@@ -42,7 +43,8 @@ HEADERS  += mainwidget.h \
     useroption.h \
     qdateconvertor.h \
     hadithoption.h \
-    nightcharts.h
+    nightcharts.h \
+    histogrammchart_month_t_total.h
 
 RESOURCES += \
     files.qrc

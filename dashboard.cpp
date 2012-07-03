@@ -65,12 +65,14 @@ void Dashboard::CreateDashboardWidget(){
     QLabel * statusLabelTitle=new QLabel(QString::fromUtf8("<b>وضعیت من:</b>"));
     statusLable=new QLabel();
     re =new record(user);
+
     mainlayout->addWidget(DateLable,0,Qt::AlignCenter);
     mainlayout->addWidget(HadithLable);
     mainlayout->addWidget(statusLabelTitle);
     mainlayout->addWidget(statusLable,0,Qt::AlignRight);
     mainlayout->addWidget(mostLabel,0,Qt::AlignRight);
     mainlayout->addWidget(re);
+
     this->setLayout(mainlayout);
 
 }
