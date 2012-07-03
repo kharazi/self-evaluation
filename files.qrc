@@ -11,7 +11,13 @@
         <file>images/hizom.png</file>
         <file>images/key.png</file>
         <file>images/key-32.png</file>
-	<file>images/add.png</file>
-	<file>images/remove.png</file>
+        <file>images/add.png</file>
+        <file>images/remove.png</file>
+        <file>images/About.png</file>
+        <file>images/DailyRecord.png</file>
+        <file>images/Dashboard.png</file>
+        <file>images/Setting.png</file>
+        <file>images/Status.png</file>
+        <file>images/Status-pie.png</file>
     </qresource>
 </RCC>

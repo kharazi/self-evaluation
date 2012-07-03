@@ -37,7 +37,6 @@ void Dashboard::get_chart_data(){
 
 void Dashboard::paintEvent(QPaintEvent *e)
 {
-    qDebug()<<"salam";
     QWidget::paintEvent(e);
     QPainter painter;
     QFont font;
@@ -46,12 +45,12 @@ void Dashboard::paintEvent(QPaintEvent *e)
     PieChart.setType(Nightcharts::Histogramm);//{Histogramm,Pie,DPie};
     PieChart.setLegendType(Nightcharts::Vertical);//{Round,Vertical}
     PieChart.setCords(5,80,270,180);
-    PieChart.addPiece(date.nRoz(6),QColor(200,10,50),chart_data[1]);
-    PieChart.addPiece(date.nRoz(5),Qt::green,chart_data[2]);
-    PieChart.addPiece(date.nRoz(4),Qt::cyan,chart_data[3]);
-    PieChart.addPiece(date.nRoz(3),Qt::yellow,chart_data[4]);
-    PieChart.addPiece(date.nRoz(2),Qt::blue,chart_data[5]);
-    PieChart.addPiece(date.nRoz(1),Qt::black,chart_data[6]);
+    PieChart.addPiece(date.nRoz(-6),QColor(200,10,50),chart_data[1]);
+    PieChart.addPiece(date.nRoz(-5),Qt::green,chart_data[2]);
+    PieChart.addPiece(date.nRoz(-4),Qt::cyan,chart_data[3]);
+    PieChart.addPiece(date.nRoz(-3),Qt::yellow,chart_data[4]);
+    PieChart.addPiece(date.nRoz(-2),Qt::blue,chart_data[5]);
+    PieChart.addPiece(date.nRoz(-1),Qt::black,chart_data[6]);
     PieChart.addPiece(date.nRoz(0),Qt::white,chart_data[7]);
     PieChart.draw(&painter);
     PieChart.drawLegend(&painter);

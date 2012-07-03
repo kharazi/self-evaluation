@@ -13,10 +13,11 @@ MainWidget::MainWidget(QString u)
     connect(trayIcon, SIGNAL(messageClicked()), this, SLOT(messageClicked()));
     trayIcon->show();
     
+
     CreateMainWidget();
     addPages();
-
     createMenuIcons();
+
 
     horizontalLayout = new QHBoxLayout;
     horizontalLayout->setDirection(QBoxLayout::RightToLeft);
@@ -52,32 +53,32 @@ void MainWidget::createMenuIcons()
 {
     //this function for adding icon to pages
     QListWidgetItem *configButton = new QListWidgetItem(menu);
-    configButton->setIcon(QIcon(":/images/config.png"));
-    configButton->setText(QString::fromUtf8("داشبورد"));
+    configButton->setIcon(QIcon(":/images/Dashboard.png"));
+    configButton->setText(QString::fromUtf8("پیشخوان"));
     configButton->setTextAlignment(Qt::AlignHCenter);
     configButton->setFlags(Qt::ItemIsSelectable | Qt::ItemIsEnabled);
 
     QListWidgetItem *statusButton = new QListWidgetItem(menu);
-    statusButton->setIcon(QIcon(":/images/update.png"));
+    statusButton->setIcon(QIcon(":/images/Status.png"));
     statusButton->setText(QString::fromUtf8("استاتوس"));
     statusButton->setTextAlignment(Qt::AlignHCenter);
     statusButton->setFlags(Qt::ItemIsSelectable | Qt::ItemIsEnabled);
 
     QListWidgetItem *dailyRecordButton = new QListWidgetItem(menu);
-    dailyRecordButton->setIcon(QIcon(":/images/update.png"));
+    dailyRecordButton->setIcon(QIcon(":/images/DailyRecord.png"));
     dailyRecordButton->setText(QString::fromUtf8("ثبت روزانه"));
     dailyRecordButton->setTextAlignment(Qt::AlignHCenter);
     dailyRecordButton->setFlags(Qt::ItemIsSelectable | Qt::ItemIsEnabled);
 
     QListWidgetItem *optionButton = new QListWidgetItem(menu);
-    optionButton->setIcon(QIcon(":/images/query.png"));
+    optionButton->setIcon(QIcon(":/images/Setting.png"));
     optionButton->setText(QString::fromUtf8("‍‍‍‍‍تنظیمات"));
     optionButton->setTextAlignment(Qt::AlignHCenter);
     optionButton->setFlags(Qt::ItemIsSelectable | Qt::ItemIsEnabled);
 
 
     QListWidgetItem *aboutButton = new QListWidgetItem(menu);
-    aboutButton->setIcon(QIcon(":/images/update.png"));
+    aboutButton->setIcon(QIcon(":/images/About.png"));
     aboutButton->setText(QString::fromUtf8("درباره"));
     aboutButton->setTextAlignment(Qt::AlignHCenter);
     aboutButton->setFlags(Qt::ItemIsSelectable | Qt::ItemIsEnabled);
