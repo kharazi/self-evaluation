@@ -194,6 +194,7 @@ int Status::get_count_of_action(int action)
 void Status::CreateStatusWidget(){
     tab =new QTabWidget;
     tab->addTab(new HistogrammChart_Month_t_Total(user),QString::fromUtf8("درباره"));
+    tab->addTab(new HistogrammChart_Month_t_Total_inAction(user),QString::fromUtf8("درباره"));
 
     layout = new QGridLayout;
     layout->addWidget(tab);

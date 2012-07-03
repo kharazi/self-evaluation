@@ -12,6 +12,7 @@
 #include <QComboBox>
 #include "qdateconvertor.h"
 #include "histogrammchart_month_t_total.h"
+#include "histogrammchart_month_t_total_inaction.h"
 
 
 class Status : public QWidget
