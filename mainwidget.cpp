@@ -191,7 +191,7 @@ void MainWidget::createTrayIcon()
     trayIcon->setContextMenu(trayIconMenu);
 
     //setting system tray Icon
-    QIcon icon= QIcon(":/images/icon1.png");
+    QIcon icon= QIcon(":/images/icon3.png");
     trayIcon->setIcon(icon);
     //setting windows Icon
     this->setWindowIcon(icon);

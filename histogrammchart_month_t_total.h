@@ -4,7 +4,7 @@
 #include <QWidget>
 #include <QLabel>
 #include <QSpinBox>
-#include <QGridLayout>
+#include <QFormLayout>
 #include <QComboBox>
 #include "nightcharts.h"
 #include "qdateconvertor.h"
@@ -24,9 +24,10 @@ public:
 
 
     QSpinBox * year;
-    QComboBox *month;
 
-    void Create_Widget();
+    QHash <int, int> month;
+
+    void get_data();
 
 signals:
 

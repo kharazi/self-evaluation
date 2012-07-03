@@ -19,9 +19,10 @@
         <file>images/Setting.png</file>
         <file>images/Status.png</file>
         <file>images/Status-pie.png</file>
-        <file>images/icon.ico</file>
         <file>images/icon.png</file>
         <file>images/icon1.png</file>
         <file>images/icon2.png</file>
+        <file>images/icon3.png</file>
+        <file>images/icon4.png</file>
     </qresource>
 </RCC>
