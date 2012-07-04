@@ -27,7 +27,12 @@ SOURCES += main.cpp\
     hadithoption.cpp \
     nightcharts.cpp \
     histogrammchart_month_t_total.cpp \
-    histogrammchart_month_t_total_inaction.cpp
+    histogrammchart_month_t_total_inaction.cpp \
+    dchart_percent_of_action.cpp \
+    histogrammchart_day_of_month.cpp \
+    histogrammchart_hour_of_day.cpp \
+    histogrammchart_hour_of_day_monthly.cpp \
+    histogrammchart_weekly.cpp
 
 HEADERS  += mainwidget.h \
     dashboard.h \
@@ -46,7 +51,12 @@ HEADERS  += mainwidget.h \
     hadithoption.h \
     nightcharts.h \
     histogrammchart_month_t_total.h \
-    histogrammchart_month_t_total_inaction.h
+    histogrammchart_month_t_total_inaction.h \
+    dchart_percent_of_action.h \
+    histogrammchart_day_of_month.h \
+    histogrammchart_hour_of_day.h \
+    histogrammchart_hour_of_day_monthly.h \
+    histogrammchart_weekly.h
 
 RESOURCES += \
     files.qrc

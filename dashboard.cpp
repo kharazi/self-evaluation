@@ -60,7 +60,9 @@ void Dashboard::CreateDashboardWidget(){
     mainlayout= new QVBoxLayout;
     DateLable =new QLabel;
     HadithLable=new QLabel(QString::fromUtf8("حدیث"));
-    HadithLable->setMaximumWidth(700);
+    HadithLable->setWordWrap(true);
+    HadithLable->resize(minimumSize());
+
     mostLabel = new QLabel;
     QLabel * statusLabelTitle=new QLabel(QString::fromUtf8("<b>وضعیت من:</b>"));
     statusLable=new QLabel();

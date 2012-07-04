@@ -21,7 +21,12 @@ Auth::Auth()
    stackedWidget->addWidget(defaultWidget);
    mainLayout->addWidget(stackedWidget);
    setLayout(mainLayout);
-   resize(350, 200);
+   this->setWindowTitle(QString::fromUtf8("ورود"));
+   this->setWindowOpacity(0.95);
+   resize(400, 200);
+   QPalette palette;
+   palette.setBrush(this->backgroundRole(), QBrush(QImage(":/images/backg.jpg")));
+   this->setPalette(palette);
 }
 
 
@@ -49,19 +54,19 @@ void Auth::createDefaultWidget()
   QGridLayout *layout = new QGridLayout;
   layout->setOriginCorner(Qt::TopRightCorner);
   
-  QLabel *descLabel = new QLabel("Please enter your login information. \
-If this is the first time you're using this software you have to sign up.");
+  QLabel *descLabel = new QLabel(QString::fromUtf8(" لطفا نام کاربری و کلمه عبور خود را وارد کنید."
+"اگر برای نخستین بار از این نرم افزار استفاده می کنید یک حساب کاربری جدید ایجاد کنید."));
   descLabel->setWordWrap(true);
   descLabel->resize(descLabel->minimumSize());
-  QLabel *userLabel = new QLabel(" :Username");
-  QLabel *passLabel = new QLabel(" :Password");
+  QLabel *userLabel = new QLabel(QString::fromUtf8("نام کاربری:"));
+  QLabel *passLabel = new QLabel(QString::fromUtf8("کلمه عبور:"));
   
   user = new QLineEdit;
   pass = new QLineEdit;
   pass->setEchoMode(QLineEdit::Password);
 
-  QPushButton *signInButton = new QPushButton("Sign In");
-  QPushButton *signUpButton = new QPushButton("Sign Up");
+  QPushButton *signInButton = new QPushButton(QString::fromUtf8("ورود"));
+  QPushButton *signUpButton = new QPushButton(QString::fromUtf8("ایجاد حساب کاربری"));
   signInButton->setDefault(true);
   connect(signInButton, SIGNAL(clicked()), this, SLOT(checkAuth()));
   connect(signUpButton, SIGNAL(clicked()), this, SLOT(changePage()));
@@ -86,12 +91,12 @@ void Auth::createSignUpWidget()
   QGridLayout *layout = new QGridLayout;
   layout->setOriginCorner(Qt::TopRightCorner);
 
-  QLabel *userLabel = new QLabel(" :Username");
-  QLabel *passLabel = new QLabel(" :Password");
+  QLabel *userLabel = new QLabel(QString::fromUtf8("نام کاربری:"));
+  QLabel *passLabel = new QLabel(QString::fromUtf8("کلمه عبور:"));
 
-  QPushButton *backButton = new QPushButton("Back");
-  QPushButton *submitButton = new QPushButton("Submit");
-  QPushButton *clearButton = new QPushButton("Clear");
+  QPushButton *backButton = new QPushButton(QString::fromUtf8("بازگشت"));
+  QPushButton *submitButton = new QPushButton(QString::fromUtf8("ایجاد"));
+  QPushButton *clearButton = new QPushButton(QString::fromUtf8("پاک کن"));
   connect(backButton, SIGNAL(clicked()), this, SLOT(changePage()));
   connect(submitButton, SIGNAL(clicked()), this, SLOT(submit()));
   connect(clearButton, SIGNAL(clicked()), this, SLOT(clearForm()));
@@ -128,9 +133,9 @@ void Auth::checkAuth()
       emit authSuccessful(user->text());
     else {
       QMessageBox *error = new QMessageBox;
-      error->setText("Login unsuccessful, please try again!");
+      error->setText(QString::fromUtf8("ورود ناموفق بود. لطفا دوباره تلاش کنید."));
       error->setIcon(QMessageBox::Warning);
-      error->setWindowTitle("Error");
+      error->setWindowTitle(QString::fromUtf8("خطا"));
       error->exec();
     }
   }

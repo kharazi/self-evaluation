@@ -46,7 +46,6 @@ HistogrammChart_Month_t_Total_inAction::HistogrammChart_Month_t_Total_inAction(Q
     layout->addWidget(year);
     layout->addWidget(action_type);
     layout->addWidget(draw);
-     get_data();
 
 
 

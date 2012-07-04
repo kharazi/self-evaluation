@@ -23,7 +23,6 @@ HistogrammChart_Month_t_Total::HistogrammChart_Month_t_Total(QString u,QWidget *
     connect(draw,SIGNAL(clicked()),this,SLOT(draw_cliked()));
     layout->addWidget(year);
     layout->addWidget(draw);
-    get_data();
 //    layout->setLabelAlignment(Qt::AlignRight);
 
 

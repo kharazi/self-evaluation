@@ -1,6 +1,13 @@
 #include "status.h"
 #include <QDebug>
 #include <algorithm>
+#include "dchart_percent_of_action.h"
+#include "dpchart_percent_of_action.h"
+#include "histogrammchart_day_of_month.h"
+#include "histogrammchart_hour_of_day.h"
+#include "histogrammchart_hour_of_day_monthly.h"
+//#include "dchart_percent_of_action_yearly.h"
+
 Status::Status(QString u, QWidget *parent) :
     QWidget(parent)
 {
@@ -11,7 +18,7 @@ Status::Status(QString u, QWidget *parent) :
     qDebug()<<rand()%10;
 //    for (int i=0;i<500;i++){
 //    query.exec(QString("INSERT INTO actions(action_id, username, description, date,time, rate)"
-//                       "VALUES(%1,'vahid','inam ye tozih','1391-%2-%3','%4:30','%5');").arg(rand()%14).arg(rand()%12).arg(rand()%30).arg(rand()%23).arg(rand()%100));
+//                       "VALUES(%1,'v','inam ye tozih','1391-%2-%3','%4:30','%5');").arg(rand()%14).arg(rand()%12).arg(rand()%30).arg(rand()%23).arg(rand()%100));
 
 //    }
     //sum rate
@@ -193,8 +200,19 @@ int Status::get_count_of_action(int action)
 
 void Status::CreateStatusWidget(){
     tab =new QTabWidget;
-    tab->addTab(new HistogrammChart_Month_t_Total(user),QString::fromUtf8("درباره"));
-    tab->addTab(new HistogrammChart_Month_t_Total_inAction(user),QString::fromUtf8("درباره"));
+//    tab->addTab(new DChart_percent_of_action(user),"jkg");
+    tab->addTab(new HistogrammChart_Month_t_Total(user),QString::fromUtf8("نمودار"));
+    tab->addTab(new HistogrammChart_Month_t_Total_inAction(user),QString::fromUtf8("نمودار"));
+    tab->addTab(new DChart_percent_of_action(user),QString::fromUtf8("نمودار"));
+    tab->addTab(new HistogrammChart_Day_of_Month(user),QString::fromUtf8("نمودار"));
+    tab->addTab(new HistogrammChart_Hour_Of_Day(user),QString::fromUtf8("نمودار"));
+    tab->addTab(new HistogrammChart_Hour_Of_Day_monthly(user),QString::fromUtf8("نمودار")   );
+//    tab->addTab(new DChart_percent_of_action_yearly(user),"dsd");
+
+
+
+
+//    ‌
 
     layout = new QGridLayout;
     layout->addWidget(tab);

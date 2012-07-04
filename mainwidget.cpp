@@ -106,9 +106,9 @@ void MainWidget::CreateMainWidget(){
     //    QPushButton *closeButton = new QPushButton(QString::fromUtf8("بستن"));
     //    connect(closeButton, SIGNAL(clicked()), this, SLOT(close()));
 
-    this->resize(800,400);
+    this->resize(840,400);
     this->setWindowOpacity(0.97);
-    setWindowTitle(QString::fromUtf8("سامانه خود سنجی"));
+    setWindowTitle(QString::fromUtf8("سامانه محاسبه ی نفس"));
     QPalette palette;
     palette.setBrush(this->backgroundRole(), QBrush(QImage(":/images/backg.jpg")));
     this->setPalette(palette);

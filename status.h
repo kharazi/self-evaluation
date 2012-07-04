@@ -32,7 +32,6 @@ public:
     QComboBox *month;
 
     QDateConvertor date;
-
     QTabWidget* tab;
 
 signals:

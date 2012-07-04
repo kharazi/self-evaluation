@@ -68,7 +68,7 @@ void Base::authSuccessful(QString u)
 void Base::fillTable(){
   //this function for test
   //and to set defualt sid in start
-//    QSqlQuery query;
+    QSqlQuery query;
 //    for (int i=0;i<14;i++){
 //        query.prepare("INSERT INTO action_types (action_id, title) VALUES(?, ?) ");
 //        query.addBindValue(QVariant(QVariant::Int));
