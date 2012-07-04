@@ -3,6 +3,7 @@
 DailyRecord::DailyRecord(QString u, QWidget *parent) :
     QWidget(parent)
 {
+    user = u;
     actionsModel = new QSqlRelationalTableModel;
 
     actionsModel->setEditStrategy(QSqlTableModel::OnManualSubmit);
@@ -24,18 +25,20 @@ DailyRecord::DailyRecord(QString u, QWidget *parent) :
 }
 
 
+QString DailyRecord::getUser() { return user; }
+
+
 void DailyRecord::createPage()
 {
-    QComboBox *typeEdit = new QComboBox;
     QTextEdit *descriptionEdit = new QTextEdit;
+    descriptionEdit->setAcceptRichText(false);
     QDateEdit *dateEdit = new QDateEdit;
     QTimeEdit *timeEdit = new QTimeEdit;
     QSlider *rateEdit = new QSlider(Qt::Horizontal);
 
-    connect(actionsModel, SIGNAL(primeInsert(int, QSqlRecord&)), this, SLOT(initializeRow(int, QSqlRecord&)));
+    //    connect(actionsModel, SIGNAL(primeInsert(int, QSqlRecord&)), this, SLOT(initializeRow(int, QSqlRecord&)));
 
     mapper->setModel(actionsModel);
-    mapper->addMapping(typeEdit, 1);
     mapper->addMapping(descriptionEdit, 3);
     mapper->addMapping(dateEdit, 4);
     mapper->addMapping(timeEdit, 5);
@@ -60,7 +63,7 @@ void DailyRecord::createPage()
     table->horizontalHeader()->setStretchLastSection(true);
     table->setSelectionMode(QAbstractItemView::SingleSelection);
     table->setSelectionBehavior(QAbstractItemView::SelectRows);
-    table->setEditTriggers(QAbstractItemView::NoEditTriggers);
+    //    table->setEditTriggers(QAbstractItemView::NoEditTriggers);
     table->selectRow(0);
     connect(table->selectionModel(), SIGNAL(currentRowChanged(QModelIndex,QModelIndex)), mapper, SLOT(setCurrentModelIndex(QModelIndex)));
 
@@ -70,22 +73,20 @@ void DailyRecord::createPage()
     QLabel *timeLabel = new QLabel("Time");
     QLabel *rateLabel = new QLabel("Rate");
 
-    QPushButton *submitIt = new QPushButton("Submit It");
+    QPushButton *submitIt = new QPushButton("Submit");
     connect(submitIt, SIGNAL(clicked()), actionsModel, SLOT(submitAll()));
-    mainLayout->addWidget(typeLabel, 0, 0);
-    mainLayout->addWidget(typeEdit, 0, 1);
     mainLayout->addWidget(descriptionLabel, 1, 0);
-    mainLayout->addWidget(descriptionEdit, 1, 1);
-    mainLayout->addWidget(dateLabel, 2, 0);
-    mainLayout->addWidget(dateEdit, 2, 1);
-    mainLayout->addWidget(timeLabel, 2, 2);
-    mainLayout->addWidget(timeEdit, 2, 3);
-    mainLayout->addWidget(rateLabel, 3, 0);
-    mainLayout->addWidget(rateEdit, 3, 1);
-    mainLayout->addWidget(addRowButton, 3, 2);
-    mainLayout->addWidget(removeRowButton, 3, 3);
-    mainLayout->addWidget(table, 4, 0, 4, 2);
-    mainLayout->addWidget(submitIt, 4, 3);
+    mainLayout->addWidget(descriptionEdit, 1, 1, 2, 3);
+    mainLayout->addWidget(dateLabel, 3, 0);
+    mainLayout->addWidget(dateEdit, 3, 1, 3, 2);
+    mainLayout->addWidget(timeLabel, 3, 3);
+    mainLayout->addWidget(timeEdit, 3, 4, 3, 5);
+    mainLayout->addWidget(rateLabel, 5, 0);
+    mainLayout->addWidget(rateEdit, 6, 1);
+    mainLayout->addWidget(addRowButton, 6, 3);
+    mainLayout->addWidget(removeRowButton, 6, 4);
+    mainLayout->addWidget(table, 7, 1, 8, 4);
+    mainLayout->addWidget(submitIt, 9, 6);
     this->setLayout(mainLayout);
 
     connect(actionsModel, SIGNAL(rowsInserted(QModelIndex, int, int)), this, SLOT(selectFirstRow()));
@@ -94,14 +95,79 @@ void DailyRecord::createPage()
 
 void DailyRecord::addRow()
 {
-  actionsModel->insertRows(0, 1);
+  QSqlQuery query;
+    query.prepare("INSERT INTO actions (id, action_id, username, description, date, time, rate) VALUES(?, ?, ?, ?, ?, ?, ?) ");
+    query.addBindValue(QVariant(QVariant::Int));
+    query.addBindValue(0);
+    query.addBindValue(getUser());
+    //    query.addBindValue("");
+    query.addBindValue("2030-11-14");
+    query.addBindValue("15:36");
+    query.addBindValue(50);
+    query.exec();
+    actionsModel->submitAll();
+  // record.setValue("id", QVariant(100));
+  // record.setValue("action_id", QVariant(5));
+  // record.setValue("user", getUser());
+  // record.setValue("date", "1993-10-03");
+  // record.setValue("time", "15:31");
+  // qDebug() <<  record.value("action_id").toInt()  << record.value("user").toString();
+  // actionsModel->submitAll();
+
+  //qDebug() << actionsModel->lastError().text() << " <- before";
+  //actionsModel->insertRows(0, 1);
+//    actionsModel->submitAll();
+//   QSqlRecord record;
+//   QSqlField f1("id", QVariant::Int);
+//   QSqlField f2("action_id", QVariant::Int);
+// n  QSqlField f3("date", QVariant::String);
+//   QSqlField f4("time", QVariant::String);
+//   QSqlField f5("user", QVariant::String);
+//   f1.setValue(QVariant(20));
+//   f2.setValue(QVariant(15));
+//   f3.setValue(QVariant("1992-11-06"));
+//   f4.setValue(QVariant("14:14"));
+//   f5.setValue(QVariant(user));
+//   record.append(f1);
+//   record.append(f2);
+//   record.append(f3);
+//   record.append(f4);
+//   record.append(f5);
+//   // record.setValue("id", QVariant(QVariant::Int));
+//   // record.setValue("action_id", 5);
+//   // record.setValue("description", "what the?");
+//   // record.setValue("user", getUser());
+//   // record.setValue("date", "1993-10-03");
+//   // record.setValue("time", "15:31");
+//   // record.setValue("rate", 20);
+//   qDebug() << record.value("id").toInt() << record.value("action_id").toInt()
+//   	   << record.value("description").toString() << record.value("user").toString()
+//   	   << record.value("date").toString() << record.value("time").toString() 
+//   	   << record.value("rate").toInt();
+
+
+//   qDebug() << actionsModel->insertRecord(0, record);
+//   actionsModel->submitAll();
+//   qDebug() << record.value("id").toInt() << record.value("action_id").toInt()
+//   	   << record.value("description").toString() << record.value("user").toString()
+//   	   << record.value("date").toString() << record.value("time").toString() 
+//   	   << record.value("rate").toInt();
+//   qDebug() << record.isNull(1) << "its Null";
+//   qDebug() << actionsModel->lastError().text();
+
 }
 
 
-void DailyRecord::initializeRow(int row, QSqlRecord& record)
-{
+// void DailyRecord::initializeRow(int row, QSqlRecord& record)
+// {
+//     // QSqlQuery query;
+//     // // query.exec("SELECT * FROM actions ORDER BY id DESCENDING");
+//     // // qDebug() << query.value(0).toInt();
+//     // // qDebug() << query.next();
+//     // // qDebug() << query.value(0).toInt();
 
-}
+//     // qDebug() << actionsModel->lastError();
+// }
 
 
 void DailyRecord::removeRow()

@@ -3,6 +3,7 @@
 
 #include <QWidget>
 #include <QGridLayout>
+#include <QVariant>
 #include <QSqlQuery>
 #include <QSqlError>
 #include <QHash>

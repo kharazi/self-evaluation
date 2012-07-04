@@ -1,0 +1,2 @@
+#!/bin/bash
+python /home/s1na/self-evaluation/ui_cmd.py "$@"

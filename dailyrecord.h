@@ -4,9 +4,12 @@
 #include <QWidget>
 #include <QGridLayout>
 #include <QSqlRelationalTableModel>
+#include <QSqlQuery>
 #include <QSqlRelation>
+#include <QSqlError>
 #include <QSqlRelationalDelegate>
 #include <QSqlRecord>
+#include <QSqlField>
 #include <QComboBox>
 #include <QTextEdit>
 #include <QDateEdit>
@@ -27,10 +30,10 @@ class DailyRecord : public QWidget
     Q_OBJECT
 public:
     explicit DailyRecord(QString u, QWidget *parent = 0);
-
+    QString getUser();
 private:
     void createPage();
-
+    QString user;
     QGridLayout *mainLayout;
     QSqlRelationalTableModel *actionsModel;
     QDataWidgetMapper *mapper;
@@ -39,7 +42,7 @@ signals:
 
 public slots:
     void addRow();
-    void initializeRow(int, QSqlRecord&);
+    //    void initializeRow(int, QSqlRecord&);
     void removeRow();
     void selectFirstRow();
 };
