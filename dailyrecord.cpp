@@ -70,6 +70,7 @@ void DailyRecord::createPage()
 
     QTextEdit *descriptionEdit = new QTextEdit;
     descriptionEdit->setAcceptRichText(false);
+    descriptionEdit->setMaximumHeight(200);
     QLineEdit *dateEdit = new QLineEdit;
 
 //    dateEdit->setMinimumDate(QDate(1390,0,0));
@@ -121,18 +122,23 @@ void DailyRecord::createPage()
 
     QPushButton *submitIt = new QPushButton(QString::fromUtf8("ذخیره "));
     connect(submitIt, SIGNAL(clicked()), actionsModel, SLOT(submitAll()));
-    mainLayout->addWidget(descriptionLabel, 1, 0);
-    mainLayout->addWidget(descriptionEdit, 1, 1, 2, 3);
-    mainLayout->addWidget(dateLabel, 3, 0);
-    mainLayout->addWidget(dateEdit, 3, 1, 3, 2);
-    mainLayout->addWidget(timeLabel, 3, 3);
-    mainLayout->addWidget(timeEdit, 3, 4, 3, 5);
-    mainLayout->addWidget(rateLabel, 5, 0);
-    mainLayout->addWidget(rateEdit, 6, 1);
-    mainLayout->addWidget(addRowButton, 6, 3);
-    mainLayout->addWidget(removeRowButton, 6, 4);
-    mainLayout->addWidget(table, 7, 1, 8, 4);
-    mainLayout->addWidget(submitIt, 9, 6);
+    mainLayout->addWidget(descriptionLabel, 0, 0,1,1);
+    mainLayout->addWidget(descriptionEdit, 0, 1, 1, 6);
+
+//    mainLayout->setColumnMinimumWidth(2,100);
+    mainLayout->setColumnMinimumWidth(4,300);
+    mainLayout->addWidget(dateLabel, 2, 0,1,1);
+    mainLayout->addWidget(dateEdit, 2, 1, 1, 1);
+    mainLayout->addWidget(timeLabel, 2, 2,1,1);
+    mainLayout->addWidget(timeEdit, 2, 3, 1, 1);
+    mainLayout->addWidget(rateLabel, 3, 0,1,1);
+    mainLayout->addWidget(rateEdit, 3, 1,1,1);
+    mainLayout->addWidget(addRowButton, 4,5,1,1);
+    mainLayout->addWidget(removeRowButton, 4, 6,1,1);
+    mainLayout->addWidget(submitIt, 4, 1,1,1);
+    mainLayout->addWidget(table, 5, 0, 5, 7);
+
+
 //     mainLayout->addWidget(year,10,1);
 //    mainLayout->addWidget(month,10,2);
 //    mainLayout->addWidget(day,10,3);
@@ -153,12 +159,15 @@ void DailyRecord::addRow()
     query.addBindValue(QVariant(QVariant::Int));
     query.addBindValue(0);
     query.addBindValue(getUser());
-    //    query.addBindValue("");
-    query.addBindValue("2030-11-14");
-    query.addBindValue("15:36");
+    query.addBindValue(QString::fromUtf8("بدون توضیح"));
+    qDebug()<<"alllllllllllllllllllllllllan"<<date.nRoz(0)<<date.today.toString("hh:mm");
+    query.addBindValue(date.nRoz(0));
+    query.addBindValue(date.today.toString("hh:mm"));
+
     query.addBindValue(50);
     query.exec();
     actionsModel->submitAll();
+    qDebug()<<"EROOOOOOOOOOOOOOOOOOOOOOOOOOOOOOR" << query.lastError() << actionsModel->lastError();
   // record.setValue("id", QVariant(100));
   // record.setValue("action_id", QVariant(5));
   // record.setValue("user", getUser());
