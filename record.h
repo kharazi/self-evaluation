@@ -51,10 +51,11 @@ private:
 
     QGroupBox* recordGroup;
 
-
+    QWidget *parent;
 
 signals:
-
+    void getData();
+    void getChartData();
 public slots:
     void record_button_clicked();
 

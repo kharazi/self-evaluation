@@ -1,9 +1,10 @@
 #include "record.h"
 #include "mainwidget.h"
 #include <QDebug>
-record::record(QString u, QWidget *parent) :
-    QWidget(parent)
+record::record(QString u, QWidget *parent_) :
+    QWidget(parent_)
 {
+    parent = parent_;
     user = u;
     today=date.Today();
     createRecordWidget();
@@ -101,7 +102,8 @@ void record::createRecordWidget(){
 
 
     connect(record_button,SIGNAL(clicked()),this,SLOT(record_button_clicked()));
-
+    connect(this, SIGNAL(getData()), parent, SLOT(get_data()));
+    connect(this, SIGNAL(getChartData()), parent, SLOT(get_chart_data()));
     //set combo box value
     //action_type->setMaximumWidth(150);
 
@@ -125,7 +127,7 @@ void record::createRecordWidget(){
 }
 void record::record_button_clicked(){
     //when record button clicked -> Dashboard::getdata()
-
+  
     int action_id=0;
     QSqlQuery query;
     query.exec(QString("SELECT action_id FROM action_types WHERE title = '%1' ").arg(action_type->currentText()));
@@ -167,4 +169,7 @@ void record::record_button_clicked(){
         description->setText(QString::fromUtf8("توضیحات:"));
         rate->setValue(5);
     }
+    //    parent->get_data();
+    emit(getData());
+    emit(getChartData());
 }

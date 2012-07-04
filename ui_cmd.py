@@ -59,29 +59,26 @@ elif cmd == 'addaction':
     c.execute("INSERT INTO actions (id, action_id, username, description, date, time, rate) VALUES(?,?,?,?,?,?,?) ", t)
 
     
-elif cmd == 'listactions' :
+elif cmd == 'list' :
     (opts, args) = getOptsArgs(shortOptions, longOptions)
-    c.execute("SELECT * FROM actions")
-    sys.stdout.write( "id\taid\tuser\tdescription\tdate\t\ttime\trate\n")
+    if len(args) >1:
+        errorExit("Cannot accept more than one table")
+    table = args[0]
+    if table == 'actions':
+        c.execute("SELECT * FROM actions")
+        sys.stdout.write( "id\taid\tuser\tdescription\tdate\t\ttime\trate\n")
+    elif table == 'action_types':
+        c.execute("SELECT * FROM action_types")
+        sys.stdout.write("aid\ttitle\n")
+    elif table == 'users':
+        c.execute("SELECT username FROM users")
     for row in c:
         for i in row:
-            sys.stdout.write(str(i)+"\t")
+            try:
+                sys.stdout.write(str(i)+"\t")
+            except UnicodeEncodeError:
+                pass
         print
-
-elif cmd == 'listtypes' :
-    (opts, args) = getOptsArgs(shortOptions, longOptions)
-    c.execute("SELECT * FROM action_types")
-    sys.stdout.write("aid\ttitle\n")
-    for row in c:
-        for i in row:
-            sys.stdout.write(str(i)+"\t")
-        print
-
-elif cmd == 'listusers' :
-    (opts, args) = getOptsArgs(shortOptions, longOptions)
-    c.execute("SELECT username FROM users")
-    for row in c:
-        print ' '.join(row)
 
 elif cmd == 'adduser' :
     (opts, args) = getOptsArgs(shortOptions+"p:", longOptions)

@@ -2,6 +2,7 @@
 Dashboard::Dashboard(QString u, QWidget *parent) :
     QWidget(parent)
 {
+  test = 2;
     user=u;
     get_chart_data();
     CreateDashboardWidget();
@@ -24,7 +25,7 @@ void Dashboard::get_chart_data(){
     for (int i=1;i<8;i++){
         qDebug()<<chart_data[i];
     }
-
+    this->update();
 
 
 
@@ -66,7 +67,7 @@ void Dashboard::CreateDashboardWidget(){
     mostLabel = new QLabel;
     QLabel * statusLabelTitle=new QLabel(QString::fromUtf8("<b>وضعیت من:</b>"));
     statusLable=new QLabel();
-    re =new record(user);
+    re =new record(user, this);
 
     mainlayout->addWidget(DateLable,0,Qt::AlignCenter);
     mainlayout->addWidget(HadithLable);
