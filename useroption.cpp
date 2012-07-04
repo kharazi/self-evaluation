@@ -1,9 +1,10 @@
 #include "useroption.h"
 #include <QDebug>
 
-UserOption::UserOption(QWidget *parent) :
+UserOption::UserOption(QString u,QWidget *parent) :
     QWidget(parent)
 {
+    user=u;
     CreateUserOption();
     connect(change,SIGNAL(clicked()),this,SLOT(change_button_clicked()));
 
@@ -23,16 +24,16 @@ void UserOption::CreateUserOption(){
 
 //       label = new QLabel("change password");
 
-    prePassLabel= new QLabel(tr("prePass"));
+    prePassLabel= new QLabel(QString::fromUtf8("رمز"));
     prePassLabel->setBuddy(prePass);
 
-    newPassLabel = new QLabel(tr("newPass"));
+    newPassLabel = new QLabel(QString::fromUtf8("رمز جدید"));
     newPassLabel->setBuddy(newPass);
 
-    verificationPassLabel = new QLabel("verificationPass");
+    verificationPassLabel = new QLabel(QString::fromUtf8("تایید رمز"));
     verificationPassLabel->setBuddy(verificationPass);
 
-    change=new QPushButton(QString::fromUtf8("change"));
+    change=new QPushButton(QString::fromUtf8("تغییر دادن"));
 //    mainlayout->addWidget(label, 0, 0,1,1);
     mainlayout->addWidget(prePassLabel, 1, 1,1,1);
     mainlayout->addWidget(prePass, 1, 0,1,1);
@@ -58,18 +59,18 @@ void UserOption::change_button_clicked(){
 
         //badan age tonestim user namo begirim bezarim ja vahid
        QSqlQuery query;
-       query.exec(QString("SELECT password FROM users WHERE username= '%1' ").arg("vahid"));
+       query.exec(QString("SELECT password FROM users WHERE username= '%1' ").arg(user));
        while (query.next()) {
            qDebug()<< query.value(0).toString();
            if (query.value(0).toString()==prePass->text()){
-                 query.exec(QString("UPDATE users SET password='%1' WHERE password='%2' AND username = '%3' ").arg(newPass->text()).arg(query.value(0).toString()).arg("vahid"));
+                 query.exec(QString("UPDATE users SET password='%1' WHERE password='%2' AND username = '%3' ").arg(newPass->text()).arg(query.value(0).toString()).arg(user));
                  if (query.lastError().type()==0){
                      prePass->setText("");
                      newPass->setText("");
                      verificationPass->setText("");
 
                      QMessageBox *error = new QMessageBox;
-                     error->setText("sucsessfull;your password changed");
+                     error->setText(QString::fromUtf8(".همه فیلد ها را با دقت وارد کنید"));
                      qDebug() << query.lastError();
                      error->setIcon(QMessageBox::Information);
                      error->setWindowTitle("Information");
@@ -80,10 +81,10 @@ void UserOption::change_button_clicked(){
            }else{
 
                QMessageBox *error = new QMessageBox;
-               error->setText("password not correct");
+               error->setText(QString::fromUtf8("رمز عبور صحیح نمی باشد."));
                qDebug() << query.lastError();
                error->setIcon(QMessageBox::Warning);
-               error->setWindowTitle("Error");
+               error->setWindowTitle(QString::fromUtf8("خطا"));
                error->exec();
 
            }
@@ -92,10 +93,10 @@ void UserOption::change_button_clicked(){
         if (query.lastError().type()!=0){
 
             QMessageBox *error = new QMessageBox;
-            error->setText("there is a problem; Cannot update Database ");
+            error->setText(QString::fromUtf8("خطا در اتصال به پایگاه داده. مجددا تلاش کنید!"));
             qDebug() << query.lastError();
             error->setIcon(QMessageBox::Warning);
-            error->setWindowTitle("Error");
+            error->setWindowTitle(QString::fromUtf8("خطا"));
             error->exec();
 
         }

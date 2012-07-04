@@ -15,10 +15,10 @@ class UserOption : public QWidget
 {
     Q_OBJECT
 public:
-    explicit UserOption(QWidget *parent = 0);
+    explicit UserOption(QString,QWidget *parent = 0);
 private:
     QGridLayout *mainlayout;
-
+    QString user;
     QLabel * label;
     QLabel *prePassLabel;
     QLabel *newPassLabel;

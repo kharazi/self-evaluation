@@ -6,9 +6,9 @@ Options::Options(QString u, QWidget *parent) :
 {
     mainLayout=new QGridLayout;
     tab =new QTabWidget;
-    tab->addTab(new UserOption,QString::fromUtf8("تنظیمات کاربری"));
+    tab->addTab(new UserOption(u),QString::fromUtf8("تنظیمات کاربری"));
     tab->addTab(new HadithOption,QString::fromUtf8("افزودن حدیث"));
-    tab->addTab(new QWidget, "Types");
+    tab->addTab(new QWidget, QString::fromUtf8("افزودن گناه"));
     mainLayout->addWidget(tab);
     this->setLayout(mainLayout);
     createTypesPage();

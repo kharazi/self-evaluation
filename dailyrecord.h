@@ -23,8 +23,10 @@
 #include <QHeaderView>
 #include <QAbstractItemView>
 #include <QModelIndex>
+#include <QLineEdit>
 #include <QDebug>
-
+#include <QSpinBox>
+#include "qdateconvertor.h"
 class DailyRecord : public QWidget
 {
     Q_OBJECT
@@ -38,6 +40,14 @@ private:
     QSqlRelationalTableModel *actionsModel;
     QDataWidgetMapper *mapper;
     QTableView *table;
+    QSpinBox * year;
+    QDateConvertor date;
+    QStringList today;
+    QSpinBox * hour;
+    QSpinBox * min;
+    QSpinBox * day;
+
+    QComboBox * month;
 signals:
 
 public slots:

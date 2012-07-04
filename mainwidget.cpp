@@ -60,7 +60,7 @@ void MainWidget::createMenuIcons()
 
     QListWidgetItem *statusButton = new QListWidgetItem(menu);
     statusButton->setIcon(QIcon(":/images/Status.png"));
-    statusButton->setText(QString::fromUtf8("استاتوس"));
+    statusButton->setText(QString::fromUtf8("کارنامه"));
     statusButton->setTextAlignment(Qt::AlignHCenter);
     statusButton->setFlags(Qt::ItemIsSelectable | Qt::ItemIsEnabled);
 

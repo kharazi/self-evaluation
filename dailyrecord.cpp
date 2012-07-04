@@ -5,7 +5,7 @@ DailyRecord::DailyRecord(QString u, QWidget *parent) :
 {
     user = u;
     actionsModel = new QSqlRelationalTableModel;
-
+    today=date.Today();
     actionsModel->setEditStrategy(QSqlTableModel::OnManualSubmit);
     actionsModel->setTable("actions");
     actionsModel->setRelation(1, QSqlRelation("action_types", "action_id", "title" ));
@@ -30,11 +30,55 @@ QString DailyRecord::getUser() { return user; }
 
 void DailyRecord::createPage()
 {
+
+
+//    year=new QSpinBox;
+//    year->setMaximum(today.at(0).toInt());
+//    year->setMinimum(1389);
+//    year->setValue(today.at(0).toInt());
+
+//    hour=new QSpinBox;
+//    hour->setMaximum(23);
+//    hour->setMinimum(0);
+//    hour->setValue(date.today.toString("h").toInt());
+
+//    min=new QSpinBox;
+//    min->setMaximum(59);
+//    min->setMinimum(0);
+//    min->setValue(date.today.toString("m").toInt());
+
+
+//    month = new QComboBox;
+
+//    day=new QSpinBox;
+//    day->setMaximum(31);
+//    day->setMinimum(1);
+//    day->setValue(today.at(2).toInt());
+
+//    for (int i=1;i<13;i++){
+//        month->addItem(date.Month[i]);
+//    }
+//    month->setCurrentIndex(today.at(1).toInt()-1);
+
+
+
+
+
+
+
+
+
     QTextEdit *descriptionEdit = new QTextEdit;
     descriptionEdit->setAcceptRichText(false);
-    QDateEdit *dateEdit = new QDateEdit;
-    QTimeEdit *timeEdit = new QTimeEdit;
+    QLineEdit *dateEdit = new QLineEdit;
+
+//    dateEdit->setMinimumDate(QDate(1390,0,0));
+    dateEdit->setInputMask("9999-99-99");
+    QLineEdit *timeEdit = new QLineEdit;
+    timeEdit->setInputMask("99:99");
     QSlider *rateEdit = new QSlider(Qt::Horizontal);
+    rateEdit->setMinimum(1);
+    rateEdit->setMaximum(10);
 
     //    connect(actionsModel, SIGNAL(primeInsert(int, QSqlRecord&)), this, SLOT(initializeRow(int, QSqlRecord&)));
 
@@ -67,13 +111,15 @@ void DailyRecord::createPage()
     table->selectRow(0);
     connect(table->selectionModel(), SIGNAL(currentRowChanged(QModelIndex,QModelIndex)), mapper, SLOT(setCurrentModelIndex(QModelIndex)));
 
-    QLabel *typeLabel = new QLabel("Type");
-    QLabel *descriptionLabel = new QLabel("Description");
-    QLabel *dateLabel = new QLabel("Date");
-    QLabel *timeLabel = new QLabel("Time");
-    QLabel *rateLabel = new QLabel("Rate");
+    QLabel *typeLabel = new QLabel(QString::fromUtf8("نوع گناه"));
+    QLabel *descriptionLabel = new QLabel(QString::fromUtf8("توضیح"));
+    QLabel *dateLabel = new QLabel(QString::fromUtf8("تاریخ"));
+    QLabel *timeLabel = new QLabel(QString::fromUtf8("زمان"));
+    QLabel *rateLabel = new QLabel(QString::fromUtf8("امتیاز منفی"));
 
-    QPushButton *submitIt = new QPushButton("Submit");
+
+
+    QPushButton *submitIt = new QPushButton(QString::fromUtf8("ذخیره "));
     connect(submitIt, SIGNAL(clicked()), actionsModel, SLOT(submitAll()));
     mainLayout->addWidget(descriptionLabel, 1, 0);
     mainLayout->addWidget(descriptionEdit, 1, 1, 2, 3);
@@ -87,6 +133,13 @@ void DailyRecord::createPage()
     mainLayout->addWidget(removeRowButton, 6, 4);
     mainLayout->addWidget(table, 7, 1, 8, 4);
     mainLayout->addWidget(submitIt, 9, 6);
+//     mainLayout->addWidget(year,10,1);
+//    mainLayout->addWidget(month,10,2);
+//    mainLayout->addWidget(day,10,3);
+
+
+//    mainLayout->addWidget(hour,11,1);
+//    mainLayout->addWidget(min,11,2);
     this->setLayout(mainLayout);
 
     connect(actionsModel, SIGNAL(rowsInserted(QModelIndex, int, int)), this, SLOT(selectFirstRow()));

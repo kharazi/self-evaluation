@@ -3,7 +3,7 @@
 aboutSelfEvaluationTab::aboutSelfEvaluationTab(QWidget *parent) :
     QWidget(parent)
 {
-    about =new QLabel("<b>about self-evaluation tab</b>");
+    about =new QLabel("<b>درباره ی محاسبه ی نفس</b>");
     mainlayout =new QGridLayout;
     scroll=new QScrollArea;
     scroll->setWidget(about);
