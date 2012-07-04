@@ -11,6 +11,7 @@
 #include "nightcharts.h"
 #include "qdateconvertor.h"
 #include "QSqlQuery"
+#include <QVariant>
 
 class HistogrammChart_Hour_Of_Day : public QWidget
 {

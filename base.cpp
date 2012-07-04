@@ -33,7 +33,7 @@ Base::Base()
 
   
 
-  fillTable();
+  //  fillTable();
 
   QSqlQuery q("SELECT * FROM actions");
   qDebug() << "********";

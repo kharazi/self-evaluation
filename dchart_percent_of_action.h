@@ -7,6 +7,7 @@
 #include "nightcharts.h"
 #include "qdateconvertor.h"
 #include "QSqlQuery"
+#include <QVariant>
 
 class DChart_percent_of_action : public QWidget
 {
