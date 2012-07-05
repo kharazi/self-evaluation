@@ -64,9 +64,15 @@ public:
     int drawLegend(QPainter *painter);
     double palpha;
 
+    bool setPercent();
+    bool setTwoLineLables();
+
+
 private:
     double cX,cY,cW,cH,pW,lX,lY;
     int nPiece;
+    bool TwoLineLables;
+    bool percent;
     bool shadows;
     QVector<pieceNC> pieces;
     int ctype, cltype;

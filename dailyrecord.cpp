@@ -154,17 +154,17 @@ void DailyRecord::createPage()
 
 void DailyRecord::addRow()
 {
-  QSqlQuery query;
+    QSqlQuery query;
     query.prepare("INSERT INTO actions (id, action_id, username, description, date, time, rate) VALUES(?, ?, ?, ?, ?, ?, ?) ");
     query.addBindValue(QVariant(QVariant::Int));
-    query.addBindValue(0);
+    query.addBindValue(1);
     query.addBindValue(getUser());
     query.addBindValue(QString::fromUtf8("بدون توضیح"));
     qDebug()<<"alllllllllllllllllllllllllan"<<date.nRoz(0)<<date.today.toString("hh:mm");
     query.addBindValue(date.nRoz(0));
     query.addBindValue(date.today.toString("hh:mm"));
 
-    query.addBindValue(50);
+    query.addBindValue(5);
     query.exec();
     actionsModel->submitAll();
     qDebug()<<"EROOOOOOOOOOOOOOOOOOOOOOOOOOOOOOR" << query.lastError() << actionsModel->lastError();

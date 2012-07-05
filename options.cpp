@@ -37,7 +37,7 @@ void Options::createTypesPage()
   view->setResizeMode(QListView::Fixed);
   view->setSelectionMode(QAbstractItemView::SingleSelection);
 
-  QPushButton *submitButton = new QPushButton("Submit");
+  QPushButton *submitButton = new QPushButton(QString::fromUtf8("ذخیره"));
   QPushButton *addButton = new QPushButton;
   QPushButton *removeButton = new QPushButton;
   addButton->setIcon(QIcon(":/images/add.png"));
@@ -70,6 +70,7 @@ void Options::addType()
 void Options::removeType()
 {
   QModelIndex index = view->selectionModel()->currentIndex();
+  qDebug()<<index.internalId()<<index.row()<<index.data()<<"yek bar beband baz kon";
   typesModel->removeRow(index.row());
   typesModel->submitAll();
 }

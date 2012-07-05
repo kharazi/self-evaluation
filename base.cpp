@@ -33,7 +33,7 @@ Base::Base()
 
   
 
-  //  fillTable();
+    fillTable();
 
   QSqlQuery q("SELECT * FROM actions");
   qDebug() << "********";
@@ -65,18 +65,18 @@ void Base::authSuccessful(QString u)
   mainwidget->show();
 }
 
-// void Base::fillTable(){
+ void Base::fillTable(){
 //   //this function for test
 //   //and to set defualt sid in start
 // <<<<<<< HEAD
 // =======
 //     QSqlQuery query;
-// //    for (int i=0;i<14;i++){
-// //        query.prepare("INSERT INTO action_types (action_id, title) VALUES(?, ?) ");
-// //        query.addBindValue(QVariant(QVariant::Int));
-// //        query.addBindValue(QString::fromUtf8("کار شماره ی")+QString::number(i) );
-// //    query.exec();
-// //    }
+//     for (int i=1;i<=14;i++){
+//         query.prepare("INSERT INTO action_types (action_id, title) VALUES(?, ?) ");
+//         query.addBindValue(QVariant(QVariant::Int));
+//         query.addBindValue(QString::fromUtf8("کار شماره ی")+QString::number(i) );
+//     query.exec();
+//     }
 // //    qDebug() << query.lastError();
 
 
@@ -104,4 +104,4 @@ void Base::authSuccessful(QString u)
 //     query.addBindValue(3);
 //     query.exec();
 
-// }
+ }

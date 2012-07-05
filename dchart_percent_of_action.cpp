@@ -15,12 +15,16 @@ DChart_percent_of_action::DChart_percent_of_action(QString u,QWidget *parent) :
 
 
 void DChart_percent_of_action::get_data(){
+    int sum1=0;
     query.exec(QString("SELECT action_id,COUNT(id) FROM actions WHERE actions.username='%1' GROUP BY action_id").arg(user));
     QHash<int,int> Statistics;
     while (query.next()) {
+        sum1+=query.value(1).toInt();
         Statistics[ query.value(0).toInt()]= query.value(1).toInt();
         qDebug()<<"Statistics"<<query.value(0).toInt()<<"00"<<query.value(1).toInt();
     }
+
+    qDebug()<<"ssssssssssssssssssuuuuuuuuuuum11111"<<sum1;
 
 //    QList<int>l;
 //    l=Statistics.values();
@@ -34,10 +38,11 @@ void DChart_percent_of_action::get_data(){
         qDebug()<<i;
         sum+=Statistics.value(i);
     }
-
+    qDebug()<<"suuuuuuuuuuuuuuuuuuuuuum"<<sum;
 
     for (int i=0;i<Statistics.keys().length();i++){
-        StatisticsPercent[i]=(Statistics[i]*100.0)/sum;
+        qDebug()<<"ooooooooooooooooch"<<Statistics[i];
+        StatisticsPercent[i]=(Statistics[i]*100.0)/sum1;
 
 //         qDebug()<<"percent"<<i<< 0000 <<(Statistics[i]*100.0)/sum;
     }
@@ -67,11 +72,13 @@ void DChart_percent_of_action::paintEvent(QPaintEvent *e){
     painter.begin(this);
     Nightcharts PieChart;
     PieChart.setType(Nightcharts::Dpie);//{Histogramm,Pie,DPie};
-    PieChart.setLegendType(Nightcharts::Round);//{VRound,Vertical}
-    PieChart.setCords(210,170,this->width()/2.5,this->height()/2.5);
-    for (int i=0;i<StatisticsPercent.keys().length();i++){
-        qDebug()<<"vaaaaaaaaaaaaaaaaaaaaaaaay"<<i;
-        PieChart.addPiece(action_type[i+1],QColor(qrand()%255,qrand()%255,qrand()%255),StatisticsPercent[i]);
+    PieChart.setLegendType(Nightcharts::Vertical);//{VRound,Vertical}
+    PieChart.setPercent();
+    PieChart.setCords(100,100,this->width()/2.5,this->height()/2.5);
+    for (int i=1;i<StatisticsPercent.keys().length();i++){
+        qDebug()<<"vaaaaaaaaaaaaaaaaaaaaaaaay"<<i<<StatisticsPercent[i];
+
+        PieChart.addPiece(action_type[i],QColor(qrand()%255,qrand()%255,qrand()%255),StatisticsPercent[i]);
     }
 
     PieChart.draw(&painter);

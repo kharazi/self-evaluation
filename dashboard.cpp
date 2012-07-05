@@ -10,6 +10,7 @@ Dashboard::Dashboard(QString u, QWidget *parent) :
     get_date();
     get_hadith();
     get_data();
+    this->update();
 
 }
 void Dashboard::get_chart_data(){
@@ -26,14 +27,6 @@ void Dashboard::get_chart_data(){
         qDebug()<<chart_data[i];
     }
     this->update();
-
-
-
-
-
-
-
-
 }
 
 void Dashboard::paintEvent(QPaintEvent *e)

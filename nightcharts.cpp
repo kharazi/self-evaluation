@@ -23,6 +23,8 @@
 Nightcharts::Nightcharts()//QPainter *painter)
 
 {
+    percent=0;
+    TwoLineLables=0;
     font.setFamily("verdana");
     font.setPixelSize(15);
     //painter = painter;
@@ -40,6 +42,29 @@ Nightcharts::Nightcharts()//QPainter *painter)
 Nightcharts::~Nightcharts()
 {
     pieces.clear();
+}
+
+bool Nightcharts::setPercent(){
+    if (percent==0){
+        percent=1;
+        return true;
+    }else{
+
+        return false;
+    }
+
+
+
+}
+bool Nightcharts::setTwoLineLables(){
+    if (TwoLineLables==0){
+        TwoLineLables=1;
+        return true;
+    }else{
+
+        return false;
+    }
+
 }
 
 int Nightcharts::addPiece(QString name,Qt::GlobalColor color,float Percentage)
@@ -361,7 +386,7 @@ int Nightcharts::drawLegend(QPainter *painter)
     }*/
     case Nightcharts::Vertical:
     {
-        int dist = 5;
+        int dist = 2;
         painter->setBrush(Qt::white);
         //painter->drawRoundRect(cX+cW+20,cY,dist*2+200,pieces.size()*(painter->fontMetrics().height()+2*dist)+dist,15,15);
         for (int i=pieces.size()-1;i>=0;i--)
@@ -370,7 +395,37 @@ int Nightcharts::drawLegend(QPainter *painter)
             float x = lX+dist;
             float y = lY+dist+i*(painter->fontMetrics().height()+2*dist);
             painter->drawRect(x,y,painter->fontMetrics().height(),painter->fontMetrics().height());
-            painter->drawText(x+painter->fontMetrics().height()+dist,y+painter->fontMetrics().height()/2+dist,pieces[i].pname /*+ " - " + QString::number(pieces[i].pPerc)*/);//ino man comment kaardam
+            if (TwoLineLables==0){
+                if (percent==1){
+                    painter->drawText(x+painter->fontMetrics().height()+dist,y+painter->fontMetrics().height()/2+dist,pieces[i].pname + " - " + QString::number(pieces[i].pPerc));//ino man comment kaardam
+
+
+                }
+                else{
+                    painter->drawText(x+painter->fontMetrics().height()+dist,y+painter->fontMetrics().height()/2+dist,pieces[i].pname /*+ " - " + QString::number(pieces[i].pPerc)*/);//ino man comment kaardam
+
+
+                }
+            }else{
+                if (i%2==0){
+                    dist=-2;
+                    qDebug()<<"niiiiiiiiiighhhhhhhhhhhhhhhhhht chhhhhhhhhhhhhhhhhhhhart"<<i;
+                    if (percent==1){
+                        painter->drawText(x+painter->fontMetrics().height()+dist+10,y+painter->fontMetrics().height()/2+dist+7,pieces[i].pname + " - " + QString::number(pieces[i].pPerc));//ino man comment kaardam
+
+
+                    }
+                    else{
+                        painter->drawText(x+painter->fontMetrics().height()+dist+10,y+painter->fontMetrics().height()/2+dist+7,pieces[i].pname /*+ " - " + QString::number(pieces[i].pPerc)*/);//ino man comment kaardam
+
+
+                    }
+                }
+
+
+            }
+
+
         }
         break;
     }
