@@ -22,14 +22,11 @@ class Auth : public QDialog
 
 public:
   Auth();
-  //  ~Auth();
+  ~Auth();
 
 private:
   void createDefaultWidget();
   void createSignUpWidget();
-  //  void closeEvent(QCloseEvent* event);
-
-  QSqlDatabase db;
 
   QStackedWidget *stackedWidget;
   QBoxLayout *mainLayout;

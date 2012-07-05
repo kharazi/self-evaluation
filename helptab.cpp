@@ -10,3 +10,10 @@ Helptab::Helptab(QWidget *parent) :
     mainlayout->addWidget(scroll);
     this->setLayout(mainlayout);
 }
+
+Helptab::~Helptab()
+{
+  delete about;
+  delete scroll;
+  delete mainlayout;
+}

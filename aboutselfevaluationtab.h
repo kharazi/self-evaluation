@@ -11,10 +11,13 @@ class aboutSelfEvaluationTab : public QWidget
     Q_OBJECT
 public:
     explicit aboutSelfEvaluationTab(QWidget *parent = 0);
+    ~aboutSelfEvaluationTab();
+
+ private:
     QGridLayout *mainlayout;
     QLabel * about;
     QScrollArea* scroll;
-
+    
 signals:
 
 public slots:

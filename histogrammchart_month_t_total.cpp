@@ -9,7 +9,6 @@ HistogrammChart_Month_t_Total::HistogrammChart_Month_t_Total(QString u,QWidget *
     }
     user=u;
     today=date.Today();
-    qDebug()<<"user"<<user;
     QFormLayout *layout = new QFormLayout;
 
     title=new QLabel(QString::fromUtf8("نمودار تعداد گناه در هر ماه"));
@@ -23,23 +22,23 @@ HistogrammChart_Month_t_Total::HistogrammChart_Month_t_Total(QString u,QWidget *
     connect(draw,SIGNAL(clicked()),this,SLOT(draw_cliked()));
     layout->addWidget(year);
     layout->addWidget(draw);
-//    layout->setLabelAlignment(Qt::AlignRight);
+}
 
-
+HistogrammChart_Month_t_Total::~HistogrammChart_Month_t_Total()
+{
+  delete title;
+  delete draw;
+  delete year;
 }
 void HistogrammChart_Month_t_Total::draw_cliked(){
     get_data();
-//    paintEvent();
     this->update();
-
-
 }
 
 void HistogrammChart_Month_t_Total::get_data(){
     for (int i=1;i<13;i++ ){
     query.exec(QString("SELECT COUNT(actions.id) FROM actions WHERE actions.date LIKE'%1-%2-%'AND actions.username='%3'").arg(year->value()).arg(i).arg(user));
         while (query.next()) {
-//            qDebug()<<"tedade in mah:"<< query.value(0).toString();
             month[i]=query.value(0).toInt();
         }
     }
@@ -47,8 +46,6 @@ void HistogrammChart_Month_t_Total::get_data(){
 
 void HistogrammChart_Month_t_Total::paintEvent(QPaintEvent *e)
 {
-
-//    ();
     QWidget::paintEvent(e);
     QPainter painter;
     QFont font;
@@ -58,7 +55,6 @@ void HistogrammChart_Month_t_Total::paintEvent(QPaintEvent *e)
     PieChart.setLegendType(Nightcharts::Vertical);//{Round,Vertical}
     PieChart.setCords(20,100,this->width()/1.5+30,this->height()/1.5+30);
     for (int i=1;i<13;i++ ){
-        qDebug()<<month[i];
         PieChart.addPiece(date.Month[i],QColor(qrand()%255,qrand()%255,qrand()%255),month[i]);
     }
     PieChart.draw(&painter);

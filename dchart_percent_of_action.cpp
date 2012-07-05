@@ -13,6 +13,10 @@ DChart_percent_of_action::DChart_percent_of_action(QString u,QWidget *parent) :
       get_data();
 }
 
+DChart_percent_of_action::~DChart_percent_of_action()
+{
+  delete title;
+}
 
 void DChart_percent_of_action::get_data(){
     int sum1=0;
@@ -21,47 +25,25 @@ void DChart_percent_of_action::get_data(){
     while (query.next()) {
         sum1+=query.value(1).toInt();
         Statistics[ query.value(0).toInt()]= query.value(1).toInt();
-        qDebug()<<"Statistics"<<query.value(0).toInt()<<"00"<<query.value(1).toInt();
     }
-
-    qDebug()<<"ssssssssssssssssssuuuuuuuuuuum11111"<<sum1;
-
-//    QList<int>l;
-//    l=Statistics.values();
-//    qSort(l.begin(),l.end());
-//    qDebug()<<"bishtarin:"<<Statistics.key(l.last());
 
 
     //darsad giri sayer
     int sum=0;
     for (int i=0;i<Statistics.keys().length();i++){
-        qDebug()<<i;
         sum+=Statistics.value(i);
     }
-    qDebug()<<"suuuuuuuuuuuuuuuuuuuuuum"<<sum;
 
     for (int i=0;i<Statistics.keys().length();i++){
-        qDebug()<<"ooooooooooooooooch"<<Statistics[i];
-        StatisticsPercent[i]=(Statistics[i]*100.0)/sum1;
-
-//         qDebug()<<"percent"<<i<< 0000 <<(Statistics[i]*100.0)/sum;
+        StatisticsPercent[i]=(Statistics[i]*100.0)/sum;
     }
 
     for (int i=1;i<=Statistics.keys().length();i++){
         query.exec(QString("SELECT title FROM action_types WHERE action_id =%1").arg(i));
          while (query.next()) {
              action_type[i]=query.value(0).toString();
-
          }
-         qDebug()<<"to roh qt"<<i<<action_type[i];
-
-
     }
-//    qDebug()<<"darsade action 13:"<<StatisticsPercent[13];
-
-//    qDebug()<<"keys"<< percent.keys().length();
-//    qDebug()<<"values"<<percent.values();
-
 }
 
 void DChart_percent_of_action::paintEvent(QPaintEvent *e){
@@ -72,15 +54,12 @@ void DChart_percent_of_action::paintEvent(QPaintEvent *e){
     painter.begin(this);
     Nightcharts PieChart;
     PieChart.setType(Nightcharts::Dpie);//{Histogramm,Pie,DPie};
-    PieChart.setLegendType(Nightcharts::Vertical);//{VRound,Vertical}
-    PieChart.setPercent();
-    PieChart.setCords(100,100,this->width()/2.5,this->height()/2.5);
-    for (int i=1;i<StatisticsPercent.keys().length();i++){
-        qDebug()<<"vaaaaaaaaaaaaaaaaaaaaaaaay"<<i<<StatisticsPercent[i];
 
-        PieChart.addPiece(action_type[i],QColor(qrand()%255,qrand()%255,qrand()%255),StatisticsPercent[i]);
+    PieChart.setLegendType(Nightcharts::Round);//{VRound,Vertical}
+    PieChart.setCords(210,170,this->width()/2.5,this->height()/2.5);
+    for (int i=0;i<StatisticsPercent.keys().length();i++){
+        PieChart.addPiece(action_type[i+1],QColor(qrand()%255,qrand()%255,qrand()%255),StatisticsPercent[i]);
     }
-
     PieChart.draw(&painter);
     PieChart.drawLegend(&painter);
 }

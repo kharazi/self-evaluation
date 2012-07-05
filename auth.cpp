@@ -2,18 +2,7 @@
 #include <QDebug>
 Auth::Auth()
 {
-//    db=database;
-//    bool b=db.open();
-//    if (!b){
-//        qDebug()<<"dsfdsf";
-
-//    }else{
-
-
-
-//    }
-
-    setAttribute(Qt::WA_DeleteOnClose);
+   setAttribute(Qt::WA_DeleteOnClose);
    mainLayout = new QHBoxLayout;
    stackedWidget = new QStackedWidget;
 
@@ -32,20 +21,14 @@ Auth::Auth()
 
 
 
-// Auth::~Auth()
-// {
-//   db.close();
-//   QSqlDatabase::removeDatabase("defaultConnection");
-//   qDebug() << "really?";
-//   delete window;
-//   delete user;
-//   delete pass;
-//   delete defaultWidget;
-//   // delete signUpWidget;
-//   delete mainLayout;
-//   delete stackedWidget;
-
-// }
+ Auth::~Auth()
+ {
+  delete user;
+  delete pass;
+  delete mainLayout;
+  delete defaultWidget;
+  delete stackedWidget;
+}
 
 
 void Auth::createDefaultWidget()
@@ -112,32 +95,21 @@ void Auth::createSignUpWidget()
 }
 
 
-// void Auth::closeEvent(QCloseEvent* event)
-// {
-//   //  emit authClosed();
-//   event->accept();
-// }
-
-
 void Auth::checkAuth()
 {
   QSqlQuery query;
   query.prepare("SELECT password FROM users WHERE username=?");
   query.addBindValue(user->text());
-  bool res = query.exec();
-  if (!res)
-    qDebug() << query.lastError();
+  query.exec();
+  query.next();
+  if (pass->text() == query.value(0))
+    emit authSuccessful(user->text());
   else {
-    query.next();
-    if (pass->text() == query.value(0))
-      emit authSuccessful(user->text());
-    else {
-      QMessageBox *error = new QMessageBox;
-      error->setText(QString::fromUtf8("ورود ناموفق بود. لطفا دوباره تلاش کنید."));
-      error->setIcon(QMessageBox::Warning);
-      error->setWindowTitle(QString::fromUtf8("خطا"));
-      error->exec();
-    }
+    QMessageBox *error = new QMessageBox;
+    error->setText(QString::fromUtf8("ورود ناموفق بود. لطفا دوباره تلاش کنید."));
+    error->setIcon(QMessageBox::Warning);
+    error->setWindowTitle(QString::fromUtf8("خطا"));
+    error->exec();
   }
 }
 
@@ -166,7 +138,6 @@ void Auth::submit()
   bool res = query.exec();
 
   if (!res) {
-    qDebug() << query.lastError();
     QMessageBox *error = new QMessageBox;
     error->setText("User could not be created. We're sorry for this inconvinience");
     error->setIcon(QMessageBox::Warning);

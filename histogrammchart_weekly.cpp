@@ -134,3 +134,7 @@ void HistogrammChart_weekly::paintEvent(QPaintEvent *e)
     PieChart.draw(&painter);
     PieChart.drawLegend(&painter);
 }
+
+HistogrammChart_weekly::~HistogrammChart_weekly()
+{
+}

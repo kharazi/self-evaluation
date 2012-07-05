@@ -10,6 +10,26 @@ record::record(QString u, QWidget *parent_) :
     createRecordWidget();
 }
 
+record::~record()
+{
+  delete record_button;
+  delete action_type;
+  delete rate;
+  delete time;
+  delete description;
+  delete year;
+  delete month;
+  delete day;
+  delete hour;
+  delete min;
+  delete descriptionLabel;
+  delete typeLabel;
+  delete rateLabel;
+  delete recordGroup;
+  delete parent;
+  delete mainlayout;
+}
+
 void record::createRecordWidget(){
     QGridLayout *main= new QGridLayout;
 
@@ -25,8 +45,6 @@ void record::createRecordWidget(){
     rate->setMinimum(1);
     rate->setValue(5);
 
-
-
     description=new QTextEdit(QString::fromUtf8("توضیحات"));
     description->setMaximumHeight(60);
 
@@ -34,8 +52,6 @@ void record::createRecordWidget(){
     QLabel *blankLabel = new QLabel(QString::fromUtf8("<pre>       </pre>"));
     QLabel *blankLabel1 = new QLabel(QString::fromUtf8("<pre>      </pre>"));
     QLabel *blankLabel2 = new QLabel(QString::fromUtf8("<pre>      </pre>"));
-
-
 
     QLabel *dateLabel = new QLabel(QString::fromUtf8("تاریخ"));
 
@@ -65,7 +81,6 @@ void record::createRecordWidget(){
     min->setMaximum(59);
     min->setMinimum(0);
     min->setValue(date.today.toString("m").toInt());
-
 
     month = new QComboBox;
 
@@ -100,7 +115,6 @@ void record::createRecordWidget(){
     }
     month->setCurrentIndex(today.at(1).toInt()-1);
 
-
     connect(record_button,SIGNAL(clicked()),this,SLOT(record_button_clicked()));
     connect(this, SIGNAL(getData()), parent, SLOT(get_data()));
     connect(this, SIGNAL(getChartData()), parent, SLOT(get_chart_data()));
@@ -108,23 +122,20 @@ void record::createRecordWidget(){
     //action_type->setMaximumWidth(150);
 
     QSqlQuery q("SELECT title FROM action_types");
-    qDebug()<<q.lastError().text();
     if (q.lastError().type()==0){
         while (q.next()) {
-            qDebug()<<q.value(0).toString();
             action_type->addItem(q.value(0).toString());
         }
     }
     else{
-
         QMessageBox *error = new QMessageBox;
         error->setText("there is a problem; cannot read database");
         error->setIcon(QMessageBox::Warning);
         error->setWindowTitle("Error");
         error->exec();
     }
-//    date->show();
 }
+
 void record::record_button_clicked(){
     //when record button clicked -> Dashboard::getdata()
   
@@ -141,24 +152,14 @@ void record::record_button_clicked(){
     query.addBindValue(user);
     query.addBindValue(description->toPlainText());
 
-
     query.addBindValue(QString("%1-%2-%3").arg(year->value()).arg(month->currentIndex()+1).arg(day->value()));
 
     query.addBindValue(QString("%1:%2").arg(hour->value()).arg(min->value()));
     query.addBindValue(rate->value());
     query.exec();
 
-    qDebug()<<"hour is:"<<hour->value();
-    qDebug()<<"min is:"<<min->value();
-
-    qDebug()<<"year is:"<<year->value();
-    qDebug()<<"month is:"<<month->currentIndex()+1;
-    qDebug()<<"day is:"<<day->value();
-    qDebug()<<"action id is:"<<action_id;
-    qDebug()<<description->toPlainText();
 //    for test
     if (query.lastError().type()!=0){
-
         QMessageBox *error = new QMessageBox;
         error->setText("there is a problem; Cannot Insert to Database ");
         qDebug() << query.lastError();
@@ -169,7 +170,6 @@ void record::record_button_clicked(){
         description->setText(QString::fromUtf8("توضیحات:"));
         rate->setValue(5);
     }
-    //    parent->get_data();
     emit(getData());
     emit(getChartData());
 }

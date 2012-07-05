@@ -10,6 +10,19 @@ UserOption::UserOption(QString u,QWidget *parent) :
 
 }
 
+UserOption::~UserOption()
+{
+  delete label;
+  delete prePassLabel;
+  delete newPassLabel;
+  delete verificationPassLabel;
+  delete prePass;
+  delete newPass;
+  delete verificationPass;
+  delete change;
+  delete mainlayout;
+}
+
 void UserOption::CreateUserOption(){
     mainlayout= new QGridLayout;
 
@@ -21,9 +34,6 @@ void UserOption::CreateUserOption(){
     newPass =new QLineEdit;
     newPass->setEchoMode(QLineEdit::Password);
 
-
-//       label = new QLabel("change password");
-
     prePassLabel= new QLabel(QString::fromUtf8("رمز"));
     prePassLabel->setBuddy(prePass);
 
@@ -34,7 +44,7 @@ void UserOption::CreateUserOption(){
     verificationPassLabel->setBuddy(verificationPass);
 
     change=new QPushButton(QString::fromUtf8("تغییر دادن"));
-//    mainlayout->addWidget(label, 0, 0,1,1);
+
     mainlayout->addWidget(prePassLabel, 1, 1,1,1);
     mainlayout->addWidget(prePass, 1, 0,1,1);
     mainlayout->addWidget(newPassLabel, 2, 1,1,1);
@@ -44,11 +54,9 @@ void UserOption::CreateUserOption(){
     mainlayout->addWidget(change,4,1,1,1);
     this->setLayout(mainlayout);
 
-
 }
 void UserOption::change_button_clicked(){
     if (newPass->text()!=verificationPass->text() || newPass->text()=="" || prePass->text()==""){
-
         QMessageBox *error = new QMessageBox;
         error->setText(QString::fromUtf8(".همه فیلد ها را با دقت وارد کنید"));
         error->setIcon(QMessageBox::Warning);
@@ -61,7 +69,6 @@ void UserOption::change_button_clicked(){
        QSqlQuery query;
        query.exec(QString("SELECT password FROM users WHERE username= '%1' ").arg(user));
        while (query.next()) {
-           qDebug()<< query.value(0).toString();
            if (query.value(0).toString()==prePass->text()){
                  query.exec(QString("UPDATE users SET password='%1' WHERE password='%2' AND username = '%3' ").arg(newPass->text()).arg(query.value(0).toString()).arg(user));
                  if (query.lastError().type()==0){
@@ -71,7 +78,6 @@ void UserOption::change_button_clicked(){
 
                      QMessageBox *error = new QMessageBox;
                      error->setText(QString::fromUtf8(".همه فیلد ها را با دقت وارد کنید"));
-                     qDebug() << query.lastError();
                      error->setIcon(QMessageBox::Information);
                      error->setWindowTitle("Information");
                      error->exec();
@@ -82,7 +88,6 @@ void UserOption::change_button_clicked(){
 
                QMessageBox *error = new QMessageBox;
                error->setText(QString::fromUtf8("رمز عبور صحیح نمی باشد."));
-               qDebug() << query.lastError();
                error->setIcon(QMessageBox::Warning);
                error->setWindowTitle(QString::fromUtf8("خطا"));
                error->exec();
@@ -94,7 +99,6 @@ void UserOption::change_button_clicked(){
 
             QMessageBox *error = new QMessageBox;
             error->setText(QString::fromUtf8("خطا در اتصال به پایگاه داده. مجددا تلاش کنید!"));
-            qDebug() << query.lastError();
             error->setIcon(QMessageBox::Warning);
             error->setWindowTitle(QString::fromUtf8("خطا"));
             error->exec();
@@ -102,7 +106,7 @@ void UserOption::change_button_clicked(){
         }
 
     }
-    }
+}
 
 
 

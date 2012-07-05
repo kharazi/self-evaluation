@@ -11,6 +11,9 @@ class Helptab : public QWidget
     Q_OBJECT
 public:
     explicit Helptab(QWidget *parent = 0);
+    ~Helptab();
+
+ private:
     QGridLayout *mainlayout;
     QLabel * about;
     QScrollArea* scroll;

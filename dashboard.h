@@ -12,10 +12,18 @@
 class Dashboard : public QWidget
 {
     Q_OBJECT
-private:
-    void CreateDashboardWidget();
 public:
     explicit Dashboard(QString u, QWidget *parent = 0);
+    ~Dashboard();
+
+    void get_date();
+    void get_hadith();
+
+    void paintEvent(QPaintEvent *);
+
+ private:
+    void CreateDashboardWidget();
+
     QString user;
     QVBoxLayout * mainlayout;
     record *re;
@@ -23,20 +31,11 @@ public:
     QLabel* HadithLable;
     QLabel * statusLable;
     QLabel * mostLabel;
-
-
-    void get_date();
-    void get_hadith();
-
     QMap<int,int> chart_data;
 
     QDateConvertor date;
     QStringList today;
     QSqlQuery query;
-    int test;
-    void paintEvent(QPaintEvent *);
-
-
 
 signals:
 

@@ -11,6 +11,7 @@
 #include <QGridLayout>
 #include <QPushButton>
 #include <QMessageBox>
+
 class HadithOption : public QWidget
 {
     Q_OBJECT
@@ -18,6 +19,9 @@ private:
     void CreateHadithOptionWidget();
 public:
     explicit HadithOption(QWidget *parent = 0);
+    ~HadithOption();
+
+ private:
     QComboBox * action_type;
     QLineEdit * narrator;
     QTextEdit * hadith;

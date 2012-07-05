@@ -25,6 +25,7 @@ class MainWidget : public QWidget
 
 public:
     MainWidget(QString);
+    ~MainWidget();
     QString getUser();
 
     QString user;
@@ -35,8 +36,6 @@ protected:
 private:
     void createTrayIcon();
 
-    QSqlDatabase db;
-    
     QAction *minimizeAction;
     QAction *maximizeAction;
     QAction *restoreAction;
@@ -59,10 +58,6 @@ private:
 
 public slots:
     void changePage(QListWidgetItem *current, QListWidgetItem *previous);
-
-private slots:
-    void showMessage(QString title,QString planetext,int time);
-    void messageClicked();
 
 
 };

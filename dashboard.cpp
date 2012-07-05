@@ -2,7 +2,6 @@
 Dashboard::Dashboard(QString u, QWidget *parent) :
     QWidget(parent)
 {
-  test = 2;
     user=u;
     get_chart_data();
     CreateDashboardWidget();
@@ -13,18 +12,23 @@ Dashboard::Dashboard(QString u, QWidget *parent) :
     this->update();
 
 }
+
+Dashboard::~Dashboard()
+{
+  delete re;
+  delete DateLable;
+  delete HadithLable;
+  delete statusLable;
+  delete mostLabel;
+  delete mainlayout;
+}
+
 void Dashboard::get_chart_data(){
     for (int i=0;i>-7;i--){
         query.exec(QString("SELECT COUNT(actions.id) FROM actions WHERE actions.date LIKE'%1' AND actions.username='%2'").arg(date.nRoz(i)).arg(user));
         while (query.next()) {
             chart_data[7+i]=query.value(0).toInt();
-            qDebug()<<query.value(0).toString();
         }
-
-//        qDebug()<<date.nRoz(i);
-    }
-    for (int i=1;i<8;i++){
-        qDebug()<<chart_data[i];
     }
     this->update();
 }
@@ -158,11 +162,6 @@ void Dashboard::get_data(){
         max_action_title=query.value(0).toString();
     }
     //
-
-    qDebug()<<"first day of week"<<date.FirstDayOfWeek.at(0);
-    qDebug()<<"last day of week"<<date.LastDayOfWeek;
-    qDebug()<<date.lastdayofweek;
-    qDebug()<<date.firstdayofweek;
 
     mostLabel->setText(QString::fromUtf8("<table border='1'>"
                                          "<tr><td>%1 </td><td>پرتکرار ترین این ماه </td></tr>"

@@ -8,7 +8,7 @@ class DPChart_percent_of_action : public QWidget
     Q_OBJECT
 public:
     explicit DPChart_percent_of_action(QWidget *parent = 0);
-
+    ~DPChart_percent_of_action();
 signals:
 
 public slots:

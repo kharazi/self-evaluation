@@ -35,6 +35,16 @@ HistogrammChart_Hour_Of_Day_monthly::HistogrammChart_Hour_Of_Day_monthly(QString
     is_AM=1;
 }
 
+HistogrammChart_Hour_Of_Day_monthly::~HistogrammChart_Hour_Of_Day_monthly()
+{
+  delete AM;
+  delete year;
+  delete month;
+  delete PM;
+  delete title;
+  delete draw;
+}
+
 void HistogrammChart_Hour_Of_Day_monthly::get_data(){
     for (int i=0;i<24;i++){
         query.exec(QString("SELECT COUNT(actions.id) FROM actions WHERE actions.username='%1'AND actions.time LIKE'%2:%' AND actions.date LIKE '%3-%4-%' ").arg(user).arg(i).arg(year->value()).arg(month->currentIndex()-1));
@@ -50,9 +60,7 @@ void HistogrammChart_Hour_Of_Day_monthly::draw_clicked(){
     }
     if (AM->isChecked()){
         is_AM=1;
-
     }
-
     get_data();
     this->update();
 }
@@ -89,5 +97,4 @@ void HistogrammChart_Hour_Of_Day_monthly::paintEvent(QPaintEvent *e)
         PieChart.draw(&painter);
         PieChart.drawLegend(&painter);
     }
-
 }

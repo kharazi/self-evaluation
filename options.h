@@ -20,6 +20,7 @@ class Options : public QWidget
     Q_OBJECT
 public:
     explicit Options(QString u, QWidget *parent = 0);
+    ~Options();
     void createTypesPage();
 
  private:
@@ -27,12 +28,12 @@ public:
     QTabWidget *tab;
     QListView *view;
     QSqlTableModel *typesModel;
+
 signals:
 
 public slots:
     void addType();
     void removeType();
-    void selectFirstRow();
 };
 
 #endif // OPTIONS_H

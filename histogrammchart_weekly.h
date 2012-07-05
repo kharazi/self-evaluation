@@ -39,8 +39,7 @@ private:
 public:
     explicit HistogrammChart_weekly(QString,QWidget *parent = 0);
 
-
-
+    ~HistogrammChart_weekly();
 signals:
 
 public slots:

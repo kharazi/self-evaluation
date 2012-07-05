@@ -16,7 +16,7 @@ HistogrammChart_Hour_Of_Day::HistogrammChart_Hour_Of_Day(QString u,QWidget *pare
     QFormLayout *layout = new QFormLayout;
     this->setLayout(layout);
     AM= new QRadioButton("AM");
-//    AM->setChecked();
+
     PM=new QRadioButton("PM");
     draw= new QPushButton(QString::fromUtf8("رسم"));
     checklayout->addWidget(AM,1,1,1,1);
@@ -28,6 +28,16 @@ HistogrammChart_Hour_Of_Day::HistogrammChart_Hour_Of_Day(QString u,QWidget *pare
     connect(draw,SIGNAL(clicked()),this,SLOT(draw_clicked()));
     is_AM=1;
 }
+
+HistogrammChart_Hour_Of_Day::~HistogrammChart_Hour_Of_Day()
+{
+  delete AM;
+  delete year;
+  delete PM;
+  delete title;
+  delete draw;
+}
+
 void HistogrammChart_Hour_Of_Day::get_data(){
     for (int i=0;i<24;i++){
         query.exec(QString("SELECT COUNT(actions.id) FROM actions WHERE actions.username='%1'AND actions.time LIKE'%2:%' AND actions.date LIKE '%3-%' ").arg(user).arg(i).arg(year->value()));
@@ -43,9 +53,7 @@ void HistogrammChart_Hour_Of_Day::draw_clicked(){
     }
     if (AM->isChecked()){
         is_AM=1;
-
     }
-
     get_data();
     this->update();
 }
@@ -83,9 +91,6 @@ void HistogrammChart_Hour_Of_Day::paintEvent(QPaintEvent *e)
         }
         PieChart.draw(&painter);
         PieChart.drawLegend(&painter);
-
-
-
 
     }
 
