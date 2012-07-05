@@ -16,6 +16,8 @@ class UserOption : public QWidget
     Q_OBJECT
 public:
     explicit UserOption(QString,QWidget *parent = 0);
+    ~UserOption();
+
 private:
     QGridLayout *mainlayout;
     QString user;

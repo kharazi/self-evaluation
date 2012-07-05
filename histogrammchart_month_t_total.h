@@ -9,13 +9,18 @@
 #include <QPushButton>
 #include "nightcharts.h"
 #include "qdateconvertor.h"
-#include "QSqlQuery"
+#include <QSqlQuery>
+
 class HistogrammChart_Month_t_Total : public QWidget
 {
     Q_OBJECT
 public:
     explicit HistogrammChart_Month_t_Total(QString u,QWidget *parent = 0);
+    ~HistogrammChart_Month_t_Total();
     void paintEvent(QPaintEvent *);
+    void get_data();
+
+ private:
     QDateConvertor date;
     QStringList today;
     QSqlQuery query;
@@ -23,14 +28,10 @@ public:
 
     QLabel * title;
     QPushButton * draw;
-
-
     QSpinBox * year;
 
     QHash <int, int> month;
-
-    void get_data();
-
+    
 signals:
 
 public slots:

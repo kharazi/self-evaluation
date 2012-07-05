@@ -13,11 +13,9 @@ MainWidget::MainWidget(QString u)
     connect(trayIcon, SIGNAL(messageClicked()), this, SLOT(messageClicked()));
     trayIcon->show();
     
-
     CreateMainWidget();
     addPages();
     createMenuIcons();
-
 
     horizontalLayout = new QHBoxLayout;
     horizontalLayout->setDirection(QBoxLayout::RightToLeft);
@@ -35,6 +33,21 @@ MainWidget::MainWidget(QString u)
     mainLayout->addLayout(buttonsLayout);
     setLayout(mainLayout);
 
+}
+
+MainWidget::~MainWidget()
+{
+  delete minimizeAction;
+  delete maximizeAction;
+  delete restoreAction;
+  delete quitAction;
+  delete trayIcon;
+  delete trayIconMenu;
+  delete menu;
+  delete pagesWidget;
+  delete horizontalLayout;
+  delete buttonsLayout;
+  delete mainLayout;
 }
 
 void MainWidget::addPages(){
@@ -100,12 +113,6 @@ void MainWidget::CreateMainWidget(){
     menu->setSpacing(13);
     menu->setCurrentRow(0);
 
-
-
-
-    //    QPushButton *closeButton = new QPushButton(QString::fromUtf8("بستن"));
-    //    connect(closeButton, SIGNAL(clicked()), this, SLOT(close()));
-
     this->resize(840,400);
     this->setWindowOpacity(0.97);
     setWindowTitle(QString::fromUtf8("سامانه محاسبه ی نفس"));
@@ -117,13 +124,7 @@ void MainWidget::CreateMainWidget(){
 }
 
 
-QString MainWidget::getUser()
-{
-
-  return user;
-}
-
-
+QString MainWidget::getUser() { return user; }
 
 
 void MainWidget::changePage(QListWidgetItem *current, QListWidgetItem *previous)
@@ -143,26 +144,6 @@ void MainWidget::closeEvent(QCloseEvent *event)
         event->ignore();
     }
 }
-
-
-void MainWidget::showMessage(QString title,QString plaintext,int time=15)
-{
-//for setting messege icon and show a message
-    //tabe ro intori taghir dadam ke se ta parametr begire: QString title,QString plaintext,int time=15
-    //time modat zamaniye k pegham namayesh dade mishe.
-    QSystemTrayIcon::MessageIcon icon = QSystemTrayIcon::MessageIcon(QSystemTrayIcon::Critical);//enum={Information,warning,Critical,noIcon}type icon az inja taghir bedim
-    trayIcon->showMessage(title,plaintext, icon,
-                          time * 1000);
-}
-
-
-void MainWidget::messageClicked()
-{
-    QMessageBox::information(0, tr("Systray"),
-                             tr("Sorry, I already gave what help I could.\n"
-                                "Maybe you should try asking a human?"));
-}
-
 
 void MainWidget::createTrayIcon()
 {

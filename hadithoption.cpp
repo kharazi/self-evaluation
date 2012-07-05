@@ -6,6 +6,15 @@ HadithOption::HadithOption(QWidget *parent) :
     CreateHadithOptionWidget();
 }
 
+HadithOption::~HadithOption()
+{
+  delete action_type;
+  delete narrator;
+  delete hadith;
+  delete record;
+  delete layout;
+}
+
 void HadithOption::CreateHadithOptionWidget(){
     layout =new QGridLayout;
 
@@ -32,7 +41,6 @@ void HadithOption::CreateHadithOptionWidget(){
 void HadithOption::record_button_clicked(){
     QSqlQuery query;
     int action_id;
-    qDebug()<<action_type->currentText();
     query.exec(QString("SELECT action_id FROM action_types WHERE title = '%1' ").arg(action_type->currentText()));
     while (query.next()){
       action_id = query.value(0).toInt();
@@ -43,11 +51,8 @@ void HadithOption::record_button_clicked(){
     query.addBindValue(narrator->text());
     query.addBindValue(hadith->toPlainText());
     query.exec();
-    qDebug() << query.lastError();
-
 
     if (query.lastError().type()==0){
-
         QMessageBox *error = new QMessageBox;
         error->setText(QString::fromUtf8("حدیث شما با موفقیت ذخیره شد."));
         error->setIcon(QMessageBox::Warning);
@@ -63,6 +68,4 @@ void HadithOption::record_button_clicked(){
         error->setWindowTitle("Error");
         error->exec();
     }
-
-
 }

@@ -9,13 +9,18 @@
 #include <QPushButton>
 #include "nightcharts.h"
 #include "qdateconvertor.h"
-#include "QSqlQuery"
+#include <QSqlQuery>
 
 class HistogrammChart_Day_of_Month : public QWidget
 {
     Q_OBJECT
 public:
     explicit HistogrammChart_Day_of_Month(QString u,QWidget *parent = 0);
+    ~HistogrammChart_Day_of_Month();
+    void get_data();
+    void paintEvent(QPaintEvent *);
+
+ private:
     QDateConvertor date;
     QStringList today;
     QSqlQuery query;
@@ -23,12 +28,11 @@ public:
     QComboBox *month;
     QLabel * title;
     QPushButton * draw;
-    void get_data();
-    void paintEvent(QPaintEvent *);
 
     QMap <int , int> countOfmonth;
 
     QSpinBox * year;
+
 signals:
 
 public slots:

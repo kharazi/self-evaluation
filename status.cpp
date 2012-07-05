@@ -6,7 +6,7 @@
 #include "histogrammchart_day_of_month.h"
 #include "histogrammchart_hour_of_day.h"
 #include "histogrammchart_hour_of_day_monthly.h"
-//#include "dchart_percent_of_action_yearly.h"
+
 
 Status::Status(QString u, QWidget *parent) :
     QWidget(parent)
@@ -15,68 +15,34 @@ Status::Status(QString u, QWidget *parent) :
 
     CreateStatusWidget();
 
-    qDebug()<<rand()%10;
-//    for (int i=0;i<500;i++){
-//    query.exec(QString("INSERT INTO actions(action_id, username, description, date,time, rate)"
-//                       "VALUES(%1,'v','inam ye tozih','1391-%2-%3','%4:30','%5');").arg(rand()%14).arg(rand()%12).arg(rand()%30).arg(rand()%23).arg(rand()%100));
-
-//    }
     //sum rate
 
     QDateConvertor date;
     QStringList today= date.Today();
 
-          qDebug()<<today.at(0)<<"/"<<today.at(1)<<"/"<<today.at(2)<<"/"<<today.at(3)<<"/"<<today.at(4);
-
-//          //naghes////////////////////////////
-//         qDebug()<< query.exec(QString("SELECT actions.id FROM actions WHERE actions.username='vahid' AND actions.date=%1-%2-%3 ").arg(today.at(0)).arg(today.at(1)).arg(today.at(2)));
-//              while (query.next()) {
-//                  qDebug()<<"majmoe emtiyazat manfi in hafte:"<< query.value(0).toString();
-//              }
-//              ////////////////////////////////////////////////////////
-
-
    query.exec(QString("SELECT COUNT(actions.id) FROM actions WHERE actions.username='vahid'AND actions.date LIKE'%1-%2-%3'").arg(today.at(0)).arg(today.at(1)).arg(today.at(2)));
           while (query.next()) {
-              qDebug()<<"tedade emroz:"<< query.value(0).toString();
           }
-
 
     query.exec(QString("SELECT COUNT(actions.id) FROM actions WHERE actions.username='vahid'AND actions.date LIKE'%1-%2-%'").arg(today.at(0)).arg(today.at(1)));
     while (query.next()) {
-        qDebug()<<"tedade in mah:"<< query.value(0).toString();
     }
-
-
-
 
     query.exec(QString("SELECT SUM(actions.rate) FROM actions WHERE actions.username='vahid'AND actions.date LIKE'%1-%2-%'").arg(today.at(0)).arg(today.at(1)));
     while (query.next()) {
-        qDebug()<<"majmoe emtiyazat manfi in mah:"<< query.value(0).toString();
     }
 
     query.exec(QString("SELECT COUNT(actions.id) FROM actions WHERE actions.username='vahid' AND actions.date LIKE'%1%' ").arg(today.at(0)));
     while (query.next()) {
-        qDebug()<<"tedade  emsal:"<< query.value(0).toString();
     }
 
     query.exec(QString("SELECT SUM(actions.rate) FROM actions WHERE actions.username='vahid' AND actions.date LIKE'%1%' ").arg(today.at(0)));
     while (query.next()) {
-        qDebug()<<"majmoe emtiyazat manfi  emsal:"<< query.value(0).toString();
     }
-
-
-
 
     query.exec("SELECT SUM(actions.rate) FROM actions WHERE actions.username='vahid'");
     while (query.next()) {
-        qDebug()<<"majmoe emtiyazat manfi:"<< query.value(0).toString();
     }
-
-    qDebug()<<"tesad action 5:"<<get_count_of_action(5);
-////////////////////////////////////////////////////////////////////////////////////
-    ////////////////////////////////////////////////////////////////////////////////
-    ////////////////////////////////////////////////////////////////////////////////
 
 //////////////////////////////////////////////////////////////////////////////////koli
     query.exec("SELECT action_id,COUNT(id) FROM actions WHERE actions.username='vahid' GROUP BY action_id");
@@ -87,8 +53,6 @@ Status::Status(QString u, QWidget *parent) :
     QList<int>l;
     l=Statistics.values();
     qSort(l.begin(),l.end());
-    qDebug()<<"bishtarin:"<<Statistics.key(l.last());
-
 
     //darsad giri sayer
     int sum=0;
@@ -100,9 +64,6 @@ Status::Status(QString u, QWidget *parent) :
     for (int i=0;i<Statistics.keys().length();i++){
         StatisticsPercent[i]=(Statistics[i]*100.0)/sum;
     }
-    qDebug()<<"darsade action 13:"<<StatisticsPercent[13];
-
-
 
     ////////////////////////////////////////////////////////////////////////emsal
     query.exec(QString("SELECT action_id,COUNT(id) FROM actions WHERE actions.date LIKE'%1%' GROUP BY action_id ").arg(today.at(0)));
@@ -113,8 +74,6 @@ Status::Status(QString u, QWidget *parent) :
     QList<int>year;
     l=thisYearStatistics.values();
     qSort(year.begin(),year.end());
-    qDebug()<<"bishtarin:"<<thisYearStatistics.key(l.last());
-
 
     //darsad giri sayer
     sum=0;
@@ -127,7 +86,6 @@ Status::Status(QString u, QWidget *parent) :
     {
         thisYearStatisticsPercent[i]=(thisYearStatistics[i]*100.0)/sum;
     }
-    qDebug()<<"darsade action 13(emsal):"<<thisYearStatisticsPercent[13];
 
 /////////////////////////////////////////////////////////////////in mah
     query.exec(QString("SELECT action_id,COUNT(id) FROM actions WHERE actions.date LIKE'%1-%2-%' AND actions.username='vahid' GROUP BY action_id ").arg(today.at(0)).arg(today.at(1)));
@@ -138,8 +96,6 @@ Status::Status(QString u, QWidget *parent) :
     QList<int>Mounth;
     l=thisMounthStatistics.values();
     qSort(Mounth.begin(),Mounth.end());
-    qDebug()<<"bishtarin in mahhhhh:"<<thisMounthStatistics.key(l.last());
-
 
     //darsad giri sayer
     sum=0;
@@ -152,7 +108,6 @@ Status::Status(QString u, QWidget *parent) :
     {
         thisMounthStatisticsPercent[i]=(thisMounthStatistics[i]*100.0)/sum;
     }
-    qDebug()<<"darsade action 13(inmah):"<<thisMounthStatisticsPercent[13];
 
 /////////////////////////////////////////////////////////////////in
 
@@ -165,7 +120,6 @@ Status::Status(QString u, QWidget *parent) :
         query.exec(QString("SELECT COUNT(id) FROM actions WHERE actions.time LIKE '%1%' AND actions.username='vahid'").arg(i));
 
         while (query.next()) {
-            qDebug()<<"tedad gonah dar saat "<<i<<"="<<query.value(0).toInt();
         }
     }
 
@@ -173,7 +127,6 @@ Status::Status(QString u, QWidget *parent) :
         query.exec(QString("SELECT COUNT(id) FROM actions WHERE actions.time LIKE '%1%' AND actions.date LIKE'%2%' AND actions.username='vahid'").arg(i).arg(today.at(0)));
 
         while (query.next()) {
-            qDebug()<<"tedad gonah dar saat(emsal) "<<i<<"="<<query.value(0).toInt();
         }
     }
 
@@ -181,12 +134,20 @@ Status::Status(QString u, QWidget *parent) :
         query.exec(QString("SELECT COUNT(id) FROM actions WHERE actions.time LIKE '%1%' AND actions.date LIKE'%2-%3-%' AND actions.username='vahid'").arg(i).arg(today.at(0)).arg(today.at(1)));
 
         while (query.next()) {
-            qDebug()<<"tedad gonah dar saat(inmah) "<<i<<"="<<query.value(0).toInt();
         }
     }
 
 
 }
+
+Status::~Status()
+{
+  delete year;
+  delete month;
+  delete tab;
+  delete layout;
+}
+
 int Status::get_count_of_action(int action)
 {
     //count of specific action
@@ -196,21 +157,15 @@ int Status::get_count_of_action(int action)
     }
 }
 
-
-
 void Status::CreateStatusWidget(){
     tab =new QTabWidget;
-//    tab->addTab(new DChart_percent_of_action(user),"jkg");
+
     tab->addTab(new HistogrammChart_Month_t_Total(user),QString::fromUtf8("نمودار"));
     tab->addTab(new HistogrammChart_Month_t_Total_inAction(user),QString::fromUtf8("نمودار"));
     tab->addTab(new DChart_percent_of_action(user),QString::fromUtf8("نمودار"));
     tab->addTab(new HistogrammChart_Day_of_Month(user),QString::fromUtf8("نمودار"));
     tab->addTab(new HistogrammChart_Hour_Of_Day(user),QString::fromUtf8("نمودار"));
     tab->addTab(new HistogrammChart_Hour_Of_Day_monthly(user),QString::fromUtf8("نمودار")   );
-//    tab->addTab(new DChart_percent_of_action_yearly(user),"dsd");
-
-
-
 
 //    ‌
 
@@ -218,12 +173,6 @@ void Status::CreateStatusWidget(){
     layout->addWidget(tab);
 
     this->setLayout(layout);
-
-
-
-
-
-
 }
 
 void Status::draw_chart_button_clicked(){

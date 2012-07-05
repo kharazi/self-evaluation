@@ -10,14 +10,18 @@
 #include <QPushButton>
 #include "nightcharts.h"
 #include "qdateconvertor.h"
-#include "QSqlQuery"
+#include <QSqlQuery>
 
 class HistogrammChart_Hour_Of_Day_monthly : public QWidget
 {
     Q_OBJECT
 public:
     explicit HistogrammChart_Hour_Of_Day_monthly(QString u,QWidget *parent = 0);
+    ~HistogrammChart_Hour_Of_Day_monthly();
+    void get_data();
+    void paintEvent(QPaintEvent *);
 
+ private:
     QDateConvertor date;
     QStringList today;
     QSqlQuery query;
@@ -29,8 +33,6 @@ public:
     QString user;
     QLabel * title;
     QPushButton * draw;
-    void get_data();
-    void paintEvent(QPaintEvent *);
 
     QMap <int , int> countOfhours;
 

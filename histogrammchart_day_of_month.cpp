@@ -6,7 +6,6 @@ HistogrammChart_Day_of_Month::HistogrammChart_Day_of_Month(QString u,QWidget *pa
 {
     user =u;
     today=date.Today();
-//    get_data();
     month = new QComboBox;
     for (int i=1;i<13;i++){
         month->addItem(date.Month[i]);
@@ -28,9 +27,16 @@ HistogrammChart_Day_of_Month::HistogrammChart_Day_of_Month(QString u,QWidget *pa
     layout->addWidget(month);
     layout->addWidget(draw);
     get_data();
-
-
 }
+
+HistogrammChart_Day_of_Month::~HistogrammChart_Day_of_Month()
+{
+  delete month;
+  delete title;
+  delete draw;
+  delete year;
+}
+
 void HistogrammChart_Day_of_Month::get_data(){
     for (int i=1;i<=31;i++){
         query.exec(QString("SELECT COUNT(actions.id) FROM actions WHERE actions.username='%1'AND actions.date LIKE'%2-%3-%4'").arg(user).arg(year->value()).arg(month->currentIndex()+1).arg(i));
@@ -38,8 +44,6 @@ void HistogrammChart_Day_of_Month::get_data(){
             countOfmonth[i]=query.value(0).toInt();
         }
     }
-    qDebug()<<month->currentIndex()+1;
-
 }
 
 void HistogrammChart_Day_of_Month::draw_clicked(){

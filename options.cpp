@@ -14,20 +14,23 @@ Options::Options(QString u, QWidget *parent) :
     createTypesPage();
 }
 
+Options::~Options()
+{
+  delete tab;
+  delete view;
+  delete typesModel;
+  delete mainLayout;
+}
 void Options::createTypesPage()
 {
-  //  QSqlDatabase secondDb = QSqlDatabase::addDatabase("QSQLITE", "secondDb");
-  //  secondDb.setDatabaseName("selfeval.db");
-
-
   QVBoxLayout *vLayout = new QVBoxLayout;
   QHBoxLayout *hLayout = new QHBoxLayout;
   view = new QListView;
   typesModel = new QSqlTableModel;
   typesModel->setEditStrategy(QSqlTableModel::OnManualSubmit);
-  //  connect(typesModel, SIGNAL(rowsInserted(QTypesModelIndex, int, int)), this, SLOT(selectFirstRow()));
+
   typesModel->setTable("action_types");
-  //  typesModel->filter();
+
   typesModel->setSort(0, Qt::DescendingOrder);
   typesModel->select();
 
@@ -45,6 +48,7 @@ void Options::createTypesPage()
   connect(submitButton, SIGNAL(clicked()), typesModel, SLOT(submitAll()));
   connect(addButton, SIGNAL(clicked()), this, SLOT(addType()));
   connect(removeButton, SIGNAL(clicked()), this, SLOT(removeType()));
+
   hLayout->addWidget(submitButton);
   hLayout->addWidget(removeButton);
   hLayout->addWidget(addButton);
@@ -54,7 +58,6 @@ void Options::createTypesPage()
   vLayout->addWidget(view);
 
   tab->widget(2)->setLayout(vLayout);
-  		    
 }
 
 void Options::addType()
@@ -72,9 +75,4 @@ void Options::removeType()
   QModelIndex index = view->selectionModel()->currentIndex();
   typesModel->removeRow(index.row());
   typesModel->submitAll();
-}
-
-void Options::selectFirstRow()
-{
-  //  view->selectRow(0);
 }

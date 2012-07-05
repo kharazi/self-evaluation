@@ -21,12 +21,16 @@ class Status : public QWidget
     Q_OBJECT
 
 private:
+
+public:
+    explicit Status(QString u, QWidget *parent = 0);
+    ~Status();
+
+ private:
     QSqlQuery query;
     int get_count_of_action(int action);
     void CreateStatusWidget();
 
-public:
-    explicit Status(QString u, QWidget *parent = 0);
     QGridLayout * layout;
     QString user;
     QSpinBox *year;

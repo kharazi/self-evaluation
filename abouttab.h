@@ -12,9 +12,11 @@ class aboutTab : public QWidget
     Q_OBJECT
 public:
     explicit aboutTab(QWidget *parent = 0);
+    ~aboutTab();
+
+ private:
     QGridLayout *mainlayout;
     QLabel * about;
-    QScrollArea* scroll;
 
 signals:
 

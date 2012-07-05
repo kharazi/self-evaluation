@@ -30,58 +30,17 @@ QString DailyRecord::getUser() { return user; }
 
 void DailyRecord::createPage()
 {
-
-
-//    year=new QSpinBox;
-//    year->setMaximum(today.at(0).toInt());
-//    year->setMinimum(1389);
-//    year->setValue(today.at(0).toInt());
-
-//    hour=new QSpinBox;
-//    hour->setMaximum(23);
-//    hour->setMinimum(0);
-//    hour->setValue(date.today.toString("h").toInt());
-
-//    min=new QSpinBox;
-//    min->setMaximum(59);
-//    min->setMinimum(0);
-//    min->setValue(date.today.toString("m").toInt());
-
-
-//    month = new QComboBox;
-
-//    day=new QSpinBox;
-//    day->setMaximum(31);
-//    day->setMinimum(1);
-//    day->setValue(today.at(2).toInt());
-
-//    for (int i=1;i<13;i++){
-//        month->addItem(date.Month[i]);
-//    }
-//    month->setCurrentIndex(today.at(1).toInt()-1);
-
-
-
-
-
-
-
-
-
     QTextEdit *descriptionEdit = new QTextEdit;
     descriptionEdit->setAcceptRichText(false);
     descriptionEdit->setMaximumHeight(200);
     QLineEdit *dateEdit = new QLineEdit;
 
-//    dateEdit->setMinimumDate(QDate(1390,0,0));
     dateEdit->setInputMask("9999-99-99");
     QLineEdit *timeEdit = new QLineEdit;
     timeEdit->setInputMask("99:99");
     QSlider *rateEdit = new QSlider(Qt::Horizontal);
     rateEdit->setMinimum(1);
     rateEdit->setMaximum(10);
-
-    //    connect(actionsModel, SIGNAL(primeInsert(int, QSqlRecord&)), this, SLOT(initializeRow(int, QSqlRecord&)));
 
     mapper->setModel(actionsModel);
     mapper->addMapping(descriptionEdit, 3);
@@ -118,15 +77,11 @@ void DailyRecord::createPage()
     QLabel *timeLabel = new QLabel(QString::fromUtf8("زمان"));
     QLabel *rateLabel = new QLabel(QString::fromUtf8("امتیاز منفی"));
 
-
-
     QPushButton *submitIt = new QPushButton(QString::fromUtf8("ذخیره "));
     connect(submitIt, SIGNAL(clicked()), actionsModel, SLOT(submitAll()));
+
     mainLayout->addWidget(descriptionLabel, 0, 0,1,1);
     mainLayout->addWidget(descriptionEdit, 0, 1, 1, 6);
-
-//    mainLayout->setColumnMinimumWidth(2,100);
-    mainLayout->setColumnMinimumWidth(4,300);
     mainLayout->addWidget(dateLabel, 2, 0,1,1);
     mainLayout->addWidget(dateEdit, 2, 1, 1, 1);
     mainLayout->addWidget(timeLabel, 2, 2,1,1);
@@ -136,16 +91,9 @@ void DailyRecord::createPage()
     mainLayout->addWidget(addRowButton, 4,5,1,1);
     mainLayout->addWidget(removeRowButton, 4, 6,1,1);
     mainLayout->addWidget(submitIt, 4, 1,1,1);
+    mainLayout->setColumnMinimumWidth(4,300);
     mainLayout->addWidget(table, 5, 0, 5, 7);
 
-
-//     mainLayout->addWidget(year,10,1);
-//    mainLayout->addWidget(month,10,2);
-//    mainLayout->addWidget(day,10,3);
-
-
-//    mainLayout->addWidget(hour,11,1);
-//    mainLayout->addWidget(min,11,2);
     this->setLayout(mainLayout);
 
     connect(actionsModel, SIGNAL(rowsInserted(QModelIndex, int, int)), this, SLOT(selectFirstRow()));
@@ -163,10 +111,12 @@ void DailyRecord::addRow()
     qDebug()<<"alllllllllllllllllllllllllan"<<date.nRoz(0)<<date.today.toString("hh:mm");
     query.addBindValue(date.nRoz(0));
     query.addBindValue(date.today.toString("hh:mm"));
-
     query.addBindValue(50);
+
     query.exec();
     actionsModel->submitAll();
+    table->update();
+
     qDebug()<<"EROOOOOOOOOOOOOOOOOOOOOOOOOOOOOOR" << query.lastError() << actionsModel->lastError();
   // record.setValue("id", QVariant(100));
   // record.setValue("action_id", QVariant(5));

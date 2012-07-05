@@ -3,13 +3,11 @@
 HistogrammChart_Month_t_Total_inAction::HistogrammChart_Month_t_Total_inAction(QString u,QWidget *parent) :
     QWidget(parent)
 {
-
     for (int i=1;i<13;i++ ){
         month[i]=0;
     }
     user=u;
     today=date.Today();
-    qDebug()<<"user"<<user;
     QFormLayout *layout = new QFormLayout;
 
     title=new QLabel(QString::fromUtf8("نمودار تعداد یک گناه خاص در هر ماه"));
@@ -21,10 +19,8 @@ HistogrammChart_Month_t_Total_inAction::HistogrammChart_Month_t_Total_inAction(Q
 
 
     query.exec("SELECT title FROM action_types");
-    qDebug()<<query.lastError().text();
     if (query.lastError().type()==0){
         while (query.next()) {
-            qDebug()<<query.value(0).toString();
             action_type->addItem(query.value(0).toString());
         }
     }
@@ -46,11 +42,16 @@ HistogrammChart_Month_t_Total_inAction::HistogrammChart_Month_t_Total_inAction(Q
     layout->addWidget(year);
     layout->addWidget(action_type);
     layout->addWidget(draw);
-
-
-
-
 }
+
+HistogrammChart_Month_t_Total_inAction::~HistogrammChart_Month_t_Total_inAction()
+{
+  delete draw;
+  delete title;
+  delete year;
+  delete action_type;
+}
+
 void HistogrammChart_Month_t_Total_inAction::get_data(){
     int action_id=0;
 
@@ -68,18 +69,13 @@ void HistogrammChart_Month_t_Total_inAction::get_data(){
 
 void HistogrammChart_Month_t_Total_inAction::draw_cliked(){
     get_data();
-//    paintEvent();
     this->update();
 
 
 }
+
 void HistogrammChart_Month_t_Total_inAction::paintEvent(QPaintEvent *e)
 {
-    qDebug()<<"ha";
-    for (int i=1;i<13;i++ ){
-        qDebug()<<i<< ""<<month[i];
-
-    }
     QWidget::paintEvent(e);
     QPainter painter;
     QFont font;

@@ -19,7 +19,11 @@ class HistogrammChart_Month_t_Total_inAction : public QWidget
     Q_OBJECT
 public:
     explicit HistogrammChart_Month_t_Total_inAction(QString u,QWidget *parent = 0);
+    ~HistogrammChart_Month_t_Total_inAction();
     void paintEvent(QPaintEvent *);
+    void get_data();
+
+ private:
     QDateConvertor date;
     QStringList today;
     QSqlQuery query;
@@ -28,13 +32,10 @@ public:
 
     QLabel * title;
 
-
     QSpinBox * year;
     QComboBox * action_type;
 
     QHash <int, int> month;
-
-    void get_data();
 
 signals:
 

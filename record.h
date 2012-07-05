@@ -22,8 +22,7 @@ class record : public QWidget
     Q_OBJECT
 public:
     explicit record(QString u, QWidget *parent = 0);
-    QStringList today;
-    QDateConvertor date;
+    ~record();
 
 private:
     QString user;
@@ -42,6 +41,9 @@ private:
 
     QSpinBox *hour;
     QSpinBox *min;
+
+    QStringList today;
+    QDateConvertor date;
 
     QLabel *descriptionLabel;
     QLabel *typeLabel;

@@ -15,8 +15,11 @@ class About : public QWidget
     Q_OBJECT
 public:
     explicit About(QString u, QWidget *parent = 0);
-    QTabWidget* tab;
-    QGridLayout * layout;
+    ~About();
+
+ private:
+    QTabWidget *tab;
+    QGridLayout *layout;
 
 signals:
 

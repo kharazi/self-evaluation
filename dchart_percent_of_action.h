@@ -6,7 +6,7 @@
 #include <QLabel>
 #include "nightcharts.h"
 #include "qdateconvertor.h"
-#include "QSqlQuery"
+#include <QSqlQuery>
 #include <QVariant>
 
 class DChart_percent_of_action : public QWidget
@@ -14,8 +14,10 @@ class DChart_percent_of_action : public QWidget
     Q_OBJECT
 public:
     explicit DChart_percent_of_action(QString u,QWidget *parent = 0);
-
+    ~DChart_percent_of_action();
     void paintEvent(QPaintEvent *);
+
+ private:
     QDateConvertor date;
     QStringList today;
     QSqlQuery query;
@@ -24,9 +26,9 @@ public:
     QHash<int,float> StatisticsPercent;
     QHash<int , QString>action_type;
 
-
     QLabel * title;
     QHash<QString,float> percent;
+    
 signals:
 
 public slots:

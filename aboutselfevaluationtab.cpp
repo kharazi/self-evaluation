@@ -10,3 +10,10 @@ aboutSelfEvaluationTab::aboutSelfEvaluationTab(QWidget *parent) :
     mainlayout->addWidget(scroll);
     this->setLayout(mainlayout);
 }
+
+aboutSelfEvaluationTab::~aboutSelfEvaluationTab()
+{
+  delete about;
+  delete scroll;
+  delete mainlayout;
+}

@@ -14,3 +14,9 @@ About::About(QString u, QWidget *parent) :
     this->setLayout(layout);
 
 }
+
+About::~About()
+{
+  delete tab;
+  delete layout;
+}
