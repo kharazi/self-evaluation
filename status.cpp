@@ -7,6 +7,7 @@
 #include "histogrammchart_hour_of_day.h"
 #include "histogrammchart_hour_of_day_monthly.h"
 //#include "dchart_percent_of_action_yearly.h"
+#include "histogrammchart_weekly.h"
 
 Status::Status(QString u, QWidget *parent) :
     QWidget(parent)
@@ -206,7 +207,8 @@ void Status::CreateStatusWidget(){
     tab->addTab(new DChart_percent_of_action(user),QString::fromUtf8("نمودار"));
     tab->addTab(new HistogrammChart_Day_of_Month(user),QString::fromUtf8("نمودار"));
     tab->addTab(new HistogrammChart_Hour_Of_Day(user),QString::fromUtf8("نمودار"));
-    tab->addTab(new HistogrammChart_Hour_Of_Day_monthly(user),QString::fromUtf8("نمودار")   );
+    tab->addTab(new HistogrammChart_Hour_Of_Day_monthly(user),QString::fromUtf8("نمودار"));
+    tab->addTab(new HistogrammChart_weekly(user),QString::fromUtf8("نمودار"));
 //    tab->addTab(new DChart_percent_of_action_yearly(user),"dsd");
 
 
