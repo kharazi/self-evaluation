@@ -8,7 +8,6 @@
 #include "qdateconvertor.h"
 #include "nightcharts.h"
 
-
 class Dashboard : public QWidget
 {
     Q_OBJECT

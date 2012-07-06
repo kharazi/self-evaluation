@@ -36,6 +36,7 @@ public:
 
     QMap <int , int> countOfhours;
 
+
 signals:
 
 public slots:

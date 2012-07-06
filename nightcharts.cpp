@@ -52,9 +52,6 @@ bool Nightcharts::setPercent(){
 
         return false;
     }
-
-
-
 }
 bool Nightcharts::setTwoLineLables(){
     if (TwoLineLables==0){
@@ -409,7 +406,6 @@ int Nightcharts::drawLegend(QPainter *painter)
             }else{
                 if (i%2==0){
                     dist=-2;
-                    qDebug()<<"niiiiiiiiiighhhhhhhhhhhhhhhhhht chhhhhhhhhhhhhhhhhhhhart"<<i;
                     if (percent==1){
                         painter->drawText(x+painter->fontMetrics().height()+dist+10,y+painter->fontMetrics().height()/2+dist+7,pieces[i].pname + " - " + QString::number(pieces[i].pPerc));//ino man comment kaardam
 

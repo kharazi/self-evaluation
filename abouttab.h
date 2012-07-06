@@ -20,8 +20,11 @@ public:
     QFormLayout *mainlayout;
     QLabel * about;
     QLabel * title;
-    void get_data();
+
     QSqlQuery query;
+    void get_data();
+    void create_widget();
+
 
 
 signals:

@@ -2,21 +2,14 @@
 
 HistogrammChart_Month_t_Total_inAction::HistogrammChart_Month_t_Total_inAction(QString u,QWidget *parent) :
     QWidget(parent)
-{
-    for (int i=1;i<13;i++ ){
-        month[i]=0;
-    }
+{  
     user=u;
     today=date.Today();
-    QFormLayout *layout = new QFormLayout;
+    create_widget();
+    set_defualt_value();
+}
 
-    title=new QLabel(QString::fromUtf8("نمودار تعداد یک گناه خاص در هر ماه"));
-    year= new QSpinBox;
-    year->setMaximum(today.at(0).toInt());
-    year->setMinimum(1391);
-    year->setValue(today.at(0).toInt());
-    action_type = new QComboBox;
-
+void HistogrammChart_Month_t_Total_inAction::set_defualt_value(){
 
     query.exec("SELECT title FROM action_types");
     if (query.lastError().type()==0){
@@ -25,22 +18,42 @@ HistogrammChart_Month_t_Total_inAction::HistogrammChart_Month_t_Total_inAction(Q
         }
     }
     else{
-
         QMessageBox *error = new QMessageBox;
-        error->setText("there is a problem; cannot read database");
+        error->setText(QString::fromUtf8("خطا در برقراری ارتباط با پایگاه داده ای ! لطفا مجددا تلاش کنید. "));
         error->setIcon(QMessageBox::Warning);
-        error->setWindowTitle("Error");
+        error->setWindowTitle(QString::fromUtf8("خطا"));
         error->exec();
     }
 
+    for (int i=1;i<13;i++ ){
+        month[i]=0;
+    }
+
+}
+
+void HistogrammChart_Month_t_Total_inAction::create_widget(){
+
+    QFormLayout *layout = new QFormLayout;
+    QGridLayout *chooseboxlayout=new QGridLayout;
+
+    title=new QLabel(QString::fromUtf8("نمودار تعداد یک گناه خاص در هر ماه"));
+    year= new QSpinBox;
+    year->setMaximum(today.at(0).toInt());
+    year->setMinimum(1391);
+    year->setValue(today.at(0).toInt());
+    action_type = new QComboBox;
+
     draw= new QPushButton(QString::fromUtf8("رسم"));
+
     connect(draw,SIGNAL(clicked()),this,SLOT(draw_cliked()));
 
     this->setLayout(layout);
 
-    layout->addRow(title);
-    layout->addWidget(year);
-    layout->addWidget(action_type);
+    chooseboxlayout->addWidget(action_type,1,1,1,1);
+    chooseboxlayout->addWidget(year,1,2,1,1);
+
+    layout->addWidget(title);
+    layout->addRow(chooseboxlayout);
     layout->addWidget(draw);
 }
 
@@ -70,8 +83,6 @@ void HistogrammChart_Month_t_Total_inAction::get_data(){
 void HistogrammChart_Month_t_Total_inAction::draw_cliked(){
     get_data();
     this->update();
-
-
 }
 
 void HistogrammChart_Month_t_Total_inAction::paintEvent(QPaintEvent *e)

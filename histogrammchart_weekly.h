@@ -3,44 +3,39 @@
 
 #include <QWidget>
 #include <QLabel>
-#include <QSpinBox>
 #include <QFormLayout>
-#include <QComboBox>
 #include <QPushButton>
+#include <QSqlQuery>
+
 #include "nightcharts.h"
 #include "qdateconvertor.h"
-#include "QSqlQuery"
 
 class HistogrammChart_weekly : public QWidget
 {
     Q_OBJECT
 private:
     void CreateWidget();
-    void SetDefualtValue();    QDateConvertor date;
-    QSqlQuery query;
-    QString user;
-    QLabel * title;
-     void get_data();
-
-    int week;
+    void SetDefualtValue();
+    void get_data();
     void paintEvent(QPaintEvent *);
 
+    int week;
+
+    QDateConvertor date;
+    QSqlQuery query;
+    QString user;
 
     QHash <int , int > index_value;
     QHash <int , QString> index_date;
 
-
-
     QPushButton * nextweek;
     QPushButton * previousweek;
-
+    QLabel * title;
     QLabel * dateLable;
 
 public:
     explicit HistogrammChart_weekly(QString,QWidget *parent = 0);
-
     ~HistogrammChart_weekly();
-signals:
 
 public slots:
     void nextweek_button_clicked();

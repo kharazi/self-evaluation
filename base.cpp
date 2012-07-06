@@ -41,7 +41,6 @@ Base::Base()
 
 }
 
-
 Base::~Base()
 {
   delete auth;

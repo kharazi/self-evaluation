@@ -6,6 +6,12 @@ HistogrammChart_Day_of_Month::HistogrammChart_Day_of_Month(QString u,QWidget *pa
 {
     user =u;
     today=date.Today();
+
+    create_widget();
+    get_data();
+}
+void HistogrammChart_Day_of_Month::create_widget(){
+
     month = new QComboBox;
     for (int i=1;i<13;i++){
         month->addItem(date.Month[i]);
@@ -14,7 +20,6 @@ HistogrammChart_Day_of_Month::HistogrammChart_Day_of_Month(QString u,QWidget *pa
 
     QFormLayout *layout = new QFormLayout;
     QGridLayout *chooseLayout= new QGridLayout;
-
 
     title=new QLabel(QString::fromUtf8(" نمودار تعداد گناه در روز های یک ماه"));
     year= new QSpinBox;
@@ -30,10 +35,7 @@ HistogrammChart_Day_of_Month::HistogrammChart_Day_of_Month(QString u,QWidget *pa
     layout->addRow(title);
     connect(draw,SIGNAL(clicked()),this,SLOT(draw_clicked()));
     layout->addRow(chooseLayout);
-//    layout->addWidget(year);
-//    layout->addWidget(month);
-//    layout->addWidget(draw);
-    get_data();
+
 }
 
 HistogrammChart_Day_of_Month::~HistogrammChart_Day_of_Month()
@@ -71,16 +73,8 @@ void HistogrammChart_Day_of_Month::paintEvent(QPaintEvent *e)
     PieChart.setLegendType(Nightcharts::Vertical);//{Round,Vertical}
     PieChart.setCords(20,80,this->width()/1.5+130,this->height()/1.5+80);
     for (int i=1;i<32;i++ ){
-//        if (i>=15){
             PieChart.setTwoLineLables();
-
             PieChart.addPiece(QString::number(i),QColor(qrand()%255,qrand()%255,qrand()%255),countOfmonth[i]);
-
-
-//        }else{
-
-//        PieChart.addPiece(QString::number(i),QColor(qrand()%255,qrand()%255,qrand()%255),countOfmonth[i]);
-//}
     }
     PieChart.draw(&painter);
     PieChart.drawLegend(&painter);

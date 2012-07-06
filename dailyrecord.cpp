@@ -77,7 +77,7 @@ void DailyRecord::createPage()
     QLabel *timeLabel = new QLabel(QString::fromUtf8("زمان"));
     QLabel *rateLabel = new QLabel(QString::fromUtf8("امتیاز منفی"));
 
-    QPushButton *submitIt = new QPushButton(QString::fromUtf8("ذخیره "));
+    QPushButton *submitIt = new QPushButton(QString::fromUtf8("ذخیره و به روز رسانی "));
     connect(submitIt, SIGNAL(clicked()), actionsModel, SLOT(submitAll()));
 
     mainLayout->addWidget(descriptionLabel, 0, 0,1,1);
@@ -108,7 +108,6 @@ void DailyRecord::addRow()
     query.addBindValue(1);
     query.addBindValue(getUser());
     query.addBindValue(QString::fromUtf8("بدون توضیح"));
-    qDebug()<<"alllllllllllllllllllllllllan"<<date.nRoz(0)<<date.today.toString("hh:mm");
     query.addBindValue(date.nRoz(0));
     query.addBindValue(date.today.toString("hh:mm"));
     query.addBindValue(5);
@@ -116,7 +115,6 @@ void DailyRecord::addRow()
     actionsModel->submitAll();
     table->update();
 
-    qDebug()<<"EROOOOOOOOOOOOOOOOOOOOOOOOOOOOOOR" << query.lastError() << actionsModel->lastError();
   // record.setValue("id", QVariant(100));
   // record.setValue("action_id", QVariant(5));
   // record.setValue("user", getUser());

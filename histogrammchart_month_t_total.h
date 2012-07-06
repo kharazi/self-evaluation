@@ -7,9 +7,9 @@
 #include <QFormLayout>
 #include <QComboBox>
 #include <QPushButton>
+#include <QSqlQuery>
 #include "nightcharts.h"
 #include "qdateconvertor.h"
-#include <QSqlQuery>
 
 class HistogrammChart_Month_t_Total : public QWidget
 {
@@ -31,8 +31,9 @@ public:
     QSpinBox * year;
 
     QHash <int, int> month;
-    
-signals:
+
+    void create_widget();
+    void set_default_value();
 
 public slots:
     void draw_cliked();

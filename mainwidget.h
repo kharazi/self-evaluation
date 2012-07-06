@@ -17,8 +17,6 @@
 #include <QCloseEvent>
 #include <QApplication>
 
-
-
 class MainWidget : public QWidget
 {
     Q_OBJECT
@@ -36,6 +34,10 @@ protected:
 private:
     void createTrayIcon();
 
+    void createMenuIcons();
+    void addPages();
+    void CreateMainWidget();
+
     QAction *minimizeAction;
     QAction *maximizeAction;
     QAction *restoreAction;
@@ -43,10 +45,6 @@ private:
 
     QSystemTrayIcon *trayIcon;
     QMenu *trayIconMenu;
-
-    void createMenuIcons();
-    void addPages();
-    void CreateMainWidget();
 
     QListWidget *menu;
     QStackedWidget *pagesWidget;
@@ -58,7 +56,6 @@ private:
 
 public slots:
     void changePage(QListWidgetItem *current, QListWidgetItem *previous);
-
 
 };
 

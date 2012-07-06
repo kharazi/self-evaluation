@@ -23,7 +23,6 @@
 #include <QObject>
 #include <QPainter>
 #include <QVector>
-#include <QDebug>
 #include <QLinearGradient>
 #include <math.h>
 

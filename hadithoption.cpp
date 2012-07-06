@@ -1,5 +1,4 @@
 #include "hadithoption.h"
-#include <QDebug>
 HadithOption::HadithOption(QWidget *parent) :
     QWidget(parent)
 {
@@ -17,18 +16,19 @@ HadithOption::~HadithOption()
 
 void HadithOption::CreateHadithOptionWidget(){
     layout =new QGridLayout;
-
     hadith =new QTextEdit(QString::fromUtf8("متن حدیث"));
     narrator =new QLineEdit (QString::fromUtf8("گوینده"));
     record = new QPushButton(QString::fromUtf8("افزودن"));
     connect(record,SIGNAL(clicked()),this,SLOT(record_button_clicked()));
     action_type =new QComboBox;
+
     QSqlQuery q("SELECT title FROM action_types");
     if (q.lastError().type()==0){
         while (q.next()) {
             action_type->addItem(q.value(0).toString());
         }
     }
+
     QLabel * action_type_label=new QLabel(QString::fromUtf8("موضوع"));
     layout->addWidget(action_type,0,0,1,1);
     layout->addWidget(action_type_label,0,1,1,1);
@@ -39,8 +39,10 @@ void HadithOption::CreateHadithOptionWidget(){
     this->setLayout(layout);
 }
 void HadithOption::record_button_clicked(){
+
     QSqlQuery query;
     int action_id;
+
     query.exec(QString("SELECT action_id FROM action_types WHERE title = '%1' ").arg(action_type->currentText()));
     while (query.next()){
       action_id = query.value(0).toInt();
@@ -63,9 +65,9 @@ void HadithOption::record_button_clicked(){
 
     }else{
         QMessageBox *error = new QMessageBox;
-        error->setText("there is a problem; Cannot Insert to Database ");
+        error->setText(QString::fromUtf8("خطا در برقراری ارتباط با پایگاه داده ای ! لطفا مجددا تلاش کنید. "));
         error->setIcon(QMessageBox::Warning);
-        error->setWindowTitle("Error");
+        error->setWindowTitle(QString::fromUtf8("خطا"));
         error->exec();
     }
 }

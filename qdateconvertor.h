@@ -77,15 +77,15 @@ for Example:
 class QDateConvertor
 {
 private:
-
     int div(int,int);
     void set_months();
     void set_days();
+    void set_daynumber();
     void set_jalali_day_number();
-
     QMap<QString,QString> Day;
 
 public:
+
     QMap<QString,int> DayNumber;
     int diff;
     QMap<int,QString> JalaliDayNumber;
@@ -95,15 +95,15 @@ public:
     QString firstdayofweek;
     QString lastdayofweek;
     QDateConvertor();
+
     bool is_leap(int year);//year is in Jalali system in range:[1244,1472]
     QStringList ToJalali(QString year, QString month,QString day);//year,month and day in Miladi system
     QStringList ToMiladi(QString year, QString month,QString day);//year,month and day in Jalali system
     QStringList Today();//return Jalali currentDateTime
     QStringList get_week(QString year, QString month,QString day);
+    QString nRoz(int n);//n is a index;this function get nDay after(if n<0 nday priveios )
     QDateTime today;//today =QDateTime::currentDateTime();// Miladi
     QDate emroz;
-    QString nRoz(int n);
-
 
 };
 #endif // QDATECONVERTOR_H

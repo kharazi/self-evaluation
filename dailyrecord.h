@@ -24,7 +24,6 @@
 #include <QAbstractItemView>
 #include <QModelIndex>
 #include <QLineEdit>
-#include <QDebug>
 #include <QSpinBox>
 #include "qdateconvertor.h"
 class DailyRecord : public QWidget

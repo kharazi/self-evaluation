@@ -33,6 +33,8 @@ public:
 
     QSpinBox * year;
 
+    void create_widget();
+
 signals:
 
 public slots:

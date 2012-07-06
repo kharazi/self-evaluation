@@ -55,8 +55,8 @@ void DChart_percent_of_action::paintEvent(QPaintEvent *e){
     Nightcharts PieChart;
     PieChart.setType(Nightcharts::Dpie);//{Histogramm,Pie,DPie};
 
-    PieChart.setLegendType(Nightcharts::Round);//{VRound,Vertical}
-    PieChart.setCords(210,170,this->width()/2.5,this->height()/2.5);
+    PieChart.setLegendType(Nightcharts::Vertical);//{VRound,Vertical}
+    PieChart.setCords(100,100,this->width()/2.5,this->height()/2.5);
     for (int i=0;i<StatisticsPercent.keys().length();i++){
         PieChart.addPiece(action_type[i+1],QColor(qrand()%255,qrand()%255,qrand()%255),StatisticsPercent[i]);
     }

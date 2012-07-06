@@ -33,7 +33,6 @@ record::~record()
 void record::createRecordWidget(){
     QGridLayout *main= new QGridLayout;
 
-
     mainlayout= new QGridLayout;
     QLabel * title =new QLabel(QString::fromUtf8("<b>ثبت یک عمل</b>"));
     record_button= new QPushButton(QString::fromUtf8("ثبت"));
@@ -129,16 +128,16 @@ void record::createRecordWidget(){
     }
     else{
         QMessageBox *error = new QMessageBox;
-        error->setText("there is a problem; cannot read database");
+        error->setText(QString::fromUtf8("خطا در برقراری ارتباط با پایگاه داده ای ! لطفا مجددا تلاش کنید. "));
         error->setIcon(QMessageBox::Warning);
-        error->setWindowTitle("Error");
+        error->setWindowTitle(QString::fromUtf8("خطا"));
         error->exec();
     }
 }
 
 void record::record_button_clicked(){
     //when record button clicked -> Dashboard::getdata()
-  
+
     int action_id=0;
     QSqlQuery query;
     query.exec(QString("SELECT action_id FROM action_types WHERE title = '%1' ").arg(action_type->currentText()));
@@ -161,14 +160,24 @@ void record::record_button_clicked(){
 //    for test
     if (query.lastError().type()!=0){
         QMessageBox *error = new QMessageBox;
-        error->setText("there is a problem; Cannot Insert to Database ");
-        qDebug() << query.lastError();
+        error->setText(QString::fromUtf8("خطا در برقراری ارتباط با پایگاه داده ای ! لطفا مجددا تلاش کنید. "));
         error->setIcon(QMessageBox::Warning);
-        error->setWindowTitle("Error");
+        error->setWindowTitle(QString::fromUtf8("خطا"));
         error->exec();
     }else{
         description->setText(QString::fromUtf8("توضیحات:"));
         rate->setValue(5);
+        QMessageBox *error = new QMessageBox;
+
+        query.exec(QString("SELECT hadith_text,narrator FROM hadith WHERE action_id=%1 ORDER BY RANDOM() LIMIT 1").arg(action_id));
+        while (query.next()) {
+            error->setText(query.value(1).toString()+":" +query.value(0).toString());
+        }
+
+
+        error->setIcon(QMessageBox::Warning);
+        error->setWindowTitle(QString::fromUtf8("ثبت شد!"));
+        error->exec();
     }
     emit(getData());
     emit(getChartData());

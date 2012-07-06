@@ -2,26 +2,37 @@
 
 HistogrammChart_Month_t_Total::HistogrammChart_Month_t_Total(QString u,QWidget *parent) :
     QWidget(parent)
-{
-
-    for (int i=1;i<13;i++ ){
-        month[i]=0;
-    }
+{    
     user=u;
     today=date.Today();
+    create_widget();
+    set_default_value();
+}
+void HistogrammChart_Month_t_Total::create_widget(){
     QFormLayout *layout = new QFormLayout;
 
     title=new QLabel(QString::fromUtf8("نمودار تعداد گناه در هر ماه"));
+
     year= new QSpinBox;
     year->setMaximum(today.at(0).toInt());
     year->setMinimum(1390);
     year->setValue(today.at(0).toInt());
-    this->setLayout(layout);
+
     draw= new QPushButton(QString::fromUtf8("رسم"));
-    layout->addRow(title);
+
     connect(draw,SIGNAL(clicked()),this,SLOT(draw_cliked()));
+
+    layout->addRow(title);
     layout->addWidget(year);
     layout->addWidget(draw);
+
+    this->setLayout(layout);
+}
+
+void HistogrammChart_Month_t_Total::set_default_value(){
+    for (int i=1;i<13;i++ ){
+        month[i]=0;
+    }
 }
 
 HistogrammChart_Month_t_Total::~HistogrammChart_Month_t_Total()

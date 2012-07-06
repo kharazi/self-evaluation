@@ -37,6 +37,8 @@ public:
 
     QHash <int, int> month;
 
+    void create_widget();
+    void set_defualt_value();
 signals:
 
 public slots:

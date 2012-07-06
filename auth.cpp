@@ -1,5 +1,4 @@
 #include "auth.h"
-#include <QDebug>
 Auth::Auth()
 {
    setAttribute(Qt::WA_DeleteOnClose);
@@ -18,10 +17,7 @@ Auth::Auth()
    this->setPalette(palette);
 }
 
-
-
-
- Auth::~Auth()
+Auth::~Auth()
  {
   delete user;
   delete pass;
@@ -127,7 +123,6 @@ void Auth::changePage()
   stackedWidget->currentWidget()->update();
 }
 
-
 void Auth::submit()
 {
   QSqlQuery query;
@@ -145,7 +140,6 @@ void Auth::submit()
   }
   else emit authSuccessful(user->text());
 }
-
 
 void Auth::clearForm()
 {

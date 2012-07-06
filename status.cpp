@@ -161,19 +161,15 @@ int Status::get_count_of_action(int action)
 }
 
 void Status::CreateStatusWidget(){
-    tab =new QTabWidget;
 
+    tab =new QTabWidget;
     tab->addTab(new HistogrammChart_Month_t_Total(user),QString::fromUtf8("نمودار"));
     tab->addTab(new HistogrammChart_Month_t_Total_inAction(user),QString::fromUtf8("نمودار"));
     tab->addTab(new DChart_percent_of_action(user),QString::fromUtf8("نمودار"));
     tab->addTab(new HistogrammChart_Day_of_Month(user),QString::fromUtf8("نمودار"));
     tab->addTab(new HistogrammChart_Hour_Of_Day(user),QString::fromUtf8("نمودار"));
     tab->addTab(new HistogrammChart_Hour_Of_Day_monthly(user),QString::fromUtf8("نمودار"));
-    tab->addTab(new HistogrammChart_Hour_Of_Day_monthly(user),QString::fromUtf8("نمودار")   );
     tab->addTab(new HistogrammChart_weekly(user),QString::fromUtf8("نمودار"));
-
-
-//    ‌
 
     layout = new QGridLayout;
     layout->addWidget(tab);
