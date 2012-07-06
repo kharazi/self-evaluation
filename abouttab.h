@@ -2,9 +2,11 @@
 #define ABOUTTAB_H
 
 #include <QWidget>
-#include <QGridLayout>
+#include <QSqlQuery>
 #include <QLabel>
 #include <QScrollArea>
+#include <QFormLayout>
+#include <QVariant>
 
 
 class aboutTab : public QWidget
@@ -15,8 +17,12 @@ public:
     ~aboutTab();
 
  private:
-    QGridLayout *mainlayout;
+    QFormLayout *mainlayout;
     QLabel * about;
+    QLabel * title;
+    void get_data();
+    QSqlQuery query;
+
 
 signals:
 
