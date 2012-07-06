@@ -5,7 +5,9 @@
 #include <QGridLayout>
 #include <QLabel>
 #include <QScrollArea>
-
+#include <QFormLayout>
+#include <QPushButton>
+#include <QSqlQuery>
 class aboutSelfEvaluationTab : public QWidget
 {
     Q_OBJECT
@@ -14,13 +16,26 @@ public:
     ~aboutSelfEvaluationTab();
 
  private:
+    QFormLayout *layout;
     QGridLayout *mainlayout;
-    QLabel * about;
+
+    QLabel * content;
+    QLabel * title;
+
+    QPushButton * next;
+    QPushButton * previous;
+    QSqlQuery query;
+
     QScrollArea* scroll;
+
+    int content_index;
+    void get_content(int);
     
 signals:
 
 public slots:
+    void next_button_clicked();
+    void previous_button_clicked();
 
 };
 

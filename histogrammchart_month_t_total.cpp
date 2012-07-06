@@ -37,10 +37,10 @@ void HistogrammChart_Month_t_Total::draw_cliked(){
 
 void HistogrammChart_Month_t_Total::get_data(){
     for (int i=1;i<13;i++ ){
-    query.exec(QString("SELECT COUNT(actions.id) FROM actions WHERE actions.date LIKE'%1-%2-%'AND actions.username='%3'").arg(year->value()).arg(i).arg(user));
-        while (query.next()) {
-            month[i]=query.value(0).toInt();
-        }
+        query.exec(QString("SELECT COUNT(actions.id) FROM actions WHERE actions.date LIKE'%1-%2-%'AND actions.username='%3'").arg(year->value()).arg(i).arg(user));
+            while (query.next()) {
+                month[i]=query.value(0).toInt();
+            }
     }
 }
 

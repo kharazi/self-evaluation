@@ -31,6 +31,9 @@ Base::Base()
   query.exec("CREATE TABLE hadith "
              "(hadith_id INTEGER PRIMARY KEY,action_id INTEGER NOT NULL,narrator TEXT,hadith_text TEXT)");
 
+  query.exec("CREATE TABLE contents"
+             "(content_id INTEGER PRIMARY KEY,title VARCHAR(120),content TEXT)");
+
 
   auth = new Auth;
   auth->show();
