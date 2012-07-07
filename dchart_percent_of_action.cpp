@@ -27,7 +27,6 @@ void DChart_percent_of_action::get_data(){
         Statistics[ query.value(0).toInt()]= query.value(1).toInt();
     }
 
-
     //darsad giri sayer
     int sum=0;
     for (int i=0;i<Statistics.keys().length();i++){

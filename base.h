@@ -5,7 +5,6 @@
 #include <QSqlDatabase>
 #include <QObject>
 #include "auth.h"
-#include <QDebug>
 
 class Base : public QObject
 {

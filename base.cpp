@@ -35,6 +35,22 @@ Base::Base()
              "(content_id INTEGER PRIMARY KEY,title VARCHAR(120),content TEXT)");
 
 
+  for (int i=1;i<=1000;i++){
+      qDebug()<<qrand()%50;
+        query.prepare("INSERT INTO actions (id,action_id,username,description,date,time,rate) VALUES(?,?,?,?,?,?,?) ");
+        query.addBindValue(QVariant(QVariant::Int));
+              query.addBindValue(qrand()%15);
+              query.addBindValue("vahid");
+              query.addBindValue(QString::fromUtf8("توضیح این عمل"));
+
+              query.addBindValue(QString("%1-%2-%3").arg("1391").arg(qrand()%12).arg(qrand()%30));
+
+              query.addBindValue(QString("%1:%2").arg(qrand()%23).arg(qrand()%59));
+              query.addBindValue(qrand()%5);
+              query.exec();
+
+  }
+
   auth = new Auth;
   auth->show();
   connect(auth, SIGNAL(authSuccessful(QString)), this, SLOT(authSuccessful(QString)));
