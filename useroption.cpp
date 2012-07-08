@@ -8,6 +8,7 @@ UserOption::UserOption(QString u,QWidget *parent) :
     CreateUserOption();
     connect(change,SIGNAL(clicked()),this,SLOT(change_button_clicked()));
 
+
 }
 
 UserOption::~UserOption()
@@ -24,7 +25,13 @@ UserOption::~UserOption()
 }
 
 void UserOption::CreateUserOption(){
-    mainlayout= new QGridLayout;
+    QPixmap picture(":/images/key.png");
+
+
+    QLabel * pictureLabel= new QLabel;
+    pictureLabel->setPixmap(picture);
+    mainlayout= new QFormLayout;
+
 
     prePass =new QLineEdit;
     prePass->setEchoMode(QLineEdit::Password);
@@ -45,13 +52,23 @@ void UserOption::CreateUserOption(){
 
     change=new QPushButton(QString::fromUtf8("تغییر دادن"));
 
-    mainlayout->addWidget(prePassLabel, 1, 1,1,1);
-    mainlayout->addWidget(prePass, 1, 0,1,1);
-    mainlayout->addWidget(newPassLabel, 2, 1,1,1);
-    mainlayout->addWidget(newPass, 2, 0,1,1);
-    mainlayout->addWidget(verificationPassLabel, 3, 1,1,1);
-    mainlayout->addWidget(verificationPass, 3, 0,1,1);
-    mainlayout->addWidget(change,4,1,1,1);
+    mainlayout->addWidget(pictureLabel);
+    mainlayout->addWidget(prePassLabel);
+    mainlayout->addWidget(prePass);
+    mainlayout->addWidget(newPassLabel);
+    mainlayout->addWidget(newPass);
+    mainlayout->addWidget(verificationPassLabel);
+    mainlayout->addWidget(verificationPass);
+    mainlayout->addWidget(change);
+
+//    mainlayout->addWidget(pictureLabel,1,1,1,1);
+//    mainlayout->addWidget(prePassLabel, 1, 3,1,1);
+//    mainlayout->addWidget(prePass, 1, 2,1,1);
+//    mainlayout->addWidget(newPassLabel, 2, 3,1,1);
+//    mainlayout->addWidget(newPass, 2, 2,1,1);
+//    mainlayout->addWidget(verificationPassLabel, 3, 3,1,1);
+//    mainlayout->addWidget(verificationPass, 3, 2,1,1);
+//    mainlayout->addWidget(change,4,2,1,1);
     this->setLayout(mainlayout);
 
 }

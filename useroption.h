@@ -10,7 +10,8 @@
 #include <QSqlQuery>
 #include <QSqlError>
 #include <QVariant>
-
+#include <QPixmap>
+#include <QFormLayout>
 class UserOption : public QWidget
 {
     Q_OBJECT
@@ -19,7 +20,7 @@ public:
     ~UserOption();
 
 private:
-    QGridLayout *mainlayout;
+    QFormLayout *mainlayout;
     QString user;
     QLabel * label;
     QLabel *prePassLabel;

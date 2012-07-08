@@ -1,6 +1,6 @@
 import os, sys, getopt, sqlite3, datetime
 
-conn = sqlite3.connect('/home/s1na/self-evaluation/selfeval.db')
+conn = sqlite3.connect('/home/vahid/databasechecker-build-desktop/selfeval.db')
 c = conn.cursor()
 
 def errorExit(s):
