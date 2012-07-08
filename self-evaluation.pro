@@ -32,7 +32,8 @@ SOURCES += main.cpp\
     histogrammchart_day_of_month.cpp \
     histogrammchart_hour_of_day.cpp \
     histogrammchart_hour_of_day_monthly.cpp \
-    histogrammchart_weekly.cpp
+    histogrammchart_weekly.cpp \
+    aboutcharts.cpp
 
 HEADERS  += mainwidget.h \
     dashboard.h \
@@ -56,7 +57,8 @@ HEADERS  += mainwidget.h \
     histogrammchart_day_of_month.h \
     histogrammchart_hour_of_day.h \
     histogrammchart_hour_of_day_monthly.h \
-    histogrammchart_weekly.h
+    histogrammchart_weekly.h \
+    aboutcharts.h
 
 RESOURCES += \
     files.qrc

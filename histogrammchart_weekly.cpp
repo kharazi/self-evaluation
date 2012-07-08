@@ -1,5 +1,5 @@
 #include "histogrammchart_weekly.h"
-
+#include <QDebug>
 HistogrammChart_weekly::HistogrammChart_weekly(QString u,QWidget *parent) :
     QWidget(parent)
 {
@@ -9,8 +9,7 @@ HistogrammChart_weekly::HistogrammChart_weekly(QString u,QWidget *parent) :
     CreateWidget();
     SetDefualtValue();
     this->get_data();
-
-    dateLable->setText(QString::fromUtf8("از تاریخ %1 تا تاریخ %2").arg(index_date[1]).arg(index_date[7]));
+    dateLable->setText(QString::fromUtf8("هفته ی جاری"));
 }
 HistogrammChart_weekly::~HistogrammChart_weekly()
 {
@@ -23,6 +22,7 @@ HistogrammChart_weekly::~HistogrammChart_weekly()
 void HistogrammChart_weekly::SetDefualtValue(){
     //set defulalt values
 
+
     for (int i=1;i<=7;i++){
         index_value[i]=0;
     }
@@ -33,6 +33,7 @@ void HistogrammChart_weekly::SetDefualtValue(){
     for (int i=1;i<=date.diff;i++){
         index_date[7-date.diff+i]=date.nRoz(i);
     }
+
 }
 void HistogrammChart_weekly::CreateWidget(){
     nextweek=new QPushButton();

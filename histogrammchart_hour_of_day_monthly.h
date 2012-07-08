@@ -25,11 +25,10 @@ public:
     QDateConvertor date;
     QStringList today;
     QSqlQuery query;
-    QRadioButton * AM;
+
     QSpinBox * year;
     QComboBox * month;
-    bool is_AM;
-    QRadioButton * PM;
+
     QString user;
     QLabel * title;
     QPushButton * draw;

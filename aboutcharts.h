@@ -1,5 +1,5 @@
-#ifndef HELPTAB_H
-#define HELPTAB_H
+#ifndef ABOUTCHARTS_H
+#define ABOUTCHARTS_H
 
 #include <QWidget>
 #include <QSqlQuery>
@@ -9,13 +9,12 @@
 #include <QVariant>
 
 
-
-class Helptab : public QWidget
+class AboutCharts : public QWidget
 {
     Q_OBJECT
 public:
-    explicit Helptab(QWidget *parent = 0);
-    ~Helptab();
+    explicit AboutCharts(QWidget *parent = 0);
+    ~AboutCharts();
 private:
    QFormLayout *mainlayout;
    QLabel * about;
@@ -25,11 +24,10 @@ private:
    void get_data();
    void create_widget();
 
-
 signals:
 
 public slots:
 
 };
 
-#endif // HELPTAB_H
+#endif // ABOUTCHARTS_H

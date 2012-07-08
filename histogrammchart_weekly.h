@@ -6,6 +6,7 @@
 #include <QFormLayout>
 #include <QPushButton>
 #include <QSqlQuery>
+#include <QHash>
 
 #include "nightcharts.h"
 #include "qdateconvertor.h"

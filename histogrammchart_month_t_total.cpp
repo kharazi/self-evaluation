@@ -10,6 +10,8 @@ HistogrammChart_Month_t_Total::HistogrammChart_Month_t_Total(QString u,QWidget *
 }
 void HistogrammChart_Month_t_Total::create_widget(){
     QFormLayout *layout = new QFormLayout;
+    QGridLayout *chooseLayout=new QGridLayout;
+
 
     title=new QLabel(QString::fromUtf8("نمودار تعداد گناه در هر ماه"));
 
@@ -22,9 +24,10 @@ void HistogrammChart_Month_t_Total::create_widget(){
 
     connect(draw,SIGNAL(clicked()),this,SLOT(draw_cliked()));
 
+    chooseLayout->addWidget(draw,1,1,1,1);
+    chooseLayout->addWidget(year,1,2,1,1);
     layout->addRow(title);
-    layout->addWidget(year);
-    layout->addWidget(draw);
+    layout->addRow(chooseLayout);
 
     this->setLayout(layout);
 }
@@ -64,7 +67,7 @@ void HistogrammChart_Month_t_Total::paintEvent(QPaintEvent *e)
     Nightcharts PieChart;
     PieChart.setType(Nightcharts::Histogramm);//{Histogramm,Pie,DPie};
     PieChart.setLegendType(Nightcharts::Vertical);//{Round,Vertical}
-    PieChart.setCords(20,100,this->width()/1.5+30,this->height()/1.5+30);
+    PieChart.setCords(20,60,this->width()/1.5+100,this->height()/1.5+90);
     for (int i=1;i<13;i++ ){
         PieChart.addPiece(date.Month[i],QColor(qrand()%255,qrand()%255,qrand()%255),month[i]);
     }
